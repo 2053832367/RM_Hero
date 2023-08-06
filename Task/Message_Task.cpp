@@ -1,4 +1,5 @@
 #include "Message_Task.h"
+#include "tasks.h"
 
 Message_Ctrl Message;
 		uint8_t r[10];
@@ -11,9 +12,9 @@ void Message_Task(void *pvParameters)
   {		
     if(xQueueReceive(Message_Queue, &ID_Data[MessageData], portMAX_DELAY))
 		{
-//			Guard.Feed(ID_Data[MessageData].Data_ID);
-//			Guard.Feed(MessageData);
-//			Message.Statistic_Update(xTaskGetTickCount());
+			Guard.Feed(ID_Data[MessageData].Data_ID);
+			Guard.Feed(MessageData);
+			Message.Statistic_Update(xTaskGetTickCount());
 		}
   }
   /* USER CODE END StartDefaultTask */

@@ -7,6 +7,7 @@
 #include "queue.h"
 #include "app_preference.h"
 #include "app_serial.h"
+#include "drivers_statistic.h"
 
 
 #ifdef __cplusplus
@@ -64,7 +65,7 @@ struct supercap_Receive_Data_t
 
 
 
-class Message_Ctrl
+class Message_Ctrl:public Statistic
 {
 public:
     Gimbal_Receive_Data_t GimbalR;

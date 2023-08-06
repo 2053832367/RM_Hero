@@ -1,14 +1,14 @@
 #include "dev_serial.h"
 #include "app_preference.h"
 
-Serialctrl Serial1_Ctrl(USART1, Serial1_Buffer_Size);
-Serialctrl Serial2_Ctrl(USART2, Serial2_Buffer_Size);
-Serialctrl Serial4_Ctrl(UART4, Serial4_Buffer_Size);
-Serialctrl Serial5_Ctrl(UART5, Serial5_Buffer_Size);
+Serialctrl Serial1_Ctrl(&huart1, Serial1_Buffer_Size);
+Serialctrl Serial2_Ctrl(&huart2, Serial2_Buffer_Size);
+Serialctrl Serial4_Ctrl(&huart4, Serial4_Buffer_Size);
+Serialctrl Serial5_Ctrl(&huart5, Serial5_Buffer_Size);
 
-Serialctrl::Serialctrl(USART_TypeDef *_USARTx, uint32_t BufferSize)
+Serialctrl::Serialctrl(UART_HandleTypeDef *_huartx, uint32_t BufferSize)
 {
-    this->USARTx = _USARTx;
+    this->huartx = _huartx;
     USART_Function = 0;
     newBuffer(&_rx_buffer, BufferSize);
 }
@@ -63,16 +63,18 @@ void Serialctrl::sendData(uint8_t ch)
 {
 //    USART_SendData(this->USARTx, ch);
 //    while(USART_GetFlagStatus(this->USARTx, USART_FLAG_TXE) == RESET);
+	HAL_UART_Transmit(this->huartx, &ch, 1, 99);
+
 }
 
 void Serialctrl::sendData(const void *str)
 {
-//    unsigned int k = 0;
-//    do
-//    {
-//        sendData(*((uint8_t *)str + k));
-//        k++;
-//    } while(*((uint8_t *)str + k) != '\0');
+    unsigned int k = 0;
+    do
+    {
+        sendData(*((uint8_t *)str + k));
+        k++;
+    } while(*((uint8_t *)str + k) != '\0');
 //    while(USART_GetFlagStatus(this->USARTx, USART_FLAG_TC) == RESET) {}
 }
 
@@ -135,7 +137,8 @@ void HAL_UART_IdleCpltCallback(UART_HandleTypeDef *huart)
 		Serial1_Ctrl.IRQHandler_IDLE(); 
     }
 }
-//串口接收错误中断，下一节会说明为啥要有这个
+
+//串口接收错误中断
 void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart)
 {
 	if(HAL_UART_GetError(huart) & HAL_UART_ERROR_PE){		/*!< Parity error            */

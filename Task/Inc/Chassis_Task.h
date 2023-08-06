@@ -3,6 +3,9 @@
 
 #include "cmsis_os2.h"                  // ::CMSIS:RTOS2
 #include "string.h"
+#include "FreeRTOS.h"
+#include "queue.h"
+#include "app_preference.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -13,6 +16,8 @@ extern "C" {
 #ifdef __cplusplus
 }
 #endif
+
+extern QueueHandle_t Message_Queue;
 
 
 #endif

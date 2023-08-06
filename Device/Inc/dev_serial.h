@@ -18,7 +18,7 @@ typedef void (*USART_CallbackFunction_t)(bool mode);
 class Serialctrl: public Buffer
 {
 public:
-	Serialctrl(USART_TypeDef *_USARTx, uint32_t BufferSize);
+	Serialctrl(UART_HandleTypeDef *_huartx, uint32_t BufferSize);
 	void attachInterrupt(USART_CallbackFunction_t Function);
 //	void IRQHandler(void);
 void IRQHandler_RXNE(uint8_t c);
@@ -36,7 +36,8 @@ uint8_t receive_IDLE;
 	int peek(void);
 private:
 	void flush(void);
-	USART_TypeDef * USARTx;
+//	USART_TypeDef * USARTx;
+	UART_HandleTypeDef * huartx;
 	USART_CallbackFunction_t USART_Function;
   RingBuffer _rx_buffer;
 };

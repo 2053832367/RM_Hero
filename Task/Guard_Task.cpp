@@ -6,10 +6,14 @@ Error_Flags_t Error_Flag;
 void Guard_Task(void *pvParameters)
 {
    /* USER CODE BEGIN StartDefaultTask */
+	Guard.Start();
+	osDelay(300);
   /* Infinite loop */
   for(;;)
   {		
-    osDelay(1);
+	Guard.Scan();
+    IWDG_Feed();
+    osDelay(2);
   }
   /* USER CODE END StartDefaultTask */
 }
@@ -25,7 +29,7 @@ void Guard_Ctrl::Start(void)
     // Init(UIdrawData, 1000 ,500, &System_RESET);
     // Init(CorrespondenceData, 1000 ,500, &System_RESET);
     // Init(RobotId, 20000, 5000, &Error_Enable, true, 30000, &Close_Enable);
-	Init(SupercapData,10000,1000,&Error_Enable);
+//	Init(SupercapData,10000,1000,&Error_Enable);
 }
 //警戒任务初始化
 void Guard_Ctrl::Init(ID_e Name, uint32_t StartValue, uint32_t MaxValue, void(*errcb)(uint8_t id), bool Close, uint32_t CloseValue, void(*closecb)(uint8_t id))
@@ -176,27 +180,14 @@ Guard_Ctrl *get_guard_ctrl_pointer()
     return &Guard;
 }
 
-//void IWDG_Init(uint8_t prer, uint16_t rlr)
-//{
-//    IWDG_WriteAccessCmd(IWDG_WriteAccess_Enable);
+void IWDG_Feed(void)
+{
+		HAL_IWDG_Refresh(&hiwdg1);
+}
 
-//    IWDG_SetPrescaler(prer);
-
-//    IWDG_SetReload(rlr);
-
-//    IWDG_ReloadCounter();
-
-//    IWDG_Enable();
-//}
-
-//void IWDG_Feed(void)
-//{
-//    IWDG_ReloadCounter();//reload
-//}
-
-//void System_RESET(uint8_t id)
-//{
-//    SCB->AIRCR = (uint32_t)((0x5FAUL << SCB_AIRCR_VECTKEY_Pos) |
-//        (SCB->AIRCR & SCB_AIRCR_PRIGROUP_Msk) |
-//        SCB_AIRCR_SYSRESETREQ_Msk);
-//}
+void System_RESET(uint8_t id)
+{
+    SCB->AIRCR = (uint32_t)((0x5FAUL << SCB_AIRCR_VECTKEY_Pos) |
+        (SCB->AIRCR & SCB_AIRCR_PRIGROUP_Msk) |
+        SCB_AIRCR_SYSRESETREQ_Msk);
+}

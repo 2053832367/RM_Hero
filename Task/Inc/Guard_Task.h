@@ -6,6 +6,7 @@
 #include "FreeRTOS.h"
 #include "queue.h"
 #include "app_preference.h"
+#include "iwdg.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -18,6 +19,8 @@ extern "C" {
 #endif
 
 #define GUARD_TOTAL_NUM ID_e_count
+
+extern IWDG_HandleTypeDef hiwdg1;
 
 struct Error_Flags_t
 {
@@ -58,7 +61,6 @@ private:
 	SG_Data_t SG_Structure[GUARD_TOTAL_NUM];
 };
 
-void IWDG_Init(uint8_t prer, uint16_t rlr);//IWDG³õÊ¼»¯
 extern void IWDG_Feed(void);  //Î¹¹·º¯Êý
 void Error_Enable(uint8_t name);
 void System_RESET(uint8_t id);

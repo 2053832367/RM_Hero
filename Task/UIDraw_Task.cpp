@@ -7,7 +7,8 @@ void UIDraw_Task(void *pvParameters)
   /* Infinite loop */
   for(;;)
   {		
-    osDelay(1);
+		        xQueueSend(Message_Queue, &ID_Data[UIdrawData], 0);
+    osDelay(2);
   }
   /* USER CODE END StartDefaultTask */  
 }
