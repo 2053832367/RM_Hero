@@ -4,6 +4,7 @@
 "hal_beta\gpio.o"
 "hal_beta\freertos.o"
 "hal_beta\iwdg.o"
+"hal_beta\tim.o"
 "hal_beta\usart.o"
 "hal_beta\stm32h7xx_it.o"
 "hal_beta\stm32h7xx_hal_msp.o"

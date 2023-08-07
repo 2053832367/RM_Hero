@@ -20,6 +20,7 @@
 #include "main.h"
 #include "cmsis_os.h"
 #include "iwdg.h"
+#include "tim.h"
 #include "usart.h"
 #include "gpio.h"
 
@@ -62,6 +63,7 @@ void SoftWareInit(void)
 {
     __HAL_UART_ENABLE_IT(&huart1, UART_IT_RXNE);  //receive interrupt
 		__HAL_UART_ENABLE_IT(&huart1, UART_IT_IDLE);  //idle interrupt
+//		__HAL_TIM_SetCompare(&htim2,TIM_CHANNEL_1,2000);
 }
 
 /* USER CODE END 0 */
@@ -98,7 +100,8 @@ int main(void)
   MX_USART1_UART_Init();
   MX_USART2_UART_Init();
   MX_UART4_Init();
-//  MX_IWDG1_Init();
+  MX_IWDG1_Init();
+  MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
 	SoftWareInit();
   /* USER CODE END 2 */
