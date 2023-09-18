@@ -971,8 +971,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\Device\dev_serial.cpp</PathWithFileName>
-      <FilenameWithoutPath>dev_serial.cpp</FilenameWithoutPath>
+      <PathWithFileName>..\Device\dev_system.cpp</PathWithFileName>
+      <FilenameWithoutPath>dev_system.cpp</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -983,8 +983,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\Device\dev_system.cpp</PathWithFileName>
-      <FilenameWithoutPath>dev_system.cpp</FilenameWithoutPath>
+      <PathWithFileName>..\Device\dev_serial.cpp</PathWithFileName>
+      <FilenameWithoutPath>dev_serial.cpp</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>

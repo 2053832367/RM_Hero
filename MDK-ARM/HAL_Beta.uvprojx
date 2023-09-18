@@ -771,14 +771,14 @@
           <GroupName>Device</GroupName>
           <Files>
             <File>
-              <FileName>dev_serial.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\Device\dev_serial.cpp</FilePath>
-            </File>
-            <File>
               <FileName>dev_system.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>..\Device\dev_system.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>dev_serial.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Device\dev_serial.cpp</FilePath>
             </File>
             <File>
               <FileName>dev_can.cpp</FileName>

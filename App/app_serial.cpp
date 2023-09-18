@@ -90,8 +90,7 @@ void Serial_Ctrl::Handle(Serialctrl *SerialCtrl, Serial_Data_t *Serial, bool mod
 {
     if(mode == 1)
     {
-        if ((((DMA_Stream_TypeDef*)  SerialCtrl->hdma_usart_rx->Instance)->CR & DMA_SxCR_CT) == RESET)
-        {
+			bool Memory;
 					/* Current memory buffer used is Memory 0 */
             //disable DMA
             //失效DMA
@@ -105,71 +104,41 @@ void Serial_Ctrl::Handle(Serialctrl *SerialCtrl, Serial_Data_t *Serial, bool mod
             //重新设定数据长度
             ((DMA_Stream_TypeDef*)  SerialCtrl->hdma_usart_rx->Instance)->NDTR = Serial->buffer_size;
 
+					if ((((DMA_Stream_TypeDef*)  SerialCtrl->hdma_usart_rx->Instance)->CR & DMA_SxCR_CT) == RESET)
+        {
             //set memory buffer 1
             //设定缓冲区1
             ((DMA_Stream_TypeDef*)  SerialCtrl->hdma_usart_rx->Instance)->CR |= DMA_SxCR_CT;
-            
-            //enable DMA
-            //使能DMA
-            __HAL_DMA_ENABLE(SerialCtrl->hdma_usart_rx);
-
-            if(Serial->Len == Serial->Lenth)
-            {
-								Serial->Data[0][0] = Serial->Len;
-                if(Serial->Header == NULL && Serial->Tail == NULL)
-								{				
-									Send_to_Message(SerialCtrl,0);
-								}
-								else if(Serial->Header == Serial->Data[0][1] && Serial->Tail == Serial->Data[0][Serial->Len])
-								{
-									Send_to_Message(SerialCtrl,0);
-								}
-								else
-								{
-									return;
-								}
-            }
-        }
-        else
-        {
-            /* Current memory buffer used is Memory 1 */
-            //disable DMA
-            //失效DMA
-            __HAL_DMA_DISABLE(SerialCtrl->hdma_usart_rx);
-
-            //get receive data length, length = set_data_length - remain_length
-            //获取接收数据长度,长度 = 设定长度 - 剩余长度
-            Serial->Len = Serial->buffer_size - ((DMA_Stream_TypeDef*) SerialCtrl->hdma_usart_rx->Instance)->NDTR;
-
-            //reset set_data_lenght
-            //重新设定数据长度
-            ((DMA_Stream_TypeDef*) SerialCtrl->hdma_usart_rx->Instance)->NDTR = Serial->buffer_size;
-
-            //set memory buffer 0
+					  Memory = 0;
+				}
+				else
+				{
+					//set memory buffer 0
             //设定缓冲区0
             ((DMA_Stream_TypeDef*) SerialCtrl->hdma_usart_rx->Instance)->CR &= ~(DMA_SxCR_CT);
+						Memory = 1;
+				}
             
             //enable DMA
             //使能DMA
             __HAL_DMA_ENABLE(SerialCtrl->hdma_usart_rx);
 
-            if(Serial->Len == Serial->Lenth)
+            if((Serial->Len == Serial->Lenth0||Serial->Lenth1||Serial->Lenth2||Serial->Lenth3) && (Serial->Len!=NULL))
             {
-								Serial->Data[1][0] = Serial->Len;
+								Serial->Data[Memory][0] = Serial->Len;
                 if(Serial->Header == NULL && Serial->Tail == NULL)
 								{				
-									Send_to_Message(SerialCtrl,1);
+									Send_to_Message(SerialCtrl,Memory);
 								}
-								else if(Serial->Header == Serial->Data[1][1] && Serial->Tail == Serial->Data[1][Serial->Len])
+								else if(Serial->Header == Serial->Data[Memory][1] && Serial->Tail == Serial->Data[Memory][Serial->Len])
 								{
-									Send_to_Message(SerialCtrl,1);
+									Send_to_Message(SerialCtrl,Memory);
 								}
 								else
 								{
 									return;
 								}
             }
-        }
     }
 
 }

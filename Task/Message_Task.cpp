@@ -2,8 +2,8 @@
 #include "tasks.h"
 
 Message_Ctrl Message;
-		uint8_t r[11];
-		extern uint8_t receive_buff[10];
+		uint8_t r[20];
+
 void Message_Task(void *pvParameters)
 {
 	/* USER CODE BEGIN StartDefaultTask */
@@ -126,7 +126,7 @@ void Message_Ctrl::Gimbal_Serial_Hook(uint8_t *Rx_Message)
 //		GimbalR.goal = Rx_Message[5];
 //	}
 	
-	for(int i = 0;i < 11;i++)
+	for(int i = 0;i < 13;i++)
 	{
 		r[i]=Rx_Message[i];
 	}

@@ -35,13 +35,16 @@ struct Serial_Data_t
 {
     uint8_t Header;
     uint8_t Tail;
-    uint8_t Lenth;
-    uint8_t buffer_size;
+    uint8_t Lenth0;
+    uint8_t Lenth1;
+    uint8_t Lenth2;
+    uint8_t Lenth3;
+		uint8_t buffer_size;
     uint8_t Len;
     uint8_t Temp;
     uint8_t **Data;
-    Serial_Data_t(uint8_t Header_, uint8_t Tail_, uint8_t Lenth_, uint8_t buffer_size_)
-        :Header(Header_), Tail(Tail_), Lenth(Lenth_), buffer_size(buffer_size_)
+    Serial_Data_t(uint8_t Header_, uint8_t Tail_, uint8_t Lenth0_,uint8_t Lenth1_,uint8_t Lenth2_,uint8_t Lenth3_, uint8_t buffer_size_)
+        :Header(Header_), Tail(Tail_), Lenth0(Lenth0_),Lenth1(Lenth1_),Lenth2(Lenth2_),Lenth3(Lenth3_), buffer_size(buffer_size_)
     {
         Data = new uint8_t*[2];
 				Data[0] = new uint8_t[buffer_size_];
@@ -53,10 +56,10 @@ class Serial_Ctrl
 {
 public:
     Serial_Ctrl()
-        :Serial1(Serial1_Data_Header, Serial1_Data_Tail, Serial1_Data_Lenth, Serial1_Buffer_Size),
-        Serial2(Serial2_Data_Header, Serial2_Data_Tail, Serial2_Data_Lenth, Serial2_Buffer_Size),
-        Serial4(Serial4_Data_Header, Serial4_Data_Tail, Serial4_Data_Lenth, Serial4_Buffer_Size),
-        Serial5(Serial5_Data_Header, Serial5_Data_Tail, Serial5_Data_Lenth, Serial5_Buffer_Size)
+        :Serial1(Serial1_Data_Header, Serial1_Data_Tail, Serial1_Data_Lenth0, Serial1_Data_Lenth1, Serial1_Data_Lenth2, Serial1_Data_Lenth3, Serial1_Buffer_Size),
+        Serial2(Serial2_Data_Header, Serial2_Data_Tail, Serial2_Data_Lenth0, Serial2_Data_Lenth1, Serial2_Data_Lenth2, Serial2_Data_Lenth3, Serial2_Buffer_Size),
+        Serial4(Serial4_Data_Header, Serial4_Data_Tail, Serial4_Data_Lenth0, Serial4_Data_Lenth1, Serial4_Data_Lenth2, Serial4_Data_Lenth3, Serial4_Buffer_Size),
+        Serial5(Serial5_Data_Header, Serial5_Data_Tail, Serial5_Data_Lenth0, Serial5_Data_Lenth1, Serial5_Data_Lenth2, Serial5_Data_Lenth3, Serial5_Buffer_Size)
     {}
 
     void Hook(USART_TypeDef *SERIAL, bool mode);

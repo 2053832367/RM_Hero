@@ -48,7 +48,7 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-uint8_t receive_buff[10];
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
