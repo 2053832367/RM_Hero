@@ -9,6 +9,7 @@
 #include "app_serial.h"
 #include "drivers_statistic.h"
 #include "protocol_judgement.h"
+#include "protocol_crc.h"
 
 
 #ifdef __cplusplus

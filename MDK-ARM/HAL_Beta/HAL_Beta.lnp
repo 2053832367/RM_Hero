@@ -54,7 +54,7 @@
 "hal_beta\dev_can.o"
 "hal_beta\drivers_buffer.o"
 "hal_beta\drivers_statistic.o"
-"hal_beta\drivers_remote.o"
+"hal_beta\drivers_dma.o"
 "hal_beta\protocol_judgement.o"
 "hal_beta\protocol_crc.o"
 "hal_beta\protocol_dbus.o"

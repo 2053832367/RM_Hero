@@ -561,6 +561,11 @@ extern bool UI_Send;
 //	return &Chassis;
 //}
 
+void rc_key_v_fresh(RC_ctrl_t *RC)
+{
+	Chassis.RC.rc_key_v_set(RC);
+}
+
 //// ¼Ä´æÆ÷Èí¼þ¸´Î»
 //void System_Reset(void)
 //{

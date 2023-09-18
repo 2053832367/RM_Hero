@@ -801,9 +801,9 @@
               <FilePath>..\ModuleDrivers\drivers_statistic.cpp</FilePath>
             </File>
             <File>
-              <FileName>drivers_remote.cpp</FileName>
+              <FileName>drivers_dma.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>..\ModuleDrivers\drivers_remote.cpp</FilePath>
+              <FilePath>..\ModuleDrivers\drivers_dma.cpp</FilePath>
             </File>
           </Files>
         </Group>

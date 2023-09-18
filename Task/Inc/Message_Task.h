@@ -7,6 +7,7 @@
 #include "queue.h"
 #include "app_preference.h"
 #include "app_serial.h"
+#include "protocol_dbus.h"
 #include "drivers_statistic.h"
 
 #include "protocol_dbus.h"

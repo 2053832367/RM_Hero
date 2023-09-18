@@ -228,7 +228,7 @@
         <Ww>
           <count>14</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Serial_Cmd.Serial1.Data[0][2]</ItemText>
+          <ItemText>Serial_Cmd.Serial1.Data[0][0]</ItemText>
         </Ww>
         <Ww>
           <count>15</count>
@@ -1039,8 +1039,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\ModuleDrivers\drivers_remote.cpp</PathWithFileName>
-      <FilenameWithoutPath>drivers_remote.cpp</FilenameWithoutPath>
+      <PathWithFileName>..\ModuleDrivers\drivers_dma.cpp</PathWithFileName>
+      <FilenameWithoutPath>drivers_dma.cpp</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>

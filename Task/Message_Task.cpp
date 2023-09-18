@@ -89,9 +89,21 @@ void Referee_Rx_Task(void *pvParameters)
 void DR16_Rx_Task(void *pvParameters)
 {
 	/* USER CODE BEGIN StartDefaultTask */
+	static ID_Data_t DR16_Rx_Data;
+	
+	//remote control data 
+	//Ò£¿ØÆ÷¿ØÖÆ±äÁ¿
+	RC_ctrl_t rc_ctrl;
+	
   /* Infinite loop */
   for(;;)
   {		
+		if(xQueueReceive(DR16_Rx_Queue, &DR16_Rx_Data, portMAX_DELAY))
+		{
+			sbus_to_rc((uint8_t *)(DR16_Rx_Data.Data_Ptr),&rc_ctrl);
+			rc_key_v_fresh((RC_ctrl_t *)&rc_ctrl);
+			Guard.Feed(RCData);
+		}
     osDelay(1);
   }
   /* USER CODE END StartDefaultTask */
@@ -113,6 +125,10 @@ void Message_Ctrl::Serialx_Hook(uint8_t *Rx_Message, Serialctrl *Serialx_Ctrl)
 	{
 		Gimbal_Serial_Hook(Rx_Message);
 	}
+	if(Serialx_Ctrl == &DR16_SERIAL)
+	{
+		xQueueSend(DR16_Rx_Queue, &Rx_Message, 0);
+	}
 }
 
 void Message_Ctrl::Gimbal_Serial_Hook(uint8_t *Rx_Message)
@@ -125,10 +141,12 @@ void Message_Ctrl::Gimbal_Serial_Hook(uint8_t *Rx_Message)
 //		GimbalR.ECD = -motor_ecd_to_relative_ecd(ecd_data.d, Gimbal_Motor_Yaw_Offset_ECD);
 //		GimbalR.goal = Rx_Message[5];
 //	}
-	
-	for(int i = 0;i < 13;i++)
+	if(Verify_CRC8_Check_Sum(&Rx_Message[1], Rx_Message[0]))
+	{
+		for(int i = 0;i < 11;i++)
 	{
 		r[i]=Rx_Message[i];
+	}
 	}
 	
 //	__HAL_UART_CLEAR_IDLEFLAG(&huart1);

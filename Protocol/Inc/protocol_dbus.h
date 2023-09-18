@@ -5,7 +5,7 @@
 extern "C" {
 #endif
 
-#include "drivers_remote.h"
+#include "drivers_dma.h"
 	
 #define SBUS_RX_BUF_NUM 36u
 
@@ -64,29 +64,7 @@ typedef __packed struct
 
 /* ----------------------- Internal Data ----------------------------------- */
 
-/**
-  * @brief          remote control init
-  * @param[in]      none
-  * @retval         none
-  */
-/**
-  * @brief          遥控器初始化
-  * @param[in]      none
-  * @retval         none
-  */
-extern void remote_control_init(void);
-/**
-  * @brief          get remote control data point
-  * @param[in]      none
-  * @retval         remote control data point
-  */
-/**
-  * @brief          获取遥控器数据指针
-  * @param[in]      none
-  * @retval         遥控器数据指针
-  */
-extern const RC_ctrl_t *get_remote_control_point(void);
-void USART2_IRQHandler(void);
+void sbus_to_rc(volatile const uint8_t *sbus_buf, RC_ctrl_t *rc_ctrl);
 #ifdef __cplusplus
 }
 #endif

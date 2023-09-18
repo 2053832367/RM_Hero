@@ -3,7 +3,7 @@
 union F Gimbal_Union;
 
 correspondence_ctrl Corres;
-uint8_t s[10]={1,2,3,4,5,6,7,8,9,0};
+uint8_t s[11]={0xff,2,3,4,5,6,7,8,9,0xfe,0};
 	void Correspond_Task(void *argument)
 {
   /* USER CODE BEGIN StartDefaultTask */
@@ -51,7 +51,8 @@ void correspondence_ctrl::Corres_Send(void)
 
 		if(Rate_Do_Execute(5))
 		{
-//			GIMBAL_SERIAL.sendData(&s, sizeof(s));
+			Append_CRC8_Check_Sum(s, sizeof(s));
+			GIMBAL_SERIAL.sendData(s, sizeof(s));
 		}
 
 }

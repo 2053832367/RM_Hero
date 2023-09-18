@@ -1,20 +1,20 @@
 /* USER CODE BEGIN Header */
 /**
-  ******************************************************************************
-  * @file           : main.c
-  * @brief          : Main program body
-  ******************************************************************************
-  * @attention
-  *
-  * Copyright (c) 2023 STMicroelectronics.
-  * All rights reserved.
-  *
-  * This software is licensed under terms that can be found in the LICENSE file
-  * in the root directory of this software component.
-  * If no LICENSE file comes with this software, it is provided AS-IS.
-  *
-  ******************************************************************************
-  */
+ ******************************************************************************
+ * @file           : main.c
+ * @brief          : Main program body
+ ******************************************************************************
+ * @attention
+ *
+ * Copyright (c) 2023 STMicroelectronics.
+ * All rights reserved.
+ *
+ * This software is licensed under terms that can be found in the LICENSE file
+ * in the root directory of this software component.
+ * If no LICENSE file comes with this software, it is provided AS-IS.
+ *
+ ******************************************************************************
+ */
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
@@ -27,7 +27,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "protocol_dbus.h"
-#include "drivers_remote.h"
+#include "drivers_dma.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -62,15 +62,15 @@ void MX_FREERTOS_Init(void);
 /* USER CODE BEGIN 0 */
 void SoftWareInit(void)
 {
-//		__HAL_UART_CLEAR_IDLEFLAG(&huart1);
-//	
-//    __HAL_UART_ENABLE_IT(&huart1, UART_IT_RXNE);  //receive interrupt
-//		__HAL_UART_ENABLE_IT(&huart1, UART_IT_IDLE);  //idle interrupt
-//		HAL_UART_Receive_DMA(&huart1, (uint8_t*)receive_buff, 10);
-////		__HAL_TIM_SetCompare(&htim2,TIM_CHANNEL_1,2000);  //pwm
-//		huart1_dmal_init(receive_buff,10);
-	
-//		remote_control_init();
+  //		__HAL_UART_CLEAR_IDLEFLAG(&huart1);
+  //
+  //    __HAL_UART_ENABLE_IT(&huart1, UART_IT_RXNE);  //receive interrupt
+  //		__HAL_UART_ENABLE_IT(&huart1, UART_IT_IDLE);  //idle interrupt
+  //		HAL_UART_Receive_DMA(&huart1, (uint8_t*)receive_buff, 10);
+  ////		__HAL_TIM_SetCompare(&htim2,TIM_CHANNEL_1,2000);  //pwm
+  //		huart1_dmal_init(receive_buff,10);
+
+  //		remote_control_init();
 }
 
 /* USER CODE END 0 */
@@ -110,7 +110,7 @@ int main(void)
   MX_UART5_Init();
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
-	SoftWareInit();
+  SoftWareInit();
   /* USER CODE END 2 */
 
   /* Init scheduler */

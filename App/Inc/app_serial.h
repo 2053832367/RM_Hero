@@ -66,16 +66,7 @@ public:
     void Handle(Serialctrl *Serial, Serial_Data_t *Usart, bool mode);
     void Send_to_Message(Serialctrl *SerialCtrl , bool Memory);
 
-    Serialctrl *Tran(USART_TypeDef *SERIAL);
-
     uint8_t Get_Data(Serial_Data_t *Serial, uint8_t *buf);
-
-    void SendData(USART_TypeDef *SERIAL, uint8_t ch);
-    void SendData(USART_TypeDef *SERIAL, const void *str);
-    void SendData(USART_TypeDef *SERIAL, const void *buf, uint8_t len);
-    void SendData(Serialctrl *Serial, uint8_t ch);
-    void SendData(Serialctrl *Serial, const void *str);
-    void SendData(Serialctrl *Serial, const void *buf, uint8_t len);
 
     ~Serial_Ctrl() {}
 
