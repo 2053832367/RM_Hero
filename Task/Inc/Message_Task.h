@@ -9,6 +9,7 @@
 #include "app_serial.h"
 #include "drivers_statistic.h"
 
+#include "protocol_dbus.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -31,6 +32,9 @@ extern QueueHandle_t CAN2_Rx_Queue;
 extern QueueHandle_t Serial_Rx_Queue;
 extern QueueHandle_t Referee_Rx_Queue;
 extern QueueHandle_t DR16_Rx_Queue;
+
+extern UART_HandleTypeDef huart1;
+extern DMA_HandleTypeDef hdma_usart1_rx;
 
 union I
 {
@@ -83,6 +87,66 @@ public:
 };
 
 Message_Ctrl *get_message_ctrl_pointer(void);
+
+typedef struct
+{
+    uint8_t key_flag;
+    uint8_t count;  //´ÎÊı
+    uint8_t last_count;
+} count_num_key;
+
+typedef enum
+{
+    single = 0,
+    even,
+} key_count_e;
+
+struct rc_key_v_t
+{
+    //¼üÅÌ
+    count_num_key W;
+    count_num_key S;
+    count_num_key A;
+    count_num_key D;
+    count_num_key shift;
+    count_num_key ctrl;
+    count_num_key Q;
+    count_num_key E;
+    count_num_key R;
+    count_num_key F;
+    count_num_key G;
+    count_num_key Z;
+    count_num_key X;
+    count_num_key C;
+    count_num_key V;
+    count_num_key B;
+};
+
+struct rc_press_t
+{
+    //Êó±ê
+    count_num_key L;
+    count_num_key R;
+};
+
+class rc_key_c
+{
+public:
+    rc_key_v_t Key;
+    rc_press_t Press;
+
+    void rc_key_v_set(RC_ctrl_t *RC);
+    uint8_t read_key(count_num_key *temp_count, key_count_e mode, bool clear);
+    bool read_key(count_num_key *temp_count, key_count_e mode, bool *temp_bool);
+    void clear_key_count(count_num_key *temp_count);
+
+private:
+    bool read_key_single(count_num_key *temp_count);
+    bool read_key_single(count_num_key *temp_count, bool *temp_bool);
+    bool read_key_even(count_num_key *temp_count);
+    bool read_key_even(count_num_key *temp_count, bool *temp_bool);
+    void sum_key_count(int16_t key_num, count_num_key *temp_count);
+};
 
 #endif
 

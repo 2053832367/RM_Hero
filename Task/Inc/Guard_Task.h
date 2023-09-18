@@ -6,7 +6,7 @@
 #include "FreeRTOS.h"
 #include "queue.h"
 #include "app_preference.h"
-#include "iwdg.h"
+//#include "iwdg.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -20,7 +20,7 @@ extern "C" {
 
 #define GUARD_TOTAL_NUM ID_e_count
 
-extern IWDG_HandleTypeDef hiwdg1;
+//extern IWDG_HandleTypeDef hiwdg1;
 
 struct Error_Flags_t
 {

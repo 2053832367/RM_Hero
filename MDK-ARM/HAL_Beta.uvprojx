@@ -337,9 +337,9 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls>--gnu;-diag_suppress=2903,1,1035;--cpp11;-diag_suppress=3337</MiscControls>
-              <Define>USE_HAL_DRIVER,STM32H723xx</Define>
+              <Define>USE_HAL_DRIVER,STM32H723xx,ARM_MATH_CM7,__FPU_USED=1U,__FPU_PRESENT=1U,__CC_ARM,ARM_MATH_MATRIX_CHECK,ARM_MATH_ROUNDING</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc;../Drivers/STM32H7xx_HAL_Driver/Inc;../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy;../Middlewares/Third_Party/FreeRTOS/Source/include;../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2;../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F;../Drivers/CMSIS/Device/ST/STM32H7xx/Include;../Drivers/CMSIS/Include;../Task/Inc;../App/Inc;../Device/Inc;../ModuleDrivers/Inc;../Protocol/Inc</IncludePath>
+              <IncludePath>../Core/Inc;../Drivers/STM32H7xx_HAL_Driver/Inc;../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy;../Middlewares/Third_Party/FreeRTOS/Source/include;../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2;../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F;../Drivers/CMSIS/Device/ST/STM32H7xx/Include;../Drivers/CMSIS/Include;../Task/Inc;../App/Inc;../Device/Inc;../ModuleDrivers/Inc;../Protocol/Inc;../Algorithm/inc;../Middlewares/DSP/Include;../Middlewares/DSP</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -409,9 +409,9 @@
               <FilePath>../Core/Src/freertos.c</FilePath>
             </File>
             <File>
-              <FileName>iwdg.c</FileName>
+              <FileName>dma.c</FileName>
               <FileType>1</FileType>
-              <FilePath>../Core/Src/iwdg.c</FilePath>
+              <FilePath>../Core/Src/dma.c</FilePath>
               <FileOption>
                 <CommonProperty>
                   <UseCPPCompiler>2</UseCPPCompiler>
@@ -626,62 +626,6 @@
               <FilePath>../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_exti.c</FilePath>
             </File>
             <File>
-              <FileName>stm32h7xx_hal_iwdg.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_iwdg.c</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>2</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>1</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules></IncludeLibraryModules>
-                  <ComprImg>1</ComprImg>
-                </CommonProperty>
-                <FileArmAds>
-                  <Cads>
-                    <interw>2</interw>
-                    <Optim>0</Optim>
-                    <oTime>2</oTime>
-                    <SplitLS>2</SplitLS>
-                    <OneElfS>2</OneElfS>
-                    <Strict>2</Strict>
-                    <EnumInt>2</EnumInt>
-                    <PlainCh>2</PlainCh>
-                    <Ropi>2</Ropi>
-                    <Rwpi>2</Rwpi>
-                    <wLevel>0</wLevel>
-                    <uThumb>2</uThumb>
-                    <uSurpInc>2</uSurpInc>
-                    <uC99>2</uC99>
-                    <uGnu>2</uGnu>
-                    <useXO>2</useXO>
-                    <v6Lang>0</v6Lang>
-                    <v6LangP>0</v6LangP>
-                    <vShortEn>2</vShortEn>
-                    <vShortWch>2</vShortWch>
-                    <v6Lto>2</v6Lto>
-                    <v6WtE>2</v6WtE>
-                    <v6Rtti>2</v6Rtti>
-                    <VariousControls>
-                      <MiscControls></MiscControls>
-                      <Define></Define>
-                      <Undefine></Undefine>
-                      <IncludePath></IncludePath>
-                    </VariousControls>
-                  </Cads>
-                </FileArmAds>
-              </FileOption>
-            </File>
-            <File>
               <FileName>stm32h7xx_hal_tim.c</FileName>
               <FileType>1</FileType>
               <FilePath>../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim.c</FilePath>
@@ -816,6 +760,11 @@
               <FileType>8</FileType>
               <FilePath>..\App\app_serial.cpp</FilePath>
             </File>
+            <File>
+              <FileName>app_motor.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\App\app_motor.cpp</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -825,6 +774,16 @@
               <FileName>dev_serial.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>..\Device\dev_serial.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>dev_system.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Device\dev_system.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>dev_can.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Device\dev_can.cpp</FilePath>
             </File>
           </Files>
         </Group>
@@ -841,6 +800,11 @@
               <FileType>8</FileType>
               <FilePath>..\ModuleDrivers\drivers_statistic.cpp</FilePath>
             </File>
+            <File>
+              <FileName>drivers_remote.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\ModuleDrivers\drivers_remote.cpp</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -855,6 +819,36 @@
               <FileName>protocol_crc.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>..\Protocol\protocol_crc.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>protocol_dbus.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Protocol\protocol_dbus.cpp</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Algorithm</GroupName>
+          <Files>
+            <File>
+              <FileName>algorithm_user_lib.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Algorithm\algorithm_user_lib.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>algorithm_pid.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Algorithm\algorithm_pid.cpp</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Middlewares/DSP</GroupName>
+          <Files>
+            <File>
+              <FileName>..\..\H7\HAL_Beta\Middlewares\DSP\arm_cortexM4lf_math.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>$TC_ROOT$\..\..\H7\HAL_Beta\Middlewares\DSP\arm_cortexM4lf_math.lib</FilePath>
             </File>
           </Files>
         </Group>

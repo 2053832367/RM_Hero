@@ -182,12 +182,12 @@ Guard_Ctrl *get_guard_ctrl_pointer()
 
 void IWDG_Feed(void)
 {
-		HAL_IWDG_Refresh(&hiwdg1);
+//		HAL_IWDG_Refresh(&hiwdg1);
 }
 
-void System_RESET(uint8_t id)
-{
-    SCB->AIRCR = (uint32_t)((0x5FAUL << SCB_AIRCR_VECTKEY_Pos) |
-        (SCB->AIRCR & SCB_AIRCR_PRIGROUP_Msk) |
-        SCB_AIRCR_SYSRESETREQ_Msk);
-}
+//void System_RESET(uint8_t id)
+//{
+//    SCB->AIRCR = (uint32_t)((0x5FAUL << SCB_AIRCR_VECTKEY_Pos) |
+//        (SCB->AIRCR & SCB_AIRCR_PRIGROUP_Msk) |
+//        SCB_AIRCR_SYSRESETREQ_Msk);
+//}

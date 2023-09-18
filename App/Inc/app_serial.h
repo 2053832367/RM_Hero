@@ -39,11 +39,13 @@ struct Serial_Data_t
     uint8_t buffer_size;
     uint8_t Len;
     uint8_t Temp;
-    uint8_t *Data;
+    uint8_t **Data;
     Serial_Data_t(uint8_t Header_, uint8_t Tail_, uint8_t Lenth_, uint8_t buffer_size_)
         :Header(Header_), Tail(Tail_), Lenth(Lenth_), buffer_size(buffer_size_)
     {
-        Data = new uint8_t[buffer_size_];
+        Data = new uint8_t*[2];
+				Data[0] = new uint8_t[buffer_size_];
+				Data[1] = new uint8_t[buffer_size_];
     };
 };
 
@@ -59,7 +61,7 @@ public:
 
     void Hook(USART_TypeDef *SERIAL, bool mode);
     void Handle(Serialctrl *Serial, Serial_Data_t *Usart, bool mode);
-    void Send_to_Message(Serialctrl *SerialCtrl);
+    void Send_to_Message(Serialctrl *SerialCtrl , bool Memory);
 
     Serialctrl *Tran(USART_TypeDef *SERIAL);
 
@@ -74,12 +76,12 @@ public:
 
     ~Serial_Ctrl() {}
 
-private:
     Serial_Data_t Serial1;
     Serial_Data_t Serial2;
     Serial_Data_t Serial4;
     Serial_Data_t Serial5;
-
+			
+private:
     void *buf;
 };
 

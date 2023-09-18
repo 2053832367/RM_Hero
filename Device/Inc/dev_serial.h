@@ -6,8 +6,10 @@ extern "C" {
 #endif
 
 #include "drivers_buffer.h"
-#include "stm32h723xx.h"
+//#include "stm32h723xx.h"
 #include "stm32h7xx_hal.h"
+	
+void HAL_UART_IdleCpltCallback(UART_HandleTypeDef *huart);
 
 #ifdef __cplusplus
 }
@@ -18,7 +20,7 @@ typedef void (*USART_CallbackFunction_t)(bool mode);
 class Serialctrl: public Buffer
 {
 public:
-	Serialctrl(UART_HandleTypeDef *_huartx, uint32_t BufferSize);
+	Serialctrl(UART_HandleTypeDef *_huartx, DMA_HandleTypeDef * hdma_usart_rx , uint32_t BufferSize);
 	void attachInterrupt(USART_CallbackFunction_t Function);
 //	void IRQHandler(void);
 void IRQHandler_RXNE(uint8_t c);
@@ -34,6 +36,8 @@ uint8_t receive_IDLE;
 	int available(void);
 	uint8_t read(void);
 	int peek(void);
+
+	DMA_HandleTypeDef * hdma_usart_rx;
 private:
 	void flush(void);
 //	USART_TypeDef * USARTx;
@@ -51,5 +55,8 @@ extern UART_HandleTypeDef huart4;
 extern UART_HandleTypeDef huart5;
 extern UART_HandleTypeDef huart1;
 extern UART_HandleTypeDef huart2;
+
+extern DMA_HandleTypeDef hdma_usart1_rx;
+extern DMA_HandleTypeDef hdma_usart2_rx;
 
 #endif /* _DEV_SERIAL */

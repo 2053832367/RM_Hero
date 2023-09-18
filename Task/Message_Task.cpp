@@ -2,7 +2,8 @@
 #include "tasks.h"
 
 Message_Ctrl Message;
-		uint8_t r[10];
+		uint8_t r[11];
+		extern uint8_t receive_buff[10];
 void Message_Task(void *pvParameters)
 {
 	/* USER CODE BEGIN StartDefaultTask */
@@ -124,8 +125,173 @@ void Message_Ctrl::Gimbal_Serial_Hook(uint8_t *Rx_Message)
 //		GimbalR.ECD = -motor_ecd_to_relative_ecd(ecd_data.d, Gimbal_Motor_Yaw_Offset_ECD);
 //		GimbalR.goal = Rx_Message[5];
 //	}
-	for(int i = 0;i < 10;i++)
+	
+	for(int i = 0;i < 11;i++)
 	{
 		r[i]=Rx_Message[i];
+	}
+	
+//	__HAL_UART_CLEAR_IDLEFLAG(&huart1);
+//	__HAL_DMA_DISABLE(&hdma_usart1_rx);
+//            
+//	memcpy(r, receive_buff, 20);
+//  //enable DMA
+//  //使能DMA
+//  __HAL_DMA_ENABLE(&hdma_usart1_rx);
+}
+
+Message_Ctrl *get_message_ctrl_pointer(void)
+{
+	return &Message;
+}
+
+//统计按键 按下次数：eg:  按下-松开  按下-松开  2次
+//key_num==1代表有键盘按下
+//key_num==0代表键盘松开
+void rc_key_c::sum_key_count(int16_t key_num, count_num_key *temp_count)
+{
+	if(key_num == 1 && temp_count->key_flag == 0)
+	{
+		temp_count->key_flag = 1;
+	}
+	if(temp_count->key_flag == 1 && key_num == 0)
+	{
+		temp_count->count++;
+		temp_count->key_flag = 0;
+	}
+}
+
+void rc_key_c::clear_key_count(count_num_key *temp_count)
+{
+	temp_count->count = 0;
+	temp_count->key_flag = 0;
+}
+//按键单点赋值
+bool rc_key_c::read_key_single(count_num_key *temp_count, bool *temp_bool)
+{
+	if((temp_count->count >= 1) && *temp_bool == 0)
+	{
+		temp_count->count = 0;
+		*temp_bool = true;
+	}
+	else if((temp_count->count >= 1) && *temp_bool == 1)
+	{
+		temp_count->count = 0;
+		*temp_bool = false;
+	}
+	return *temp_bool;
+}
+//按键单点
+bool rc_key_c::read_key_single(count_num_key *temp_count)
+{
+	if(temp_count->count >= 1)
+	{
+		temp_count->count = 0;
+		return true;
+	}
+	else
+	{
+		temp_count->count = 0;
+		return false;
+	}
+}
+//按键长按赋值
+bool rc_key_c::read_key_even(count_num_key *temp_count, bool *temp_bool)
+{
+	if(temp_count->key_flag == 1)
+	{
+		*temp_bool = true;
+	}
+	else if(temp_count->key_flag == 0)
+	{
+		*temp_bool = false;
+	}
+	return *temp_bool;
+}
+//按键长按
+bool rc_key_c::read_key_even(count_num_key *temp_count)
+{
+	if(temp_count->key_flag == 1)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+uint8_t rc_key_c::read_key(count_num_key *temp_count, key_count_e mode, bool clear)
+{
+	uint8_t result;
+	if(clear == true)
+	{
+		if(mode == single)
+		{
+			result = read_key_single(temp_count);
+		}
+		else if(mode == even)
+		{
+			result = read_key_even(temp_count);
+		}
+	}
+	else
+	{
+		if(mode == single)
+		{
+			result = temp_count->count;
+		}
+		else if(mode == even)
+		{
+			result = temp_count->key_flag;
+		}
+	}
+	return result;
+}
+
+bool rc_key_c::read_key(count_num_key *temp_count, key_count_e mode, bool *temp_bool)
+{
+	if(mode == single)
+	{
+		read_key_single(temp_count, temp_bool);
+	}
+	else if(mode == even)
+	{
+		read_key_even(temp_count, temp_bool);
+	}
+	return *temp_bool;
+}
+
+//更新按键
+void rc_key_c::rc_key_v_set(RC_ctrl_t *RC)
+{
+	count_num_key *p = &Key.W;
+	for(uint8_t i = 0; i < 16; i++)
+	{
+		if(RC->key.v & ((uint16_t)1 << i))
+		{
+			sum_key_count(1, (p + i));
+		}
+		else
+		{
+			sum_key_count(0, (p + i));
+		}
+	}
+	//鼠标
+	if(RC->mouse.press_l == 1)
+	{
+		sum_key_count(1, &Press.L);
+	}
+	else
+	{
+		sum_key_count(0, &Press.L);
+	}
+	if(RC->mouse.press_r == 1)
+	{
+		sum_key_count(1, &Press.R);
+	}
+	else
+	{
+		sum_key_count(0, &Press.R);
 	}
 }

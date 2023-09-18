@@ -1,16 +1,17 @@
 #include "dev_serial.h"
 #include "app_preference.h"
 
-Serialctrl Serial1_Ctrl(&huart1, Serial1_Buffer_Size);
-Serialctrl Serial2_Ctrl(&huart2, Serial2_Buffer_Size);
-Serialctrl Serial4_Ctrl(&huart4, Serial4_Buffer_Size);
-Serialctrl Serial5_Ctrl(&huart5, Serial5_Buffer_Size);
+Serialctrl Serial1_Ctrl(&huart1, &hdma_usart1_rx, Serial1_Buffer_Size);
+Serialctrl Serial2_Ctrl(&huart2, &hdma_usart2_rx, Serial2_Buffer_Size);
+Serialctrl Serial4_Ctrl(&huart4, NULL ,Serial4_Buffer_Size);
+Serialctrl Serial5_Ctrl(&huart5, NULL ,Serial5_Buffer_Size);
 
-Serialctrl::Serialctrl(UART_HandleTypeDef *_huartx, uint32_t BufferSize)
+Serialctrl::Serialctrl(UART_HandleTypeDef *_huartx, DMA_HandleTypeDef * hdma_usart_rx , uint32_t BufferSize)
 {
     this->huartx = _huartx;
+		this->hdma_usart_rx = hdma_usart_rx;
     USART_Function = 0;
-    newBuffer(&_rx_buffer, BufferSize);
+//    newBuffer(&_rx_buffer, BufferSize);
 }
 
 void Serialctrl::attachInterrupt(USART_CallbackFunction_t Function)
@@ -133,8 +134,19 @@ void HAL_UART_IdleCpltCallback(UART_HandleTypeDef *huart)
 {
     if(huart->Instance == USART1){  
         
-    Serial1_Ctrl.receive_IDLE = huart1.Instance->RDR;
+//    Serial1_Ctrl.receive_IDLE = huart1.Instance->RDR;
+		__HAL_UART_CLEAR_IDLEFLAG(&huart1);
+//		__HAL_DMA_DISABLE(&hdma_usart1_rx);
 		Serial1_Ctrl.IRQHandler_IDLE(); 
+//		__HAL_DMA_ENABLE(&hdma_usart1_rx);
+    }
+		if(huart->Instance == USART2){  
+        
+//    Serial1_Ctrl.receive_IDLE = huart1.Instance->RDR;
+		__HAL_UART_CLEAR_IDLEFLAG(&huart2);
+//		__HAL_DMA_DISABLE(&hdma_usart2_rx);
+		Serial2_Ctrl.IRQHandler_IDLE(); 
+//		__HAL_DMA_ENABLE(&hdma_usart2_rx);
     }
 }
 

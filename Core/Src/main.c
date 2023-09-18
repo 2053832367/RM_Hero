@@ -19,14 +19,15 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "cmsis_os.h"
-#include "iwdg.h"
+#include "dma.h"
 #include "tim.h"
 #include "usart.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "protocol_dbus.h"
+#include "drivers_remote.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -47,7 +48,7 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-
+uint8_t receive_buff[10];
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -61,9 +62,15 @@ void MX_FREERTOS_Init(void);
 /* USER CODE BEGIN 0 */
 void SoftWareInit(void)
 {
-    __HAL_UART_ENABLE_IT(&huart1, UART_IT_RXNE);  //receive interrupt
-		__HAL_UART_ENABLE_IT(&huart1, UART_IT_IDLE);  //idle interrupt
-//		__HAL_TIM_SetCompare(&htim2,TIM_CHANNEL_1,2000);
+//		__HAL_UART_CLEAR_IDLEFLAG(&huart1);
+//	
+//    __HAL_UART_ENABLE_IT(&huart1, UART_IT_RXNE);  //receive interrupt
+//		__HAL_UART_ENABLE_IT(&huart1, UART_IT_IDLE);  //idle interrupt
+//		HAL_UART_Receive_DMA(&huart1, (uint8_t*)receive_buff, 10);
+////		__HAL_TIM_SetCompare(&htim2,TIM_CHANNEL_1,2000);  //pwm
+//		huart1_dmal_init(receive_buff,10);
+	
+//		remote_control_init();
 }
 
 /* USER CODE END 0 */
@@ -96,11 +103,11 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_UART5_Init();
+  MX_DMA_Init();
   MX_USART1_UART_Init();
   MX_USART2_UART_Init();
   MX_UART4_Init();
-  MX_IWDG1_Init();
+  MX_UART5_Init();
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
 	SoftWareInit();
@@ -146,9 +153,8 @@ void SystemClock_Config(void)
   /** Initializes the RCC Oscillators according to the specified parameters
   * in the RCC_OscInitTypeDef structure.
   */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_LSI|RCC_OSCILLATORTYPE_HSE;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
-  RCC_OscInitStruct.LSIState = RCC_LSI_ON;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
   RCC_OscInitStruct.PLL.PLLM = 2;

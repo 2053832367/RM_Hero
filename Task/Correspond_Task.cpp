@@ -51,7 +51,7 @@ void correspondence_ctrl::Corres_Send(void)
 
 		if(Rate_Do_Execute(5))
 		{
-			GIMBAL_SERIAL.sendData(&s, sizeof(s));
+//			GIMBAL_SERIAL.sendData(&s, sizeof(s));
 		}
 
 }
