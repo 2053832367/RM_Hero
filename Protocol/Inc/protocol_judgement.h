@@ -407,5 +407,6 @@ void chassis_to_judgeui(uint16_t txlen);
 const judge_type_t *get_robo_data_Point();
 extern void usart7_DMA_init(void);
 void uart7_dma_get(void);
+void referee_data_solve(uint8_t *Rx_Message);
 
 #endif /* __PROTOCOL_JUDGEMENT_H */

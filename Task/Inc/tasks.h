@@ -6,16 +6,16 @@ extern "C" {
 #endif
 	
 #define useFreeRTOS
-	
-#ifndef useFreeRTOS
-#define osDelay( ms )   delay_ms( ms )
-#define Delay_ms( ms )  delay_ms( ms )
-#define Delay_us( us )  delay_us( us )
-#else
-#define osDelay( ms )   vTaskDelay( pdMS_TO_TICKS( ms ) )
-#define Delay_ms( ms )  delay_xms( ms )
-#define Delay_us( us )  delay_xus( us )
-#endif
+//	
+//#ifndef useFreeRTOS
+//#define osDelay( ms )   delay_ms( ms )
+//#define Delay_ms( ms )  delay_ms( ms )
+//#define Delay_us( us )  delay_us( us )
+//#else
+//#define osDelay( ms )   vTaskDelay( pdMS_TO_TICKS( ms ) )
+//#define Delay_ms( ms )  delay_xms( ms )
+//#define Delay_us( us )  delay_xus( us )
+//#endif
 	
 #ifdef __cplusplus
 }

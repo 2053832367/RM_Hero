@@ -78,10 +78,15 @@ void Serial_Rx_Task(void *pvParameters)
 void Referee_Rx_Task(void *pvParameters)
 {
 	/* USER CODE BEGIN StartDefaultTask */
+	static ID_Data_t Referee_Rx_Data;
   /* Infinite loop */
   for(;;)
   {		
-    osDelay(1);
+		if(xQueueReceive(Referee_Rx_Queue, &Referee_Rx_Data, portMAX_DELAY))
+		{
+			referee_data_solve( &(((uint8_t *)Referee_Rx_Data.Data_Ptr)[1]) );
+			Guard.Feed(RefereeData);
+		}
   }
   /* USER CODE END StartDefaultTask */
 }
@@ -93,18 +98,16 @@ void DR16_Rx_Task(void *pvParameters)
 	
 	//remote control data 
 	//Ò£¿ØÆ÷¿ØÖÆ±äÁ¿
-	RC_ctrl_t rc_ctrl;
 	
   /* Infinite loop */
   for(;;)
   {		
 		if(xQueueReceive(DR16_Rx_Queue, &DR16_Rx_Data, portMAX_DELAY))
 		{
-			sbus_to_rc((uint8_t *)(DR16_Rx_Data.Data_Ptr),&rc_ctrl);
-			rc_key_v_fresh((RC_ctrl_t *)&rc_ctrl);
+			sbus_to_rc(&( ((uint8_t *)(DR16_Rx_Data.Data_Ptr))[1]) ,&(Message.rc_ctrl));
+			rc_key_v_fresh((RC_ctrl_t *)&(Message.rc_ctrl));
 			Guard.Feed(RCData);
 		}
-    osDelay(1);
   }
   /* USER CODE END StartDefaultTask */
 }
@@ -141,14 +144,14 @@ void Message_Ctrl::Gimbal_Serial_Hook(uint8_t *Rx_Message)
 //		GimbalR.ECD = -motor_ecd_to_relative_ecd(ecd_data.d, Gimbal_Motor_Yaw_Offset_ECD);
 //		GimbalR.goal = Rx_Message[5];
 //	}
-	if(Verify_CRC8_Check_Sum(&Rx_Message[1], Rx_Message[0]))
-	{
+//	if(Verify_CRC8_Check_Sum(&Rx_Message[1], Rx_Message[0]))
+//	{
 		for(int i = 0;i < 11;i++)
 	{
 		r[i]=Rx_Message[i];
 	}
-	}
-	
+//	}
+
 //	__HAL_UART_CLEAR_IDLEFLAG(&huart1);
 //	__HAL_DMA_DISABLE(&hdma_usart1_rx);
 //            

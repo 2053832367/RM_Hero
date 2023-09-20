@@ -225,16 +225,6 @@
           <WinNumber>1</WinNumber>
           <ItemText>a</ItemText>
         </Ww>
-        <Ww>
-          <count>14</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>Serial_Cmd.Serial1.Data[0][0]</ItemText>
-        </Ww>
-        <Ww>
-          <count>15</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>Serial_Cmd.Serial1.Data[1][2]</ItemText>
-        </Ww>
       </WatchWindow1>
       <Tracepoint>
         <THDelay>0</THDelay>
@@ -924,7 +914,7 @@
       <GroupNumber>7</GroupNumber>
       <FileNumber>48</FileNumber>
       <FileType>8</FileType>
-      <tvExp>1</tvExp>
+      <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
       <PathWithFileName>..\App\app_preference.cpp</PathWithFileName>

@@ -96,11 +96,13 @@ void Serial_Ctrl::Handle(Serialctrl *SerialCtrl, Serial_Data_t *Serial, bool mod
             ((DMA_Stream_TypeDef *)SerialCtrl->hdma_usart_rx->Instance)->CR &= ~(DMA_SxCR_CT);
             Memory = 1;
         }
-
-        // enable DMA
+				
+				
+		// enable DMA
         // Ê¹ÄÜDMA
         __HAL_DMA_ENABLE(SerialCtrl->hdma_usart_rx);
-
+				
+				
         if ((Serial->Len == Serial->Lenth0 || Serial->Lenth1 || Serial->Lenth2 || Serial->Lenth3) && (Serial->Len != NULL))
         {
             Serial->Data[Memory][0] = Serial->Len;
@@ -112,11 +114,11 @@ void Serial_Ctrl::Handle(Serialctrl *SerialCtrl, Serial_Data_t *Serial, bool mod
             {
                 Send_to_Message(SerialCtrl, Memory);
             }
-            else
-            {
-                return;
-            }
         }
+				else if(SerialCtrl == &JUDGE_SERIAL && (Serial->Len != NULL))
+				{
+					Send_to_Message(SerialCtrl, Memory);
+				}
     }
 }
 

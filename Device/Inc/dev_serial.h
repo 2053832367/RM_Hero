@@ -5,9 +5,11 @@
 extern "C" {
 #endif
 
+#include "cmsis_os2.h"                  // ::CMSIS:RTOS2
 #include "drivers_buffer.h"
 //#include "stm32h723xx.h"
 #include "stm32h7xx_hal.h"
+	
 	
 void HAL_UART_IdleCpltCallback(UART_HandleTypeDef *huart);
 

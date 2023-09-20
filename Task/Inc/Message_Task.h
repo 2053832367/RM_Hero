@@ -8,6 +8,7 @@
 #include "app_preference.h"
 #include "app_serial.h"
 #include "protocol_dbus.h"
+#include "protocol_judgement.h"
 #include "drivers_statistic.h"
 
 #include "protocol_dbus.h"
@@ -75,7 +76,8 @@ class Message_Ctrl:public Statistic
 public:
     Gimbal_Receive_Data_t GimbalR;
     supercap_Receive_Data_t SuperCapR;
-//    const judge_type_t *robo;
+	  RC_ctrl_t rc_ctrl;
+    const judge_type_t *robo;
 
     union I ecd_data;
 
