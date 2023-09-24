@@ -1,7 +1,6 @@
 #ifndef __PROTOCOL_UI_H
 #define __PROTOCOL_UI_H
 
-#include "stm32f4xx.h"
 #include "protocol_ui.h"
 #include "protocol_crc.h"
 #include "protocol_judgement.h"

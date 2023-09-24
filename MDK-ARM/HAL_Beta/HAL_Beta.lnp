@@ -58,9 +58,10 @@
 "hal_beta\protocol_judgement.o"
 "hal_beta\protocol_crc.o"
 "hal_beta\protocol_dbus.o"
+"hal_beta\protocol_ui.o"
 "hal_beta\algorithm_user_lib.o"
 "hal_beta\algorithm_pid.o"
-"..\..\HAL_Beta\Middlewares\DSP\arm_cortexM4lf_math.lib"
+"..\Middlewares\DSP\arm_cortexM4lf_math.lib"
 --strict --scatter "HAL_Beta\HAL_Beta.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

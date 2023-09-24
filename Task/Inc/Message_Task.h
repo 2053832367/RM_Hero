@@ -11,8 +11,6 @@
 #include "protocol_judgement.h"
 #include "drivers_statistic.h"
 
-#include "protocol_dbus.h"
-
 #ifdef __cplusplus
 extern "C" {
 #endif

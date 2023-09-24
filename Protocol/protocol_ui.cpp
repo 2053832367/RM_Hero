@@ -510,7 +510,7 @@ void UIGraph::Add(char msg[], uint32_t Layer, uint32_t Color, uint32_t Width, ui
 	Data.start_x = start_x;
 	Data.start_y = start_y;
 
-	UIDraw.UI_Sent(this);
+//	UIDraw.UI_Sent(this);
 }
 
 /*
@@ -547,7 +547,7 @@ void UIGraph::Add(uint32_t Layer, uint32_t Color, uint32_t Width, uint32_t start
 	Data.start_angle = start_angle;
 	Data.end_angle = end_angle;
 
-	UIDraw.UI_Sent(this);
+//	UIDraw.UI_Sent(this);
 }
 
 //打印整形数字
@@ -571,7 +571,7 @@ void UIGraph::Add(int Int, uint32_t Layer, uint32_t Color, uint32_t Width, uint3
 
 	Data.start_angle = Size;
 
-	UIDraw.UI_Sent(this);
+//	UIDraw.UI_Sent(this);
 }
 
 //打印浮点数，Lenth为小数长度
@@ -599,7 +599,7 @@ void UIGraph::Add(float Float, uint32_t Layer, uint32_t Color, uint32_t Width, u
 	Data.start_angle = Size;
 	Data.end_angle = Lenth;
 
-	UIDraw.UI_Sent(this);
+//	UIDraw.UI_Sent(this);
 }
 
 //打印字符串
@@ -623,7 +623,7 @@ void UIGraph::Change(char msg[], uint32_t Layer, uint32_t Color, uint32_t Width,
 	Data.start_x = start_x;
 	Data.start_y = start_y;
 
-	UIDraw.UI_Sent(this);
+//	UIDraw.UI_Sent(this);
 }
 
 /*
@@ -660,7 +660,7 @@ void UIGraph::Change(uint32_t Layer, uint32_t Color, uint32_t Width, uint32_t st
 	Data.start_angle = start_angle;
 	Data.end_angle = end_angle;
 
-	UIDraw.UI_Sent(this);
+//	UIDraw.UI_Sent(this);
 }
 //打印整形数字
 void UIGraph::Change(int Int, uint32_t Layer, uint32_t Color, uint32_t Width, uint32_t Size, uint32_t start_x, uint32_t start_y)
@@ -683,7 +683,7 @@ void UIGraph::Change(int Int, uint32_t Layer, uint32_t Color, uint32_t Width, ui
 
 	Data.start_angle = Size;
 
-	UIDraw.UI_Sent(this);
+//	UIDraw.UI_Sent(this);
 }
 
 //打印浮点数，Lenth为小数长度
@@ -711,7 +711,7 @@ void UIGraph::Change(float Float, uint32_t Layer, uint32_t Color, uint32_t Width
 	Data.start_angle = Size;
 	Data.end_angle = Lenth;
 
-	UIDraw.UI_Sent(this);
+//	UIDraw.UI_Sent(this);
 }
 
 //获取数据，若返回为1则发送，若返回为-1则失败，若返回为-2则发送清空后重来
