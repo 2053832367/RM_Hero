@@ -1,3 +1,5 @@
+#include "dev_serial.h"
+#include "app_preference.h"
 #include "protocol_judgement.h"
 #include "protocol_crc.h"
 #include <stdio.h>
@@ -11,52 +13,6 @@ static tMsg_head                    judgedatahead;
 //static draw_data_struct_t		draw_data_struct;
 static judge_type_t                   judge_type;
 
-
-uint8_t rx7_buf[RX_BUF_NUM];
-uint8_t	TX7_buf[TX_BUF_NUM];
-uint8_t DMA_Uart7_Tx_Flag;
-
-uint8_t temp;
-uint16_t UART7_DataLength;
-
-void uart7_dma_sent(void)
-{
-	DMA_Uart7_Tx_Flag = 0;
-}
-
-////开启一次DMA传输
-////DMA_Streamx:DMA数据流,DMA1_Stream0~7/DMA2_Stream0~7 
-////ndtr:数据传输量  
-//void MYDMA_Enable(DMA_Stream_TypeDef *DMA_Streamx, u16 ndtr)
-//{
-//	
-//	DMA_Cmd(DMA_Streamx, DISABLE);                      //关闭DMA传输 
-
-//	while(DMA_GetCmdStatus(DMA_Streamx) != DISABLE) {}	//确保DMA可以被设置  
-
-//	DMA_SetCurrDataCounter(DMA_Streamx, ndtr);          //数据传输量  
-
-//	DMA_Cmd(DMA_Streamx, ENABLE);                      //开启DMA传输 
-//}
-
-//void chassis_to_judgeui(uint16_t txlen)
-//{
-//	vTaskDelay(100);//UI最大上行10Hz，建议采用多UI同时发送。
-//	while(DMA_Uart7_Tx_Flag)
-//	{
-//		vTaskDelay(1);
-//	}
-//	DMA_Uart7_Tx_Flag = 1;
-
-//	USART_DMACmd(UART7, USART_DMAReq_Tx, ENABLE);  //使能串口8的DMA发送
-//	MYDMA_Enable(DMA1_Stream1, txlen);     //开始一次DMA传输！
-//	// u16 i = 0;
-//	// while(txlen--)
-//	// {
-//	// 	usart7_send_char(TX7_buf[i++]);
-//	// }
-//	// memset(TX7_buf, 0, txlen);
-//}
 
 //裁判系统相关
 void referee_data_solve(uint8_t *Rx_Message)
@@ -136,17 +92,6 @@ void Usart_SendBuff(uint8_t *buf, uint16_t len)
 	{
 		return;
 	}
-	memcpy(TX7_buf, buf, len);
-//	chassis_to_judgeui(len);
-//	Serial7_Ctrl.sendData(buf, len);
+	JUDGE_SERIAL.sendData(buf, len);
 }
 
-
-//串口7发送1个字符 
-//c:要发送的字符
-void usart7_send_char(uint8_t c)
-{
-//	USART_SendData(UART7, c);
-//	while(USART_GetFlagStatus(UART7, USART_FLAG_TXE) == RESET) {};
-
-}

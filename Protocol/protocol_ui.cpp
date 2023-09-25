@@ -11,8 +11,10 @@ char_data_struct_t    char_data_struct;
 graph_data_struct_t   graph_data_struct;
 Num_data_struct_t   	num_data_struct;
 map_data_struct_t     map_data_struct;
+MA_UIgraphic_struct_t MA_UIgraphic_struct;
+MA_UInumber_struct_t  MA_UInumber_struct;
 
-uint8_t tx7_buf[255u];
+uint8_t judgeTX_buf[255u];
 
 void Graph_Painter(char name[3], uint32_t Operate_tpye, uint32_t Graphic_tpye, uint16_t Sender_ID, uint16_t Receiver_ID,
 	uint32_t Layer, uint32_t Color, uint32_t Width, uint32_t start_x, uint32_t start_y, uint32_t end_x, uint32_t end_y,
@@ -94,10 +96,10 @@ void Graph_Painter(char name[3], uint32_t Operate_tpye, uint32_t Graphic_tpye, u
 	graph_data_struct.graphic_data.width = Width;
 
 	Append_CRC16_Check_Sum((uint8_t *)&graph_data_struct, sizeof(graph_data_struct));
-	memcpy(&tx7_buf[0], (uint8_t *)&graph_data_struct, sizeof(graph_data_struct));
-	Usart_SendBuff((uint8_t *)&tx7_buf, sizeof(graph_data_struct));
+	memcpy(&judgeTX_buf[0], (uint8_t *)&graph_data_struct, sizeof(graph_data_struct));
+	Usart_SendBuff((uint8_t *)&judgeTX_buf, sizeof(graph_data_struct));
 
-	memcpy(tx7_buf, "\0", sizeof(tx7_buf));
+	memcpy(judgeTX_buf, "\0", sizeof(judgeTX_buf));
 	memset(&graph_data_struct, 0, sizeof(graph_data_struct));
 
 }
@@ -142,9 +144,9 @@ void Num_Painter(char name[3], uint32_t Operate_tpye, uint32_t Graphic_tpye,
 		num_data_struct.graph_num = Int;
 
 		Append_CRC16_Check_Sum((uint8_t *)&num_data_struct, sizeof(num_data_struct));
-		memcpy(&tx7_buf[0], (uint8_t *)&num_data_struct, sizeof(num_data_struct));
-		Usart_SendBuff((uint8_t *)&tx7_buf, sizeof(num_data_struct));
-		memcpy(tx7_buf, "\0", sizeof(tx7_buf));
+		memcpy(&judgeTX_buf[0], (uint8_t *)&num_data_struct, sizeof(num_data_struct));
+		Usart_SendBuff((uint8_t *)&judgeTX_buf, sizeof(num_data_struct));
+		memcpy(judgeTX_buf, "\0", sizeof(judgeTX_buf));
 
 		break;
 	}
@@ -179,10 +181,10 @@ void Num_Painter(char name[3], uint32_t Operate_tpye, uint32_t Graphic_tpye,
 		num_data_struct.graph_num = Float * 1000;
 
 		Append_CRC16_Check_Sum((uint8_t *)&num_data_struct, sizeof(num_data_struct));
-		memcpy(&tx7_buf[0], (uint8_t *)&num_data_struct, sizeof(num_data_struct));
-		Usart_SendBuff((uint8_t *)&tx7_buf, sizeof(num_data_struct));
+		memcpy(&judgeTX_buf[0], (uint8_t *)&num_data_struct, sizeof(num_data_struct));
+		Usart_SendBuff((uint8_t *)&judgeTX_buf, sizeof(num_data_struct));
 
-		memcpy(tx7_buf, "\0", sizeof(tx7_buf));
+		memcpy(judgeTX_buf, "\0", sizeof(judgeTX_buf));
 
 		break;
 	}
@@ -244,8 +246,7 @@ void UI_Map(uint16_t Target_Robot_ID, float Target_Position_x, float Target_Posi
 	memset(&map_data_struct, 0, sizeof(map_data_struct));
 }
 
-void UIGraph::Draw_Graphic(uint16_t Sender_ID, uint16_t Receiver_ID,
-	
+void UIGraph::Draw_Graphic(
 	char name0[3] , uint32_t Operate_tpye0, uint32_t Graphic_tpye0, uint32_t Layer0, uint32_t Color0, uint32_t start_angle0, uint32_t end_angle0, 
 	uint32_t Width0, uint32_t start_x0, uint32_t start_y0, uint32_t radius0, uint32_t end_x0, uint32_t end_y0, 
 	
@@ -424,17 +425,16 @@ void UIGraph::Draw_Graphic(uint16_t Sender_ID, uint16_t Receiver_ID,
 	MA_UIgraphic_struct.UIdraw_header_id.receiver_ID = Receiver_ID;
 
 	Append_CRC16_Check_Sum((uint8_t *)&MA_UIgraphic_struct, sizeof(MA_UIgraphic_struct));
-	memcpy(&tx7_buf[0], (uint8_t *)&MA_UIgraphic_struct, sizeof(MA_UIgraphic_struct));
+	memcpy(&judgeTX_buf[0], (uint8_t *)&MA_UIgraphic_struct, sizeof(MA_UIgraphic_struct));
 	
-//	Usart_SendBuff((uint8_t *)&tx7_buf, sizeof(MA_UIgraphic_struct));
+//	Usart_SendBuff((uint8_t *)&judgeTX_buf, sizeof(MA_UIgraphic_struct));
 
-	memcpy(tx7_buf, "\0", sizeof(tx7_buf));
+	memcpy(judgeTX_buf, "\0", sizeof(judgeTX_buf));
 	memset(&MA_UIgraphic_struct, 0, sizeof(MA_UIgraphic_struct));
 
 }
 
-void UIGraph::Draw_Number(uint16_t Sender_ID, uint16_t Receiver_ID,
-	
+void UIGraph::Draw_Number(
 	char name0[3] , uint32_t Operate_tpye0, uint32_t Graphic_tpye0, uint32_t Layer0, uint32_t Color0, uint32_t start_angle0, uint32_t end_angle0, 
 	uint32_t Width0, uint32_t start_x0, uint32_t start_y0, int Number0,  
 	
@@ -598,11 +598,11 @@ void UIGraph::Draw_Number(uint16_t Sender_ID, uint16_t Receiver_ID,
 	MA_UInumber_struct.UIdraw_header_id.receiver_ID = Receiver_ID;
 
 	Append_CRC16_Check_Sum((uint8_t *)&MA_UInumber_struct, sizeof(MA_UInumber_struct));
-	memcpy(&tx7_buf[0], (uint8_t *)&MA_UInumber_struct, sizeof(MA_UInumber_struct));
+	memcpy(&judgeTX_buf[0], (uint8_t *)&MA_UInumber_struct, sizeof(MA_UInumber_struct));
 	
-//	Usart_SendBuff((uint8_t *)&tx7_buf, sizeof(MA_UIgraphic_struct));
+//	Usart_SendBuff((uint8_t *)&judgeTX_buf, sizeof(MA_UInumber_struct));
 
-	memcpy(tx7_buf, "\0", sizeof(tx7_buf));
+	memcpy(judgeTX_buf, "\0", sizeof(judgeTX_buf));
 	memset(&MA_UInumber_struct, 0, sizeof(MA_UInumber_struct));
 
 }

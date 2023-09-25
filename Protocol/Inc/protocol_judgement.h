@@ -426,8 +426,6 @@ extern  SelfDefineInfo_t             SelfDefineInfo;
 extern  tFrame						tframe;
 extern  judge_type_t                   judge_type;
 extern  ext_shoot_data_t			shoot_data_t;
-extern	uint8_t						rx7_buf[RX_BUF_NUM];
-extern  uint8_t						TX7_buf[TX_BUF_NUM];
 extern	draw_data_struct_t		draw_data_struct;
 extern  char_data_struct_t    char_data_struct;
 extern  graph_data_struct_t   graph_data_struct;

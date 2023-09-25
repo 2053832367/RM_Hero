@@ -47,9 +47,6 @@ private:
     uint8_t Len;
     uint8_t GraphData[105];
 
-    uint16_t standard_ID1;//本车id
-    uint16_t standard_ID2;//客户端id
-
     ext_client_custom_graphic_single_tt ext_client_custom_graphic_single;
     ext_client_custom_character_tt ext_client_custom_character;
 };

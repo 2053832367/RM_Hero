@@ -147,9 +147,10 @@ typedef enum
 class UIGraph
 {
 public:
+	uint16_t Sender_ID;//本车id
+  uint16_t Receiver_ID;//客户端id
 	
-	void Draw_Graphic(uint16_t Sender_ID, uint16_t Receiver_ID,
-	
+	void Draw_Graphic(
 	char name0[3] , uint32_t Operate_tpye0, uint32_t Graphic_tpye0, uint32_t Layer0, uint32_t Color0, uint32_t start_angle0, uint32_t end_angle0, 
 	uint32_t Width0, uint32_t start_x0, uint32_t start_y0, uint32_t radius0, uint32_t end_x0, uint32_t end_y0, 
 	
@@ -174,8 +175,7 @@ public:
 	
 	
 	
-	void Draw_Number(uint16_t Sender_ID, uint16_t Receiver_ID,
-	
+	void Draw_Number(
 	char name0[3] , uint32_t Operate_tpye0, uint32_t Graphic_tpye0, uint32_t Layer0, uint32_t Color0, uint32_t start_angle0, uint32_t end_angle0, 
 	uint32_t Width0, uint32_t start_x0, uint32_t start_y0, int Number0,  
 	
@@ -198,9 +198,9 @@ public:
 	uint32_t Width6, uint32_t start_x6, uint32_t start_y6, int Number6);
 	
 	UI_graph_type_e Type;
+	
 private:
-	MA_UIgraphic_struct_t MA_UIgraphic_struct;
-	MA_UInumber_struct_t  MA_UInumber_struct;
+
 };
 
 #endif /* __PROTOCOL_UI_H */

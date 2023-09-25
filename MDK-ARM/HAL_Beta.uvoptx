@@ -228,7 +228,22 @@
         <Ww>
           <count>14</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Serial_Cmd.Serial2.Data[0][2]</ItemText>
+          <ItemText>Serial_Cmd.Serial1.Data[0][2]</ItemText>
+        </Ww>
+        <Ww>
+          <count>15</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>UIDraw</ItemText>
+        </Ww>
+        <Ww>
+          <count>16</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>MA_UIgraphic_struct</ItemText>
+        </Ww>
+        <Ww>
+          <count>17</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>MA_UInumber_struct</ItemText>
         </Ww>
       </WatchWindow1>
       <Tracepoint>
