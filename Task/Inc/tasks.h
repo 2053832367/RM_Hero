@@ -38,6 +38,7 @@ extern Message_Ctrl Message;
 extern Guard_Ctrl Guard;
 extern Chassis_Ctrl Chassis;
 extern UI_Draw_Ctrl UIDraw;
+extern correspondence_ctrl Corres;
 
 //extern correspondence_ctrl Corres;
 //extern UI_Draw_Ctrl UIDraw;
