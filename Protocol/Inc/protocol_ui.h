@@ -70,8 +70,8 @@
 #define UI_Graph_Circle 					2    //整圆
 #define UI_Graph_Ellipse 					3    //椭圆
 #define UI_Graph_Arc 							4    //圆弧
-#define UI_Graph_Int 							5    //浮点型
-#define UI_Graph_Float 						6    //整形
+#define UI_Graph_Float 						5    //浮点型
+#define UI_Graph_Int 							6    //整形
 #define UI_Graph_Char 						7    //字符型
 
 #define Type_Flag_Cap							0
@@ -102,8 +102,6 @@ void Num_Painter(char name[3], uint32_t Operate_tpye, uint32_t Graphic_tpye, uin
 	uint32_t start_angle, uint32_t end_angle, int Int, float Float);
 void UI_Delete(uint8_t Del_Operate, uint8_t Del_Layer, uint16_t Sender_ID, uint16_t Receiver_ID);
 void UI_Map(uint16_t Target_Robot_ID, float Target_Position_x, float Target_Position_y, float Reserverd);
-void Line_Of_Sight(uint16_t Sender_ID, uint16_t Receiver_ID, uint32_t Layer[7], uint32_t Color[7], uint32_t Width[7],
-	uint32_t Start_x[7], uint32_t Start_y[7], uint32_t End_x[7], uint32_t End_y[7]);
 
 
 typedef enum
@@ -149,24 +147,60 @@ typedef enum
 class UIGraph
 {
 public:
-	UIGraph(char name[3], UI_graph_type_e Type);
-	void Add(char msg[], uint32_t Layer, uint32_t Color, uint32_t Width, uint32_t Size, uint32_t start_x, uint32_t start_y);
-	void Add(uint32_t Layer, uint32_t Color, uint32_t Width, uint32_t start_x, uint32_t start_y, uint32_t end_x, uint32_t end_y,
-		uint32_t Radius, uint32_t start_angle, uint32_t end_angle);
-	void Add(int Int, uint32_t Layer, uint32_t Color, uint32_t Width, uint32_t Size, uint32_t start_x, uint32_t start_y);
-	void Add(float Float, uint32_t Layer, uint32_t Color, uint32_t Width, uint32_t Size, uint32_t Lenth, uint32_t start_x, uint32_t start_y);
-
-	void Change(char msg[], uint32_t Layer, uint32_t Color, uint32_t Width, uint32_t Size, uint32_t start_x, uint32_t start_y);
-	void Change(uint32_t Layer, uint32_t Color, uint32_t Width, uint32_t start_x, uint32_t start_y, uint32_t end_x, uint32_t end_y,
-		uint32_t Radius, uint32_t start_angle, uint32_t end_angle);
-	void Change(int Int, uint32_t Layer, uint32_t Color, uint32_t Width, uint32_t Size, uint32_t start_x, uint32_t start_y);
-	void Change(float Float, uint32_t Layer, uint32_t Color, uint32_t Width, uint32_t Size, uint32_t Lenth, uint32_t start_x, uint32_t start_y);
-
+	
+	void Draw_Graphic(uint16_t Sender_ID, uint16_t Receiver_ID,
+	
+	char name0[3] , uint32_t Operate_tpye0, uint32_t Graphic_tpye0, uint32_t Layer0, uint32_t Color0, uint32_t start_angle0, uint32_t end_angle0, 
+	uint32_t Width0, uint32_t start_x0, uint32_t start_y0, uint32_t radius0, uint32_t end_x0, uint32_t end_y0, 
+	
+	char name1[3],uint32_t Operate_tpye1, uint32_t Graphic_tpye1, uint32_t Layer1, uint32_t Color1, uint32_t start_angle1, uint32_t end_angle1,
+	uint32_t Width1, uint32_t start_x1, uint32_t start_y1, uint32_t radius1, uint32_t end_x1, uint32_t end_y1, 
+	
+	char name2[3],uint32_t Operate_tpye2, uint32_t Graphic_tpye2, uint32_t Layer2, uint32_t Color2, uint32_t start_angle2, uint32_t end_angle2,
+	uint32_t Width2, uint32_t start_x2, uint32_t start_y2, uint32_t radius2, uint32_t end_x2, uint32_t end_y2, 
+	
+	char name3[3],uint32_t Operate_tpye3, uint32_t Graphic_tpye3, uint32_t Layer3, uint32_t Color3, uint32_t start_angle3, uint32_t end_angle3,
+	uint32_t Width3, uint32_t start_x3, uint32_t start_y3, uint32_t radius3, uint32_t end_x3, uint32_t end_y3, 
+	
+	char name4[3],uint32_t Operate_tpye4, uint32_t Graphic_tpye4, uint32_t Layer4, uint32_t Color4, uint32_t start_angle4, uint32_t end_angle4,
+	uint32_t Width4, uint32_t start_x4, uint32_t start_y4, uint32_t radius4, uint32_t end_x4, uint32_t end_y4, 
+	
+	char name5[3],uint32_t Operate_tpye5, uint32_t Graphic_tpye5, uint32_t Layer5, uint32_t Color5, uint32_t start_angle5, uint32_t end_angle5,
+	uint32_t Width5, uint32_t start_x5, uint32_t start_y5, uint32_t radius5, uint32_t end_x5, uint32_t end_y5, 
+	
+	char name6[3],uint32_t Operate_tpye6, uint32_t Graphic_tpye6, uint32_t Layer6, uint32_t Color6, uint32_t start_angle6, uint32_t end_angle6,
+	uint32_t Width6, uint32_t start_x6, uint32_t start_y6, uint32_t radius6, uint32_t end_x6, uint32_t end_y6);
+	
+	
+	
+	
+	void Draw_Number(uint16_t Sender_ID, uint16_t Receiver_ID,
+	
+	char name0[3] , uint32_t Operate_tpye0, uint32_t Graphic_tpye0, uint32_t Layer0, uint32_t Color0, uint32_t start_angle0, uint32_t end_angle0, 
+	uint32_t Width0, uint32_t start_x0, uint32_t start_y0, int Number0,  
+	
+	char name1[3],uint32_t Operate_tpye1, uint32_t Graphic_tpye1, uint32_t Layer1, uint32_t Color1, uint32_t start_angle1, uint32_t end_angle1,
+	uint32_t Width1, uint32_t start_x1, uint32_t start_y1, int Number1, 
+	
+	char name2[3],uint32_t Operate_tpye2, uint32_t Graphic_tpye2, uint32_t Layer2, uint32_t Color2, uint32_t start_angle2, uint32_t end_angle2,
+	uint32_t Width2, uint32_t start_x2, uint32_t start_y2, int Number2, 
+	
+	char name3[3],uint32_t Operate_tpye3, uint32_t Graphic_tpye3, uint32_t Layer3, uint32_t Color3, uint32_t start_angle3, uint32_t end_angle3,
+	uint32_t Width3, uint32_t start_x3, uint32_t start_y3, int Number3, 
+	
+	char name4[3],uint32_t Operate_tpye4, uint32_t Graphic_tpye4, uint32_t Layer4, uint32_t Color4, uint32_t start_angle4, uint32_t end_angle4,
+	uint32_t Width4, uint32_t start_x4, uint32_t start_y4, int Number4, 
+	
+	char name5[3],uint32_t Operate_tpye5, uint32_t Graphic_tpye5, uint32_t Layer5, uint32_t Color5, uint32_t start_angle5, uint32_t end_angle5,
+	uint32_t Width5, uint32_t start_x5, uint32_t start_y5, int Number5, 
+	
+	char name6[3],uint32_t Operate_tpye6, uint32_t Graphic_tpye6, uint32_t Layer6, uint32_t Color6, uint32_t start_angle6, uint32_t end_angle6,
+	uint32_t Width6, uint32_t start_x6, uint32_t start_y6, int Number6);
+	
 	UI_graph_type_e Type;
-	int8_t GetData(uint8_t *ptr, uint8_t &Len);
 private:
-	char *CharData;
-	graphic_data_struct_t Data;
+	MA_UIgraphic_struct_t MA_UIgraphic_struct;
+	MA_UInumber_struct_t  MA_UInumber_struct;
 };
 
 #endif /* __PROTOCOL_UI_H */

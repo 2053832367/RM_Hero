@@ -271,6 +271,23 @@ typedef __packed struct
 
 typedef __packed struct
 {
+	uint8_t graphic_name[3];
+	uint32_t operate_tpye : 3;
+	uint32_t graphic_tpye : 3;
+	uint32_t layer : 4;
+	uint32_t color : 4;
+	uint32_t start_angle : 9;
+	uint32_t end_angle : 9;
+	uint32_t width : 10;
+	uint32_t start_x : 11;
+	uint32_t start_y : 11;
+	int32_t  Number;
+}number_data_struct_t;
+
+
+
+typedef __packed struct
+{
 	tMsg_head UIMsg_head;
 	uint16_t CmdID;
 	ext_student_interactive_header_data_t UIdraw_header_id;
@@ -382,6 +399,24 @@ typedef __packed struct
 	float																	 Reserverd;
 	uint16_t        											 CRC16;
 }map_data_struct_t;
+		
+typedef __packed struct
+{
+	tMsg_head       											 		UIMsg_head;
+	uint16_t         													CmdID;
+	ext_student_interactive_header_data_t  		UIdraw_header_id;
+	graphic_data_struct_t                     MA_UI_date[7];
+	uint16_t        													CRC16;
+}MA_UIgraphic_struct_t;
+
+typedef __packed struct
+{
+	tMsg_head       											 		UIMsg_head;
+	uint16_t         													CmdID;
+	ext_student_interactive_header_data_t  		UIdraw_header_id;
+	number_data_struct_t                     	MA_UI_date[7];
+	uint16_t        													CRC16;
+}MA_UInumber_struct_t;
 
 #define RX_BUF_NUM   1000u
 #define TX_BUF_NUM   512u

@@ -14,25 +14,6 @@ map_data_struct_t     map_data_struct;
 
 uint8_t tx7_buf[255u];
 
-char *Char_Splicing(char *dest, char *src)
-{
-	char *ret = dest;
-
-	while(*dest != '\0')
-	{
-		dest++;
-	}
-	*dest = *src;
-	while(*src != '\0')
-	{
-		*dest++ = *src++;
-
-	}
-	*src++ = '\0';
-	return ret;
-
-}
-
 void Graph_Painter(char name[3], uint32_t Operate_tpye, uint32_t Graphic_tpye, uint16_t Sender_ID, uint16_t Receiver_ID,
 	uint32_t Layer, uint32_t Color, uint32_t Width, uint32_t start_x, uint32_t start_y, uint32_t end_x, uint32_t end_y,
 	uint32_t Radius, uint32_t start_angle, uint32_t end_angle)
@@ -121,167 +102,6 @@ void Graph_Painter(char name[3], uint32_t Operate_tpye, uint32_t Graphic_tpye, u
 
 }
 
-
-void Char_Painter(char name[3], char msg[], uint32_t Operate_tpye, uint16_t Sender_ID, uint16_t Receiver_ID,
-	uint32_t Layer, uint32_t Color, uint32_t Width, uint32_t Size, uint32_t start_x, uint32_t start_y, uint8_t Type_Flag)
-{
-	char  tx7_instruction_buf[30u];
-
-	uint8_t i, src, UI_Seq;
-
-	switch(Type_Flag)
-	{
-	case Type_Flag_Cap:
-	{
-		strcpy(tx7_instruction_buf, "Cap:");
-		Char_Splicing(tx7_instruction_buf, msg);
-		for(i = 5 + sizeof(msg);i < 30;i++)            //i=3+sizeof(msg)
-			if(i == 5 + sizeof(msg))
-				tx7_instruction_buf[i] = '%';
-			else
-				tx7_instruction_buf[i] = ' ';
-		memcpy((void *)&char_data_struct.data, (void *)&tx7_instruction_buf, sizeof(tx7_instruction_buf));
-		UI_Seq = 0x02;
-		break;
-	}
-	case Type_Flag_Level:
-	{
-		strcpy(tx7_instruction_buf, "Level:");
-		Char_Splicing(tx7_instruction_buf, msg);
-		for(i = 6 + sizeof(msg);i < 30;i++)
-			tx7_instruction_buf[i] = ' ';
-		memcpy((void *)&char_data_struct.data, (void *)&tx7_instruction_buf, sizeof(tx7_instruction_buf));
-		UI_Seq = 0x03;
-		break;
-	}
-	case Type_Flag_Chassis:
-	{
-		strcpy(tx7_instruction_buf, "Chassis:");
-		Char_Splicing(tx7_instruction_buf, msg);
-		for(i = 8 + sizeof(msg);i < 30;i++)
-			tx7_instruction_buf[i] = ' ';
-		memcpy((void *)&char_data_struct.data, (void *)&tx7_instruction_buf, sizeof(tx7_instruction_buf));
-		UI_Seq = 0x04;
-		break;
-	}
-	case Type_Flag_Spin:
-	{
-		strcpy(tx7_instruction_buf, "Spin:");
-		Char_Splicing(tx7_instruction_buf, msg);
-		for(i = 4 + sizeof(msg);i < 30;i++)
-			tx7_instruction_buf[i] = ' ';
-		memcpy((void *)&char_data_struct.data, (void *)&tx7_instruction_buf, sizeof(tx7_instruction_buf));
-		UI_Seq = 0x05;
-		break;
-	}
-	case Type_Flag_Auto_Aiming:
-	{
-		strcpy(tx7_instruction_buf, "Aiming:");
-		Char_Splicing(tx7_instruction_buf, msg);
-		for(i = 7 + sizeof(msg);i < 30;i++)
-			tx7_instruction_buf[i] = ' ';
-		memcpy((void *)&char_data_struct.data, (void *)&tx7_instruction_buf, sizeof(tx7_instruction_buf));
-		UI_Seq = 0x06;
-		break;
-	}
-	case Type_Flag_Shoot_Mode:
-	{
-		strcpy(tx7_instruction_buf, "Shoot:");
-		Char_Splicing(tx7_instruction_buf, msg);
-		for(i = 6 + sizeof(msg);i < 30;i++)
-			tx7_instruction_buf[i] = ' ';
-		memcpy((void *)&char_data_struct.data, (void *)&tx7_instruction_buf, sizeof(tx7_instruction_buf));
-		UI_Seq = 0x07;
-		break;
-	}
-	case Type_Flag_Frie_Speed:
-	{
-		strcpy(tx7_instruction_buf, "Mode:");
-		Char_Splicing(tx7_instruction_buf, msg);
-		for(i = 5 + sizeof(msg);i < 30;i++)
-			tx7_instruction_buf[i] = ' ';
-		memcpy((void *)&char_data_struct.data, (void *)&tx7_instruction_buf, sizeof(tx7_instruction_buf));
-		UI_Seq = 0x0a;
-		break;
-	}
-	case Type_Flag_Predict:
-	{
-		strcpy(tx7_instruction_buf, "Predict:");
-		Char_Splicing(tx7_instruction_buf, msg);
-		for(i = 7 + sizeof(msg);i < 30;i++)
-			tx7_instruction_buf[i] = ' ';
-		memcpy((void *)&char_data_struct.data, (void *)&tx7_instruction_buf, sizeof(tx7_instruction_buf));
-		UI_Seq = 0x0c;
-		break;
-	}
-	case Type_Flag_Energy:
-	{
-		strcpy(tx7_instruction_buf, "Energy:");
-		Char_Splicing(tx7_instruction_buf, msg);
-		for(i = 6 + sizeof(msg);i < 30;i++)
-			tx7_instruction_buf[i] = ' ';
-		memcpy((void *)&char_data_struct.data, (void *)&tx7_instruction_buf, sizeof(tx7_instruction_buf));
-		UI_Seq = 0x0d;
-		break;
-	}
-	case Type_Flag_Speed_up:
-	{
-		strcpy(tx7_instruction_buf, "Power");
-		Char_Splicing(tx7_instruction_buf, msg);
-		for(i = 1 + sizeof(msg);i < 30;i++)
-			tx7_instruction_buf[i] = ' ';
-		memcpy((void *)&char_data_struct.data, (void *)&tx7_instruction_buf, sizeof(tx7_instruction_buf));
-		UI_Seq = 0x0e;
-		break;
-	}
-	case Type_Flag_Buff:
-	{
-		strcpy(tx7_instruction_buf, "Buff:");
-		Char_Splicing(tx7_instruction_buf, msg);
-		for(i = 2 + sizeof(msg);i < 30;i++)
-			tx7_instruction_buf[i] = ' ';
-		memcpy((void *)&char_data_struct.data, (void *)&tx7_instruction_buf, sizeof(tx7_instruction_buf));
-		UI_Seq = 0x0f;
-		break;
-	}
-	default: break;
-	}
-
-	char_data_struct.UIMsg_head.SOF = 0xA5;
-	char_data_struct.UIMsg_head.DataLength = 6 + 45;
-	char_data_struct.UIMsg_head.Seq = UI_Seq;
-
-	Append_CRC8_Check_Sum((uint8_t *)&char_data_struct.UIMsg_head, sizeof(char_data_struct.UIMsg_head));
-
-	char_data_struct.CmdID = 0x0301;
-
-	char_data_struct.CharUI_header_id.data_cmd_id = 0x0110;
-	char_data_struct.CharUI_header_id.sender_ID = Sender_ID;
-	char_data_struct.CharUI_header_id.receiver_ID = Receiver_ID;
-
-	for(src = 0;src < 3 && name[src] != '\0';src++)
-		char_data_struct.char_data.graphic_name[2 - src] = name[src];
-
-	char_data_struct.char_data.operate_tpye = Operate_tpye;
-	char_data_struct.char_data.graphic_tpye = 7;
-
-	char_data_struct.char_data.layer = Layer;
-	char_data_struct.char_data.color = Color;
-	char_data_struct.char_data.width = Width;
-
-	char_data_struct.char_data.start_angle = Size;
-	char_data_struct.char_data.end_angle = strlen((char *)char_data_struct.data);
-
-	char_data_struct.char_data.start_x = start_x;
-	char_data_struct.char_data.start_y = start_y;
-
-	Append_CRC16_Check_Sum((uint8_t *)&char_data_struct, sizeof(char_data_struct));
-	memcpy(&tx7_buf[0], (uint8_t *)&char_data_struct, sizeof(char_data_struct));
-	Usart_SendBuff((uint8_t *)&tx7_buf, sizeof(char_data_struct));
-
-	memcpy(tx7_buf, "\0", sizeof(tx7_buf));
-	memset(&char_data_struct, 0, sizeof(char_data_struct));
-}
 
 void Num_Painter(char name[3], uint32_t Operate_tpye, uint32_t Graphic_tpye,
 	uint16_t Sender_ID, uint16_t Receiver_ID, uint32_t Layer, uint32_t Color, uint32_t Width, uint32_t start_x, uint32_t start_y,
@@ -373,51 +193,6 @@ void Num_Painter(char name[3], uint32_t Operate_tpye, uint32_t Graphic_tpye,
 
 }
 
-void Line_Of_Sight(uint16_t Sender_ID, uint16_t Receiver_ID, uint32_t Layer[7], uint32_t Color[7], uint32_t Width[7],
-	uint32_t Start_x[7], uint32_t Start_y[7], uint32_t End_x[7], uint32_t End_y[7])
-{
-	uint8_t i, src;
-	char name[] = "001002003004005006007";
-
-	draw_data_struct.UIMsg_head.SOF = 0xA5;
-	draw_data_struct.UIMsg_head.DataLength = 111;
-	draw_data_struct.UIMsg_head.Seq = 0x01;
-
-	Append_CRC8_Check_Sum((uint8_t *)&draw_data_struct.UIMsg_head, sizeof(draw_data_struct.UIMsg_head));
-
-	draw_data_struct.CmdID = 0x0301;
-
-	draw_data_struct.UIdraw_header_id.data_cmd_id = 0x0104;
-	draw_data_struct.UIdraw_header_id.sender_ID = Sender_ID;
-	draw_data_struct.UIdraw_header_id.receiver_ID = Receiver_ID;
-
-	for(i = 0;i < 7;i++)
-	{
-		for(src = 0;src < 3 && name[src] != '\0';src++)
-			draw_data_struct.graphic_data[i].graphic_name[2 - src] = name[src + (i * 3)];
-
-		draw_data_struct.graphic_data[i].operate_tpye = 1;      //图形操作：0空操作；1添加；2修改；3删除
-		draw_data_struct.graphic_data[i].graphic_tpye = 0;      //图形类型：0直线；1矩形；2整圆；3椭圆；4圆弧；5浮点数；6整型数；7字符；
-
-		draw_data_struct.graphic_data[i].layer = Layer[i];             //图层数0-9
-		draw_data_struct.graphic_data[i].color = Color[i];
-		draw_data_struct.graphic_data[i].width = Width[i];	//线条宽度
-
-		draw_data_struct.graphic_data[i].start_x = Start_x[i];				 //起始坐标x,分辨率1920×1080且全屏时，960，540为屏幕中心
-		draw_data_struct.graphic_data[i].start_y = Start_y[i];				 //起始坐标y,分辨率1920×1080且全屏时，960，540为屏幕中心
-
-		draw_data_struct.graphic_data[i].end_x = End_x[i]; 						 //终点坐标x
-		draw_data_struct.graphic_data[i].end_y = End_y[i];              //终点坐标y
-	}
-
-	Append_CRC16_Check_Sum((uint8_t *)&draw_data_struct, sizeof(draw_data_struct));
-	memcpy(&tx7_buf[0], (uint8_t *)&draw_data_struct, sizeof(draw_data_struct));
-	Usart_SendBuff((uint8_t *)&tx7_buf, sizeof(draw_data_struct));
-
-	memcpy(tx7_buf, "\0", sizeof(tx7_buf));
-	memset(&draw_data_struct, 0, sizeof(draw_data_struct));
-}
-
 void UI_Delete(uint8_t Del_Operate, uint8_t Del_Layer, uint16_t Sender_ID, uint16_t Receiver_ID)
 {
 	uint8_t del_buf[255u];
@@ -469,276 +244,365 @@ void UI_Map(uint16_t Target_Robot_ID, float Target_Position_x, float Target_Posi
 	memset(&map_data_struct, 0, sizeof(map_data_struct));
 }
 
-UIGraph::UIGraph(char name[3], UI_graph_type_e Type)
+void UIGraph::Draw_Graphic(uint16_t Sender_ID, uint16_t Receiver_ID,
+	
+	char name0[3] , uint32_t Operate_tpye0, uint32_t Graphic_tpye0, uint32_t Layer0, uint32_t Color0, uint32_t start_angle0, uint32_t end_angle0, 
+	uint32_t Width0, uint32_t start_x0, uint32_t start_y0, uint32_t radius0, uint32_t end_x0, uint32_t end_y0, 
+	
+	char name1[3],uint32_t Operate_tpye1, uint32_t Graphic_tpye1, uint32_t Layer1, uint32_t Color1, uint32_t start_angle1, uint32_t end_angle1,
+	uint32_t Width1, uint32_t start_x1, uint32_t start_y1, uint32_t radius1, uint32_t end_x1, uint32_t end_y1, 
+	
+	char name2[3],uint32_t Operate_tpye2, uint32_t Graphic_tpye2, uint32_t Layer2, uint32_t Color2, uint32_t start_angle2, uint32_t end_angle2,
+	uint32_t Width2, uint32_t start_x2, uint32_t start_y2, uint32_t radius2, uint32_t end_x2, uint32_t end_y2, 
+	
+	char name3[3],uint32_t Operate_tpye3, uint32_t Graphic_tpye3, uint32_t Layer3, uint32_t Color3, uint32_t start_angle3, uint32_t end_angle3,
+	uint32_t Width3, uint32_t start_x3, uint32_t start_y3, uint32_t radius3, uint32_t end_x3, uint32_t end_y3, 
+	
+	char name4[3],uint32_t Operate_tpye4, uint32_t Graphic_tpye4, uint32_t Layer4, uint32_t Color4, uint32_t start_angle4, uint32_t end_angle4,
+	uint32_t Width4, uint32_t start_x4, uint32_t start_y4, uint32_t radius4, uint32_t end_x4, uint32_t end_y4, 
+	
+	char name5[3],uint32_t Operate_tpye5, uint32_t Graphic_tpye5, uint32_t Layer5, uint32_t Color5, uint32_t start_angle5, uint32_t end_angle5,
+	uint32_t Width5, uint32_t start_x5, uint32_t start_y5, uint32_t radius5, uint32_t end_x5, uint32_t end_y5, 
+	
+	char name6[3],uint32_t Operate_tpye6, uint32_t Graphic_tpye6, uint32_t Layer6, uint32_t Color6, uint32_t start_angle6, uint32_t end_angle6,
+	uint32_t Width6, uint32_t start_x6, uint32_t start_y6, uint32_t radius6, uint32_t end_x6, uint32_t end_y6)
 {
-	if(Type == Nop_e)
-	{
-		return;
-	}
+	uint8_t src, UI_Seq = 0x08;
+	
+	MA_UIgraphic_struct.UIMsg_head.SOF = 0xA5;
+	MA_UIgraphic_struct.UIMsg_head.DataLength = 111;
+	MA_UIgraphic_struct.UIMsg_head.Seq = UI_Seq;
 
-	for(uint8_t i = 0;i < 3 && name[i] != '\0';i++)
-	{
-		Data.graphic_name[2 - i] = name[i];
-	}
-	Data.graphic_tpye = Type;
-	this->Type = Type;
+	Append_CRC8_Check_Sum((uint8_t *)&MA_UIgraphic_struct.UIMsg_head, sizeof(MA_UIgraphic_struct.UIMsg_head));
 
-	if(Type == Char_e)
-	{
-		CharData = new char[30];
-	}
+//-----------------------------------------------------------------------------------------
+
+		for(src = 0;src < 3 && name0[src] != '\0';src++)
+		MA_UIgraphic_struct.MA_UI_date[0].graphic_name[2 - src] = name0[src];
+
+		MA_UIgraphic_struct.MA_UI_date[0].operate_tpye = Operate_tpye0;
+		MA_UIgraphic_struct.MA_UI_date[0].graphic_tpye = Graphic_tpye0;
+
+		MA_UIgraphic_struct.MA_UI_date[0].layer = Layer0;
+		MA_UIgraphic_struct.MA_UI_date[0].color = Color0;
+		
+		MA_UIgraphic_struct.MA_UI_date[0].start_angle = start_angle0;
+		MA_UIgraphic_struct.MA_UI_date[0].end_angle = end_angle0;
+		MA_UIgraphic_struct.MA_UI_date[0].width = Width0;
+		MA_UIgraphic_struct.MA_UI_date[0].start_x = start_x0;
+		MA_UIgraphic_struct.MA_UI_date[0].start_y = start_y0;
+		MA_UIgraphic_struct.MA_UI_date[0].radius = radius0;
+		MA_UIgraphic_struct.MA_UI_date[0].end_x = end_x0;
+		MA_UIgraphic_struct.MA_UI_date[0].end_y = end_y0;
+	
+//-----------------------------------------------------------------------------------------
+
+		for(src = 0;src < 3 && name1[src] != '\0';src++)
+		MA_UIgraphic_struct.MA_UI_date[1].graphic_name[2 - src] = name1[src];
+
+		MA_UIgraphic_struct.MA_UI_date[1].operate_tpye = Operate_tpye1;
+		MA_UIgraphic_struct.MA_UI_date[1].graphic_tpye = Graphic_tpye1;
+
+		MA_UIgraphic_struct.MA_UI_date[1].layer = Layer1;
+		MA_UIgraphic_struct.MA_UI_date[1].color = Color1;
+		
+		MA_UIgraphic_struct.MA_UI_date[1].start_angle = start_angle1;
+		MA_UIgraphic_struct.MA_UI_date[1].end_angle = end_angle1;
+		MA_UIgraphic_struct.MA_UI_date[1].width = Width1;
+		MA_UIgraphic_struct.MA_UI_date[1].start_x = start_x1;
+		MA_UIgraphic_struct.MA_UI_date[1].start_y = start_y1;
+		MA_UIgraphic_struct.MA_UI_date[1].radius = radius1;
+		MA_UIgraphic_struct.MA_UI_date[1].end_x = end_x1;
+		MA_UIgraphic_struct.MA_UI_date[1].end_y = end_y1;
+
+//-----------------------------------------------------------------------------------------
+		
+		for(src = 0;src < 3 && name2[src] != '\0';src++)
+		MA_UIgraphic_struct.MA_UI_date[2].graphic_name[2 - src] = name2[src];
+
+		MA_UIgraphic_struct.MA_UI_date[2].operate_tpye = Operate_tpye2;
+		MA_UIgraphic_struct.MA_UI_date[2].graphic_tpye = Graphic_tpye2;
+
+		MA_UIgraphic_struct.MA_UI_date[2].layer = Layer2;
+		MA_UIgraphic_struct.MA_UI_date[2].color = Color2;
+		
+		MA_UIgraphic_struct.MA_UI_date[2].start_angle = start_angle2;
+		MA_UIgraphic_struct.MA_UI_date[2].end_angle = end_angle2;
+		MA_UIgraphic_struct.MA_UI_date[2].width = Width2;
+		MA_UIgraphic_struct.MA_UI_date[2].start_x = start_x2;
+		MA_UIgraphic_struct.MA_UI_date[2].start_y = start_y2;
+		MA_UIgraphic_struct.MA_UI_date[2].radius = radius2;
+		MA_UIgraphic_struct.MA_UI_date[2].end_x = end_x2;
+		MA_UIgraphic_struct.MA_UI_date[2].end_y = end_y2;
+		
+//-----------------------------------------------------------------------------------------
+	
+		for(src = 0;src < 3 && name3[src] != '\0';src++)
+		MA_UIgraphic_struct.MA_UI_date[3].graphic_name[2 - src] = name3[src];
+
+		MA_UIgraphic_struct.MA_UI_date[3].operate_tpye = Operate_tpye3;
+		MA_UIgraphic_struct.MA_UI_date[3].graphic_tpye = Graphic_tpye3;
+
+		MA_UIgraphic_struct.MA_UI_date[3].layer = Layer3;
+		MA_UIgraphic_struct.MA_UI_date[3].color = Color3;
+		
+		MA_UIgraphic_struct.MA_UI_date[3].start_angle = start_angle3;
+		MA_UIgraphic_struct.MA_UI_date[3].end_angle = end_angle3;
+		MA_UIgraphic_struct.MA_UI_date[3].width = Width3;
+		MA_UIgraphic_struct.MA_UI_date[3].start_x = start_x3;
+		MA_UIgraphic_struct.MA_UI_date[3].start_y = start_y3;
+		MA_UIgraphic_struct.MA_UI_date[3].radius = radius3;
+		MA_UIgraphic_struct.MA_UI_date[3].end_x = end_x3;
+		MA_UIgraphic_struct.MA_UI_date[3].end_y = end_y3;
+
+//-----------------------------------------------------------------------------------------
+
+		for(src = 0;src < 3 && name4[src] != '\0';src++)
+		MA_UIgraphic_struct.MA_UI_date[4].graphic_name[2 - src] = name4[src];
+
+		MA_UIgraphic_struct.MA_UI_date[4].operate_tpye = Operate_tpye4;
+		MA_UIgraphic_struct.MA_UI_date[4].graphic_tpye = Graphic_tpye4;
+
+		MA_UIgraphic_struct.MA_UI_date[4].layer = Layer4;
+		MA_UIgraphic_struct.MA_UI_date[4].color = Color4;
+		
+		MA_UIgraphic_struct.MA_UI_date[4].start_angle = start_angle4;
+		MA_UIgraphic_struct.MA_UI_date[4].end_angle = end_angle4;
+		MA_UIgraphic_struct.MA_UI_date[4].width = Width4;
+		MA_UIgraphic_struct.MA_UI_date[4].start_x = start_x4;
+		MA_UIgraphic_struct.MA_UI_date[4].start_y = start_y4;
+		MA_UIgraphic_struct.MA_UI_date[4].radius = radius4;
+		MA_UIgraphic_struct.MA_UI_date[4].end_x = end_x4;
+		MA_UIgraphic_struct.MA_UI_date[4].end_y = end_y4;
+
+	
+//-----------------------------------------------------------------------------------------
+
+		for(src = 0;src < 3 && name5[src] != '\0';src++)
+		MA_UIgraphic_struct.MA_UI_date[5].graphic_name[2 - src] = name5[src];
+
+		MA_UIgraphic_struct.MA_UI_date[5].operate_tpye = Operate_tpye5;
+		MA_UIgraphic_struct.MA_UI_date[5].graphic_tpye = Graphic_tpye5;
+
+		MA_UIgraphic_struct.MA_UI_date[5].layer = Layer5;
+		MA_UIgraphic_struct.MA_UI_date[5].color = Color5;
+		
+		MA_UIgraphic_struct.MA_UI_date[5].start_angle = start_angle5;
+		MA_UIgraphic_struct.MA_UI_date[5].end_angle = end_angle5;
+		MA_UIgraphic_struct.MA_UI_date[5].width = Width5;
+		MA_UIgraphic_struct.MA_UI_date[5].start_x = start_x5;
+		MA_UIgraphic_struct.MA_UI_date[5].start_y = start_y5;
+		MA_UIgraphic_struct.MA_UI_date[5].radius = radius5;
+		MA_UIgraphic_struct.MA_UI_date[5].end_x = end_x5;
+		MA_UIgraphic_struct.MA_UI_date[5].end_y = end_y5;
+		
+//-----------------------------------------------------------------------------------------
+	
+		for(src = 0;src < 3 && name6[src] != '\0';src++)
+		MA_UIgraphic_struct.MA_UI_date[6].graphic_name[2 - src] = name6[src];
+
+		MA_UIgraphic_struct.MA_UI_date[6].operate_tpye = Operate_tpye6;
+		MA_UIgraphic_struct.MA_UI_date[6].graphic_tpye = Graphic_tpye6;
+
+		MA_UIgraphic_struct.MA_UI_date[6].layer = Layer6;
+		MA_UIgraphic_struct.MA_UI_date[6].color = Color6;
+		
+		MA_UIgraphic_struct.MA_UI_date[6].start_angle = start_angle6;
+		MA_UIgraphic_struct.MA_UI_date[6].end_angle = end_angle6;
+		MA_UIgraphic_struct.MA_UI_date[6].width = Width6;
+		MA_UIgraphic_struct.MA_UI_date[6].start_x = start_x6;
+		MA_UIgraphic_struct.MA_UI_date[6].start_y = start_y6;
+		MA_UIgraphic_struct.MA_UI_date[6].radius = radius6;
+		MA_UIgraphic_struct.MA_UI_date[6].end_x = end_x6;
+		MA_UIgraphic_struct.MA_UI_date[6].end_y = end_y6;
+	
+
+	MA_UIgraphic_struct.CmdID = 0x0301;
+
+	MA_UIgraphic_struct.UIdraw_header_id.data_cmd_id = 0x0104;
+	MA_UIgraphic_struct.UIdraw_header_id.sender_ID = Sender_ID;
+	MA_UIgraphic_struct.UIdraw_header_id.receiver_ID = Receiver_ID;
+
+	Append_CRC16_Check_Sum((uint8_t *)&MA_UIgraphic_struct, sizeof(MA_UIgraphic_struct));
+	memcpy(&tx7_buf[0], (uint8_t *)&MA_UIgraphic_struct, sizeof(MA_UIgraphic_struct));
+	
+//	Usart_SendBuff((uint8_t *)&tx7_buf, sizeof(MA_UIgraphic_struct));
+
+	memcpy(tx7_buf, "\0", sizeof(tx7_buf));
+	memset(&MA_UIgraphic_struct, 0, sizeof(MA_UIgraphic_struct));
+
 }
 
-//打印字符串
-void UIGraph::Add(char msg[], uint32_t Layer, uint32_t Color, uint32_t Width, uint32_t Size, uint32_t start_x, uint32_t start_y)
+void UIGraph::Draw_Number(uint16_t Sender_ID, uint16_t Receiver_ID,
+	
+	char name0[3] , uint32_t Operate_tpye0, uint32_t Graphic_tpye0, uint32_t Layer0, uint32_t Color0, uint32_t start_angle0, uint32_t end_angle0, 
+	uint32_t Width0, uint32_t start_x0, uint32_t start_y0, int Number0,  
+	
+	char name1[3],uint32_t Operate_tpye1, uint32_t Graphic_tpye1, uint32_t Layer1, uint32_t Color1, uint32_t start_angle1, uint32_t end_angle1,
+	uint32_t Width1, uint32_t start_x1, uint32_t start_y1, int Number1, 
+	
+	char name2[3],uint32_t Operate_tpye2, uint32_t Graphic_tpye2, uint32_t Layer2, uint32_t Color2, uint32_t start_angle2, uint32_t end_angle2,
+	uint32_t Width2, uint32_t start_x2, uint32_t start_y2, int Number2, 
+	
+	char name3[3],uint32_t Operate_tpye3, uint32_t Graphic_tpye3, uint32_t Layer3, uint32_t Color3, uint32_t start_angle3, uint32_t end_angle3,
+	uint32_t Width3, uint32_t start_x3, uint32_t start_y3, int Number3, 
+	
+	char name4[3],uint32_t Operate_tpye4, uint32_t Graphic_tpye4, uint32_t Layer4, uint32_t Color4, uint32_t start_angle4, uint32_t end_angle4,
+	uint32_t Width4, uint32_t start_x4, uint32_t start_y4, int Number4, 
+	
+	char name5[3],uint32_t Operate_tpye5, uint32_t Graphic_tpye5, uint32_t Layer5, uint32_t Color5, uint32_t start_angle5, uint32_t end_angle5,
+	uint32_t Width5, uint32_t start_x5, uint32_t start_y5, int Number5, 
+	
+	char name6[3],uint32_t Operate_tpye6, uint32_t Graphic_tpye6, uint32_t Layer6, uint32_t Color6, uint32_t start_angle6, uint32_t end_angle6,
+	uint32_t Width6, uint32_t start_x6, uint32_t start_y6, int Number6)
 {
-	if(Data.graphic_tpye != Char_e)
-	{
-		return;
-	}
-	memcpy(CharData, &msg, sizeof(msg));
-	memset(&CharData[sizeof(msg)], ' ', 30 - sizeof(msg));
+	uint8_t src, UI_Seq = 0x08;
+	
+	MA_UInumber_struct.UIMsg_head.SOF = 0xA5;
+	MA_UInumber_struct.UIMsg_head.DataLength = 111;
+	MA_UInumber_struct.UIMsg_head.Seq = UI_Seq;
 
-	Data.operate_tpye = ADD_e;
+	Append_CRC8_Check_Sum((uint8_t *)&MA_UInumber_struct.UIMsg_head, sizeof(MA_UInumber_struct.UIMsg_head));
 
-	Data.layer = Layer;
-	Data.color = Color;
+//-----------------------------------------------------------------------------------------
 
-	Data.start_angle = Size;
-	Data.end_angle = strlen(CharData);
-	Data.width = Width;
-	Data.start_x = start_x;
-	Data.start_y = start_y;
+		for(src = 0;src < 3 && name0[src] != '\0';src++)
+		MA_UInumber_struct.MA_UI_date[0].graphic_name[2 - src] = name0[src];
 
-//	UIDraw.UI_Sent(this);
-}
+		MA_UInumber_struct.MA_UI_date[0].operate_tpye = Operate_tpye0;
+		MA_UInumber_struct.MA_UI_date[0].graphic_tpye = Graphic_tpye0;
 
-/*
-类型 	width 		start_x		start_y 	end_x 			end_y		radius	start_angle end_angle
-直线	线条宽度 	起点x坐标 	起点y坐标  	终点x坐标 		终点y坐标		空		空			空
-矩形 	线条宽度 	起点x坐标 	起点y坐标  	对角顶点x坐标 	对角顶点y坐标	空		空 			空
-正圆 	线条宽度 	圆心x坐标 	圆心y坐标  		空 				空		  半径		空 			空
-椭圆 	线条宽度 	圆心x坐标 	圆心y坐标 	x半轴长度 		y半轴长度		空		空 			空
-圆弧 	线条宽度 	圆心x坐标 	圆心y坐标 	x半轴长度 		y半轴长度		空	起始角度 	终止角度
-*/
-//打印图形,空数据则输入NULL
-void UIGraph::Add(uint32_t Layer, uint32_t Color, uint32_t Width, uint32_t start_x, uint32_t start_y,
-	uint32_t end_x, uint32_t end_y, uint32_t Radius, uint32_t start_angle, uint32_t end_angle)
-{
-	if(Data.graphic_tpye != Line_e && Data.graphic_tpye != Rectangle_e && Data.graphic_tpye != Circle_e
-		&& Data.graphic_tpye != Ellipse_e && Data.graphic_tpye != Arc_e)
-	{
-		return;
-	}
-	Data.operate_tpye = ADD_e;
+		MA_UInumber_struct.MA_UI_date[0].layer = Layer0;
+		MA_UInumber_struct.MA_UI_date[0].color = Color0;
+		
+		MA_UInumber_struct.MA_UI_date[0].start_angle = start_angle0;
+		MA_UInumber_struct.MA_UI_date[0].end_angle = end_angle0;
+		MA_UInumber_struct.MA_UI_date[0].width = Width0;
+		MA_UInumber_struct.MA_UI_date[0].start_x = start_x0;
+		MA_UInumber_struct.MA_UI_date[0].start_y = start_y0;
+		MA_UInumber_struct.MA_UI_date[0].Number = Number0;
+	
+//-----------------------------------------------------------------------------------------
 
-	Data.layer = Layer;
-	Data.color = Color;
-	Data.width = Width;
+		for(src = 0;src < 3 && name1[src] != '\0';src++)
+		MA_UInumber_struct.MA_UI_date[1].graphic_name[2 - src] = name1[src];
 
-	Data.start_x = start_x;
-	Data.start_y = start_y;
+		MA_UInumber_struct.MA_UI_date[1].operate_tpye = Operate_tpye1;
+		MA_UInumber_struct.MA_UI_date[1].graphic_tpye = Graphic_tpye1;
 
-	Data.end_x = end_x;
-	Data.end_y = end_y;
+		MA_UInumber_struct.MA_UI_date[1].layer = Layer1;
+		MA_UInumber_struct.MA_UI_date[1].color = Color1;
+		
+		MA_UInumber_struct.MA_UI_date[1].start_angle = start_angle1;
+		MA_UInumber_struct.MA_UI_date[1].end_angle = end_angle1;
+		MA_UInumber_struct.MA_UI_date[1].width = Width1;
+		MA_UInumber_struct.MA_UI_date[1].start_x = start_x1;
+		MA_UInumber_struct.MA_UI_date[1].start_y = start_y1;
+		MA_UInumber_struct.MA_UI_date[1].Number = Number1;
 
-	Data.radius = Radius;
+//-----------------------------------------------------------------------------------------
+		
+		for(src = 0;src < 3 && name2[src] != '\0';src++)
+		MA_UInumber_struct.MA_UI_date[2].graphic_name[2 - src] = name2[src];
 
-	Data.start_angle = start_angle;
-	Data.end_angle = end_angle;
+		MA_UInumber_struct.MA_UI_date[2].operate_tpye = Operate_tpye2;
+		MA_UInumber_struct.MA_UI_date[2].graphic_tpye = Graphic_tpye2;
 
-//	UIDraw.UI_Sent(this);
-}
+		MA_UInumber_struct.MA_UI_date[2].layer = Layer2;
+		MA_UInumber_struct.MA_UI_date[2].color = Color2;
+		
+		MA_UInumber_struct.MA_UI_date[2].start_angle = start_angle2;
+		MA_UInumber_struct.MA_UI_date[2].end_angle = end_angle2;
+		MA_UInumber_struct.MA_UI_date[2].width = Width2;
+		MA_UInumber_struct.MA_UI_date[2].start_x = start_x2;
+		MA_UInumber_struct.MA_UI_date[2].start_y = start_y2;
+		MA_UInumber_struct.MA_UI_date[2].Number = Number2;
+		
+//-----------------------------------------------------------------------------------------
+	
+		for(src = 0;src < 3 && name3[src] != '\0';src++)
+		MA_UInumber_struct.MA_UI_date[3].graphic_name[2 - src] = name3[src];
 
-//打印整形数字
-void UIGraph::Add(int Int, uint32_t Layer, uint32_t Color, uint32_t Width, uint32_t Size, uint32_t start_x, uint32_t start_y)
-{
-	if(Data.graphic_tpye != Int_e)
-	{
-		return;
-	}
+		MA_UInumber_struct.MA_UI_date[3].operate_tpye = Operate_tpye3;
+		MA_UInumber_struct.MA_UI_date[3].graphic_tpye = Graphic_tpye3;
 
-	Data.operate_tpye = ADD_e;
-	uint8_t *ptr = (uint8_t *)&Data;
-	memcpy(&ptr[11], &Int, sizeof(Int));
+		MA_UInumber_struct.MA_UI_date[3].layer = Layer3;
+		MA_UInumber_struct.MA_UI_date[3].color = Color3;
+		
+		MA_UInumber_struct.MA_UI_date[3].start_angle = start_angle3;
+		MA_UInumber_struct.MA_UI_date[3].end_angle = end_angle3;
+		MA_UInumber_struct.MA_UI_date[3].width = Width3;
+		MA_UInumber_struct.MA_UI_date[3].start_x = start_x3;
+		MA_UInumber_struct.MA_UI_date[3].start_y = start_y3;
+		MA_UInumber_struct.MA_UI_date[3].Number = Number3;
 
-	Data.layer = Layer;
-	Data.color = Color;
-	Data.width = Width;
+//-----------------------------------------------------------------------------------------
 
-	Data.start_x = start_x;
-	Data.start_y = start_y;
+		for(src = 0;src < 3 && name4[src] != '\0';src++)
+		MA_UInumber_struct.MA_UI_date[4].graphic_name[2 - src] = name4[src];
 
-	Data.start_angle = Size;
+		MA_UInumber_struct.MA_UI_date[4].operate_tpye = Operate_tpye4;
+		MA_UInumber_struct.MA_UI_date[4].graphic_tpye = Graphic_tpye4;
 
-//	UIDraw.UI_Sent(this);
-}
+		MA_UInumber_struct.MA_UI_date[4].layer = Layer4;
+		MA_UInumber_struct.MA_UI_date[4].color = Color4;
+		
+		MA_UInumber_struct.MA_UI_date[4].start_angle = start_angle4;
+		MA_UInumber_struct.MA_UI_date[4].end_angle = end_angle4;
+		MA_UInumber_struct.MA_UI_date[4].width = Width4;
+		MA_UInumber_struct.MA_UI_date[4].start_x = start_x4;
+		MA_UInumber_struct.MA_UI_date[4].start_y = start_y4;
+		MA_UInumber_struct.MA_UI_date[4].Number = Number4;
+	
+//-----------------------------------------------------------------------------------------
 
-//打印浮点数，Lenth为小数长度
-void UIGraph::Add(float Float, uint32_t Layer, uint32_t Color, uint32_t Width, uint32_t Size, uint32_t Lenth, uint32_t start_x, uint32_t start_y)
-{
-	if(Data.graphic_tpye != Float_e)
-	{
-		return;
-	}
+		for(src = 0;src < 3 && name5[src] != '\0';src++)
+		MA_UInumber_struct.MA_UI_date[5].graphic_name[2 - src] = name5[src];
 
-	Data.operate_tpye = ADD_e;
+		MA_UInumber_struct.MA_UI_date[5].operate_tpye = Operate_tpye5;
+		MA_UInumber_struct.MA_UI_date[5].graphic_tpye = Graphic_tpye5;
 
-	int32_t num = Float * 1000;
-	uint8_t *ptr = (uint8_t *)&Data;
-	memcpy(&ptr[11], &num, sizeof(num));
+		MA_UInumber_struct.MA_UI_date[5].layer = Layer5;
+		MA_UInumber_struct.MA_UI_date[5].color = Color5;
+		
+		MA_UInumber_struct.MA_UI_date[5].start_angle = start_angle5;
+		MA_UInumber_struct.MA_UI_date[5].end_angle = end_angle5;
+		MA_UInumber_struct.MA_UI_date[5].width = Width5;
+		MA_UInumber_struct.MA_UI_date[5].start_x = start_x5;
+		MA_UInumber_struct.MA_UI_date[5].start_y = start_y5;
+		MA_UInumber_struct.MA_UI_date[5].Number = Number5;
+		
+//-----------------------------------------------------------------------------------------
+	
+		for(src = 0;src < 3 && name6[src] != '\0';src++)
+		MA_UInumber_struct.MA_UI_date[6].graphic_name[2 - src] = name6[src];
 
+		MA_UInumber_struct.MA_UI_date[6].operate_tpye = Operate_tpye6;
+		MA_UInumber_struct.MA_UI_date[6].graphic_tpye = Graphic_tpye6;
 
-	Data.layer = Layer;
-	Data.color = Color;
-	Data.width = Width;
+		MA_UInumber_struct.MA_UI_date[6].layer = Layer6;
+		MA_UInumber_struct.MA_UI_date[6].color = Color6;
+		
+		MA_UInumber_struct.MA_UI_date[6].start_angle = start_angle6;
+		MA_UInumber_struct.MA_UI_date[6].end_angle = end_angle6;
+		MA_UInumber_struct.MA_UI_date[6].width = Width6;
+		MA_UInumber_struct.MA_UI_date[6].start_x = start_x6;
+		MA_UInumber_struct.MA_UI_date[6].start_y = start_y6;
+		MA_UInumber_struct.MA_UI_date[6].Number = Number6;
+	
 
-	Data.start_x = start_x;
-	Data.start_y = start_y;
+	MA_UInumber_struct.CmdID = 0x0301;
 
-	Data.start_angle = Size;
-	Data.end_angle = Lenth;
+	MA_UInumber_struct.UIdraw_header_id.data_cmd_id = 0x0104;
+	MA_UInumber_struct.UIdraw_header_id.sender_ID = Sender_ID;
+	MA_UInumber_struct.UIdraw_header_id.receiver_ID = Receiver_ID;
 
-//	UIDraw.UI_Sent(this);
-}
+	Append_CRC16_Check_Sum((uint8_t *)&MA_UInumber_struct, sizeof(MA_UInumber_struct));
+	memcpy(&tx7_buf[0], (uint8_t *)&MA_UInumber_struct, sizeof(MA_UInumber_struct));
+	
+//	Usart_SendBuff((uint8_t *)&tx7_buf, sizeof(MA_UIgraphic_struct));
 
-//打印字符串
-void UIGraph::Change(char msg[], uint32_t Layer, uint32_t Color, uint32_t Width, uint32_t Size, uint32_t start_x, uint32_t start_y)
-{
-	if(Data.graphic_tpye != Char_e)
-	{
-		return;
-	}
-	memcpy(CharData, &msg, sizeof(msg));
-	memset(&CharData[sizeof(msg)], ' ', 30 - sizeof(msg));
+	memcpy(tx7_buf, "\0", sizeof(tx7_buf));
+	memset(&MA_UInumber_struct, 0, sizeof(MA_UInumber_struct));
 
-	Data.operate_tpye = Change_e;
-
-	Data.layer = Layer;
-	Data.color = Color;
-
-	Data.start_angle = Size;
-	Data.end_angle = strlen(CharData);
-	Data.width = Width;
-	Data.start_x = start_x;
-	Data.start_y = start_y;
-
-//	UIDraw.UI_Sent(this);
-}
-
-/*
-类型 	width 		start_x		start_y 	end_x 			end_y		radius	start_angle end_angle
-直线	线条宽度 	起点x坐标 	起点y坐标  	终点x坐标 		终点y坐标		空		空			空
-矩形 	线条宽度 	起点x坐标 	起点y坐标  	对角顶点x坐标 	对角顶点y坐标	空		空 			空
-正圆 	线条宽度 	圆心x坐标 	圆心y坐标  		空 				空		  半径		空 			空
-椭圆 	线条宽度 	圆心x坐标 	圆心y坐标 	x半轴长度 		y半轴长度		空		空 			空
-圆弧 	线条宽度 	圆心x坐标 	圆心y坐标 	x半轴长度 		y半轴长度		空	起始角度 	终止角度
-*/
-//打印图形,空数据则输入NULL
-void UIGraph::Change(uint32_t Layer, uint32_t Color, uint32_t Width, uint32_t start_x, uint32_t start_y, uint32_t end_x, uint32_t end_y,
-	uint32_t Radius, uint32_t start_angle, uint32_t end_angle)
-{
-	if(Data.graphic_tpye != Line_e && Data.graphic_tpye != Rectangle_e && Data.graphic_tpye != Circle_e
-		&& Data.graphic_tpye != Ellipse_e && Data.graphic_tpye != Arc_e)
-	{
-		return;
-	}
-	Data.operate_tpye = Change_e;
-
-	Data.layer = Layer;
-	Data.color = Color;
-	Data.width = Width;
-
-	Data.start_x = start_x;
-	Data.start_y = start_y;
-
-	Data.end_x = end_x;
-	Data.end_y = end_y;
-
-	Data.radius = Radius;
-
-	Data.start_angle = start_angle;
-	Data.end_angle = end_angle;
-
-//	UIDraw.UI_Sent(this);
-}
-//打印整形数字
-void UIGraph::Change(int Int, uint32_t Layer, uint32_t Color, uint32_t Width, uint32_t Size, uint32_t start_x, uint32_t start_y)
-{
-	if(Data.graphic_tpye != Int_e)
-	{
-		return;
-	}
-
-	Data.operate_tpye = Change_e;
-	uint8_t *ptr = (uint8_t *)&Data;
-	memcpy(&ptr[11], &Int, sizeof(Int));
-
-	Data.layer = Layer;
-	Data.color = Color;
-	Data.width = Width;
-
-	Data.start_x = start_x;
-	Data.start_y = start_y;
-
-	Data.start_angle = Size;
-
-//	UIDraw.UI_Sent(this);
-}
-
-//打印浮点数，Lenth为小数长度
-void UIGraph::Change(float Float, uint32_t Layer, uint32_t Color, uint32_t Width, uint32_t Size, uint32_t Lenth, uint32_t start_x, uint32_t start_y)
-{
-	if(Data.graphic_tpye != Float_e)
-	{
-		return;
-	}
-
-	Data.operate_tpye = Change_e;
-
-	int32_t num = Float * 1000;
-	uint8_t *ptr = (uint8_t *)&Data;
-	memcpy(&ptr[11], &num, sizeof(num));
-
-
-	Data.layer = Layer;
-	Data.color = Color;
-	Data.width = Width;
-
-	Data.start_x = start_x;
-	Data.start_y = start_y;
-
-	Data.start_angle = Size;
-	Data.end_angle = Lenth;
-
-//	UIDraw.UI_Sent(this);
-}
-
-//获取数据，若返回为1则发送，若返回为-1则失败，若返回为-2则发送清空后重来
-int8_t UIGraph::GetData(uint8_t *ptr, uint8_t &Len)
-{
-	if(ptr == NULL)
-	{
-		return -1;
-	}
-
-	if(Data.graphic_tpye == Char_e)
-	{
-		if(Len != 0)
-		{
-			return -2;
-		}
-		memcpy(&ptr[16], &CharData, sizeof(char) * 30);
-		Len = 30;
-		return 1;
-	}
-
-	memcpy(ptr, &Data, sizeof(Data));
-	Len += 15;
-
-	if(Len == 105)
-	{
-		return 1;
-	}
-	return 0;
 }

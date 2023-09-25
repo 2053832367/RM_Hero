@@ -66,11 +66,12 @@ void UI_Draw_Ctrl::UI_ADD()
     for(uint8_t i = 0;i < 2;i++)
     {
         //电容状态
-        Num_Painter("vo", UI_Graph_ADD, UI_Graph_Int, standard_ID1, standard_ID2, 3, Graphic_Color_White, 3, 1600, 410, 20, NULL, 0, NULL);
-        Num_Painter("vo", UI_Graph_ADD, UI_Graph_Int, standard_ID1, standard_ID2, 3, Graphic_Color_White, 3, 1600, 410, 20, NULL, 0, NULL);
-        Num_Painter("li", UI_Graph_ADD, UI_Graph_Int, standard_ID1, standard_ID2, 3, Graphic_Color_White, 3, 1600, 370, 20, NULL, 0, NULL);
+        Num_Painter("vo", UI_Graph_ADD, UI_Graph_Float, standard_ID1, standard_ID2, 3, Graphic_Color_White, 3, 1600, 410, 20, NULL, 0, NULL);
+        Num_Painter("vo", UI_Graph_ADD, UI_Graph_Float, standard_ID1, standard_ID2, 3, Graphic_Color_White, 3, 1600, 410, 20, NULL, 0, NULL);
+        Num_Painter("li", UI_Graph_ADD, UI_Graph_Float, standard_ID1, standard_ID2, 3, Graphic_Color_White, 3, 1600, 370, 20, NULL, 0, NULL);
         Graph_Painter(" ", UI_Graph_ADD, UI_Graph_Line, standard_ID1, standard_ID2, 3, Graphic_Color_White, 10, 500, 100, 500, 100, NULL, NULL, NULL);
 
+				//底盘相对角度
         Graph_Painter("Li4", UI_Graph_ADD, UI_Graph_Line, standard_ID1, standard_ID2, 3, Graphic_Color_White, 10, 960, 540, 960, 540, NULL, NULL, NULL);
 				Graph_Painter("Li5", UI_Graph_ADD, UI_Graph_Line, standard_ID1, standard_ID2, 3, Graphic_Color_Main, 17, 120, 625, 120, 750, NULL, NULL, NULL);
 
@@ -82,6 +83,26 @@ void UI_Draw_Ctrl::UI_ADD()
         Graph_Painter("LI1", UI_Graph_ADD, UI_Graph_Line, standard_ID1, standard_ID2, 3, Graphic_Color_Yellow, 3, 910, 375, 970, 375, NULL, NULL, NULL);//900,1020
         Graph_Painter("LI2", UI_Graph_ADD, UI_Graph_Line, standard_ID1, standard_ID2, 3, Graphic_Color_Yellow, 3, 927, 354, 953, 354, NULL, NULL, NULL);//900,1020
     }
+		for(uint8_t i = 0;i < 2;i++)
+    {
+        UIDraw.Draw_Number(standard_ID1, standard_ID2,
+			                    "vo", UI_Graph_ADD, UI_Graph_Float , 3, Graphic_Color_White, NULL , NULL , NULL , NULL , NULL , NULL ,
+													"vo", UI_Graph_ADD, UI_Graph_Float , 3, Graphic_Color_White, NULL , NULL , NULL , NULL , NULL , NULL ,
+													"vo", UI_Graph_ADD, UI_Graph_Float , 3, Graphic_Color_White, NULL , NULL , NULL , NULL , NULL , NULL ,
+													"vo", UI_Graph_ADD, UI_Graph_Float , 3, Graphic_Color_White, NULL , NULL , NULL , NULL , NULL , NULL ,
+													"vo", UI_Graph_ADD, UI_Graph_Float , 3, Graphic_Color_White, NULL , NULL , NULL , NULL , NULL , NULL , 
+													"vo", UI_Graph_ADD, UI_Graph_Float , 3, Graphic_Color_White, NULL , NULL , NULL , NULL , NULL , NULL ,
+													"vo", UI_Graph_ADD, UI_Graph_Float , 3, Graphic_Color_White, NULL , NULL , NULL , NULL , NULL , NULL );
+			
+				UIDraw.Draw_Graphic(standard_ID1, standard_ID2,
+													"vo", UI_Graph_ADD, UI_Graph_Line , 3, Graphic_Color_White, NULL , NULL , NULL , NULL , NULL , NULL , NULL , NULL ,
+			                    "vo", UI_Graph_ADD, UI_Graph_Line , 3, Graphic_Color_White, NULL , NULL , NULL , NULL , NULL , NULL , NULL , NULL ,
+													"vo", UI_Graph_ADD, UI_Graph_Line , 3, Graphic_Color_White, NULL , NULL , NULL , NULL , NULL , NULL , NULL , NULL ,
+													"vo", UI_Graph_ADD, UI_Graph_Line , 3, Graphic_Color_White, NULL , NULL , NULL , NULL , NULL , NULL , NULL , NULL ,
+													"vo", UI_Graph_ADD, UI_Graph_Line , 3, Graphic_Color_White, NULL , NULL , NULL , NULL , NULL , NULL , NULL , NULL , 
+													"vo", UI_Graph_ADD, UI_Graph_Line , 3, Graphic_Color_White, NULL , NULL , NULL , NULL , NULL , NULL , NULL , NULL , 
+													"vo", UI_Graph_ADD, UI_Graph_Line , 3, Graphic_Color_White, NULL , NULL , NULL , NULL , NULL , NULL , NULL , NULL );
+    }
 }
 
 void UI_Draw_Ctrl::UI_Change()
@@ -90,23 +111,23 @@ void UI_Draw_Ctrl::UI_Change()
     //超级电容
     if(Message.SuperCapR.energy < 20)
     {
-        Num_Painter("vo", UI_Graph_Change, UI_Graph_Int, standard_ID1, standard_ID2, 3, Graphic_Color_Orange, 3, 1300, 100, 20, NULL, Message.SuperCapR.energy * 1000, NULL);
-        Num_Painter("vo", UI_Graph_Change, UI_Graph_Int, standard_ID1, standard_ID2, 3, Graphic_Color_Orange, 3, 1300, 100, 20, NULL, Message.SuperCapR.energy * 1000, NULL);
+        Num_Painter("vo", UI_Graph_Change, UI_Graph_Float, standard_ID1, standard_ID2, 3, Graphic_Color_Orange, 3, 1300, 100, 20, NULL, NULL, Message.SuperCapR.energy);
+        Num_Painter("vo", UI_Graph_Change, UI_Graph_Float, standard_ID1, standard_ID2, 3, Graphic_Color_Orange, 3, 1300, 100, 20, NULL, NULL, Message.SuperCapR.energy);
         Graph_Painter(" ", UI_Graph_Change, UI_Graph_Line, standard_ID1, standard_ID2, 3, Graphic_Color_Orange, 10, 500, 100, 500 + Message.SuperCapR.energy * 8, 100, NULL, NULL, NULL);
     }
     else if(Message.SuperCapR.energy < 50)
     {
-        Num_Painter("vo", UI_Graph_Change, UI_Graph_Int, standard_ID1, standard_ID2, 3, Graphic_Color_Green, 3, 1300, 100, 20, NULL, Message.SuperCapR.energy * 1000, NULL);
-        Num_Painter("vo", UI_Graph_Change, UI_Graph_Int, standard_ID1, standard_ID2, 3, Graphic_Color_Green, 3, 1300, 100, 20, NULL, Message.SuperCapR.energy * 1000, NULL);
+        Num_Painter("vo", UI_Graph_Change, UI_Graph_Float, standard_ID1, standard_ID2, 3, Graphic_Color_Green, 3, 1300, 100, 20, NULL, NULL, Message.SuperCapR.energy);
+        Num_Painter("vo", UI_Graph_Change, UI_Graph_Float, standard_ID1, standard_ID2, 3, Graphic_Color_Green, 3, 1300, 100, 20, NULL, NULL, Message.SuperCapR.energy);
         Graph_Painter(" ", UI_Graph_Change, UI_Graph_Line, standard_ID1, standard_ID2, 3, Graphic_Color_Green, 10, 500, 100, 500 + Message.SuperCapR.energy * 8, 100, NULL, NULL, NULL);
     }
     else
     {
-        Num_Painter("vo", UI_Graph_Change, UI_Graph_Int, standard_ID1, standard_ID2, 3, Graphic_Color_Yellow, 3, 1300, 100, 20, NULL, Message.SuperCapR.energy * 1000, NULL);
-        Num_Painter("vo", UI_Graph_Change, UI_Graph_Int, standard_ID1, standard_ID2, 3, Graphic_Color_Yellow, 3, 1300, 100, 20, NULL, Message.SuperCapR.energy * 1000, NULL);
+        Num_Painter("vo", UI_Graph_Change, UI_Graph_Float, standard_ID1, standard_ID2, 3, Graphic_Color_Yellow, 3, 1300, 100, 20, NULL, NULL, Message.SuperCapR.energy);
+        Num_Painter("vo", UI_Graph_Change, UI_Graph_Float, standard_ID1, standard_ID2, 3, Graphic_Color_Yellow, 3, 1300, 100, 20, NULL, NULL, Message.SuperCapR.energy);
         Graph_Painter(" ", UI_Graph_Change, UI_Graph_Line, standard_ID1, standard_ID2, 3, Graphic_Color_Yellow, 10, 500, 100, 500 + Message.SuperCapR.energy * 8, 100, NULL, NULL, NULL);
     }
-    Num_Painter("li", UI_Graph_Change, UI_Graph_Int, standard_ID1, standard_ID2, 3, Graphic_Color_Green, 3, 1360, 100, 20, NULL, Message.SuperCapR.power * 1000, NULL);
+    Num_Painter("li", UI_Graph_Change, UI_Graph_Float, standard_ID1, standard_ID2, 3, Graphic_Color_Green, 3, 1360, 100, 20, NULL, NULL, Message.SuperCapR.power);
 
     //底盘相对角度
     x1 = 120 - arm_sin_f32(-Chassis.chassis_relative_RAD + 0.52359877f) * 100.0f;
@@ -124,98 +145,6 @@ void UI_Draw_Ctrl::UI_Change()
 UI_Draw_Ctrl *get_UI_Draw_Ctrl_Pointer()
 {
     return &UIDraw;
-}
-
-
-
-void UI_Draw_Ctrl::UI_Sent(UIGraph *Graph)
-{
-    if(Graph == NULL)
-    {
-        return;
-    }
-
-    int8_t res;
-
-    res = Graph->GetData(GraphData, Len);
-    if(res == -1)
-    {
-        return;
-    }
-    else if(res == 1)
-    {
-        UI_Sent(GraphData, Len);
-    }
-    else if(res == -2)
-    {
-        uint8_t Data[45];
-        uint8_t Lenth = 0;
-        Graph->GetData(Data, Lenth);
-        UI_Char_Sent(Data);
-    }
-}
-
-void UI_Draw_Ctrl::UI_Char_Sent(uint8_t *ptr)
-{
-    ext_client_custom_character.UIMsg_head.SOF = 0xA5;
-    ext_client_custom_character.UIMsg_head.DataLength = 6 + 45;
-    ext_client_custom_character.UIMsg_head.Seq = Seq++;
-    if(Seq == 255) Seq = 0;
-
-    Append_CRC8_Check_Sum((uint8_t *)&ext_client_custom_character.UIMsg_head, sizeof(ext_client_custom_character.UIMsg_head));
-
-    ext_client_custom_character.CmdID = 0x0301;
-
-
-    ext_client_custom_character.UIdraw_header_id.data_cmd_id = 0x0110;
-    ext_client_custom_character.UIdraw_header_id.sender_ID = standard_ID1;
-    ext_client_custom_character.UIdraw_header_id.receiver_ID = standard_ID2;
-
-    memcpy(&ext_client_custom_character.grapic_data_struct, ptr, 45u);
-
-    Append_CRC16_Check_Sum((uint8_t *)&ext_client_custom_character, sizeof(ext_client_custom_character));
-    Usart_SendBuff((uint8_t *)&ext_client_custom_character, sizeof(char_data_struct));
-
-    memset(&ext_client_custom_character, 0, sizeof(ext_client_custom_character));
-}
-
-void UI_Draw_Ctrl::UI_Sent(uint8_t *ptr, uint8_t Len)
-{
-    if(Len % 15 != 0 || ptr == 0)
-    {
-        return;
-    }
-    uint8_t Lenth = 0;
-    uint8_t buf[255];
-
-    if(Len == 15)
-        Lenth = 15;
-    else if(Len == 30)
-        Lenth = 30;
-    else if(Len == 45 || Len == 60 || Len == 75)
-        Lenth = 75;
-    else if(Len == 90 || Lenth == 105)
-        Lenth = 105;
-
-    ext_client_custom_graphic_single.UIMsg_head.SOF = 0xA5;
-    ext_client_custom_graphic_single.UIMsg_head.DataLength = 6 + 45;
-    ext_client_custom_graphic_single.UIMsg_head.Seq = Seq++;
-    if(Seq == 255) Seq = 0;
-
-    Append_CRC8_Check_Sum((uint8_t *)&ext_client_custom_graphic_single.UIMsg_head, sizeof(ext_client_custom_character.UIMsg_head));
-
-    ext_client_custom_graphic_single.CmdID = 0x0301;
-
-    ext_client_custom_graphic_single.UIdraw_header_id.data_cmd_id = 0x0110;
-    ext_client_custom_graphic_single.UIdraw_header_id.sender_ID = standard_ID1;
-    ext_client_custom_graphic_single.UIdraw_header_id.receiver_ID = standard_ID2;
-
-    memcpy(&buf[13], ptr, Len);
-
-    Append_CRC16_Check_Sum(buf, (Lenth + 13));
-    Usart_SendBuff((uint8_t *)&ext_client_custom_graphic_single, Lenth + 13);
-
-    memset(&ext_client_custom_graphic_single, 0, sizeof(ext_client_custom_graphic_single));
 }
 
 
