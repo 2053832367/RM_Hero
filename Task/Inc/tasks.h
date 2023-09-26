@@ -33,7 +33,7 @@ extern "C" {
 //#include "app_serial.h"
 //#include "app_preference.h"
 
-//extern Chassis_Ctrl Chassis;
+extern Chassis_Ctrl Chassis;
 extern Message_Ctrl Message;
 extern Guard_Ctrl Guard;
 extern Chassis_Ctrl Chassis;
