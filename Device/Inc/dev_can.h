@@ -12,30 +12,40 @@ extern "C" {
 #endif
 
 #include "dev_system.h"
-//#include "drivers_can.h"
+#include "drivers_buffer.h"
+#include "fdcan.h"
+#include "stm32h7xx_hal.h"
 
-//typedef void(*CAN_CallbackFunction_t)(CanRxMsg *RxMessage);
+typedef void(*CAN_CallbackFunction_t)(uint32_t *FDCAN_RxID);
 
-class CANctrl
+class CANctrl: public Buffer
 {
-//public:
-//	CANctrl(CAN_TypeDef *CANx){}
+public:
+	CANctrl(FDCAN_HandleTypeDef *CANx, uint32_t BufferSize);
 
-//	void attachInterrupt(CAN_CallbackFunction_t Function);
+	void attachInterrupt(CAN_CallbackFunction_t Function);
 
-//	void ChangeID(uint16_t StdID);
+	void ChangeID(uint16_t StdID);
 
-//	void SendData(const void *buf, uint8_t len);
+	void SendData(uint8_t *buf, uint8_t len);
 
-//	void IRQHandler(void);
+	void IRQHandler(FDCAN_HandleTypeDef *hfdcan , uint32_t RxFifo0ITs);
+		
+	FDCAN_RxHeaderTypeDef FDCAN_RxHeader;
+	uint32_t FDCAN_RxID;
+	uint8_t FDCAN_RxData[8];
+		
+	FDCAN_TxHeaderTypeDef FDCAN_TxHeader;
 
-//	CanRxMsg Rx_Message;
-//protected:
+	uint8_t read(void);
+  RingBuffer _rx_buffer;
+		
+protected:
 
-//	CAN_TypeDef *CANx;
-//	CAN_CallbackFunction_t CAN_Function;
-//private:
-//	uint32_t StdId;
+	FDCAN_HandleTypeDef *CANx;
+	CAN_CallbackFunction_t CAN_Function;
+private:
+	uint32_t StdId;
 };
 
 extern void CAN_ALL_Init();

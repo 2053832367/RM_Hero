@@ -22,6 +22,16 @@
 	(ptr)->temperate = (rx_message)->Data[6];                                             \
 }
 
+//大疆电机数据读取
+#define MA_get_motor_measure(ptr, Data)                                                \
+{                                                                                         \
+	(ptr)->last_ecd = (ptr)->ecd;                                                         \
+	(ptr)->ecd = (uint16_t)(Data[0] << 8 | Data[1]);          \
+	(ptr)->speed_rpm = (int16_t)(Data[2] << 8 | Data[3]);     \
+	(ptr)->given_current = (int16_t)(Data[4] << 8 | Data[5]); \
+	(ptr)->temperate = Data[6];                                             \
+}
+
 /*
 除6020外，id2控制第一组电机，id1控制第二组电机(电机实际id和反馈id同步)
 6020，id1控制第二组电机(电机实际id为1234，反馈id为5678)，id3控制第三组电机(电机实际id为567，反馈id为9 10 11)
@@ -79,83 +89,57 @@ typedef struct
 
 class Motor_CAN_Ctrl
 {
-//public:
-//	Motor_CAN_Ctrl(CAN_TypeDef *CANx_, uint32_t StdID_, uint8_t Num_)
-//	{
-//		this->CANx = CANx_;
-//		this->StdID = StdID_;
-//		this->Num = Num_;
-//		Motor_Measure = new motor_measure_t[Num_];
-//	}
-//	const motor_measure_t *Get_Motor_Measure_Pointer(uint8_t i)
-//	{
-//		return &Motor_Measure[i];
-//	}
-//	void GetData(uint32_t &StdID_, uint8_t &Num_)
-//	{
-//		StdID_ = this->StdID;
-//		Num_ = this->Num;
-//	}
-//	motor_measure_t *GetData(uint8_t i)
-//	{
-//		return &Motor_Measure[(i & 3)];
-//	}
-//	CAN_TypeDef *CANx;
-//private:
-//	motor_measure_t *Motor_Measure;
-//	uint16_t StdID;
-//	uint8_t Num;
+public:
+	Motor_CAN_Ctrl(FDCAN_HandleTypeDef *CANx_, uint32_t StdID_, uint8_t Num_)
+	{
+		this->CANx = CANx_;
+		this->StdID = StdID_;
+		this->Num = Num_;
+		Motor_Measure = new motor_measure_t[Num_];
+	}
+	const motor_measure_t *Get_Motor_Measure_Pointer(uint8_t i)
+	{
+		return &Motor_Measure[i];
+	}
+	void GetData(uint32_t &StdID_, uint8_t &Num_)
+	{
+		StdID_ = this->StdID;
+		Num_ = this->Num;
+	}
+	motor_measure_t *GetData(uint8_t i)
+	{
+		return &Motor_Measure[(i & 3)];
+	}
+	FDCAN_HandleTypeDef *CANx;
+private:
+	motor_measure_t *Motor_Measure;
+	uint16_t StdID;
+	uint8_t Num;
 };
-
-//class Motor_PWM_Ctrl
-//{
-//public:
-//	Motor_PWM_Ctrl(uint8_t Pin_):Pin(Pin_) {}
-//	void Init()
-//	{
-//		PWM_Init(Pin, (F_CPU / 1000000), 100);
-//	}
-//	void Open()
-//	{//Snail电机需要先启动
-//		pwmWrite(Pin, 1000);
-//	}
-//	void Run(uint16_t Speed)
-//	{//1500
-//		pwmWrite(Pin, Speed);
-//	}
-//	void Close()
-//	{//数据仅参考
-//		pwmWrite(Pin, 1000);
-//	}
-//private:
-//	uint16_t Pin;
-//};
 
 class CAN_Ctrl
 {
-//public:
-//	CAN_Ctrl()
-//		:Chassis(CAN2, CAN_DJI_Motor_Group2_ID, 4),
-//		Gimbal(CAN1, CAN_DJI_Motor_Group1_ID, 4)
-//	{}
-//	Motor_CAN_Ctrl Chassis;
-//	Motor_CAN_Ctrl Gimbal;
+public:
+	CAN_Ctrl()
+		:Chassis(&hfdcan2, CAN_DJI_Motor_Group2_ID, 4),
+		Gimbal(&hfdcan1, CAN_DJI_Motor_Group1_ID, 4)
+	{}
+	Motor_CAN_Ctrl Chassis;
+	Motor_CAN_Ctrl Gimbal;
 
-//	void SendData(CAN_TypeDef *CANx, uint32_t StdID, const void *buf, uint8_t len);
-//	void SendData(Motor_CAN_Ctrl *Motor, int16_t Motor1, int16_t Motor2, int16_t Motor3, int16_t Motor4);
-//	void SendData(Motor_CAN_Ctrl *Motor, int16_t Motor1, int16_t Motor2, int16_t Motor3);
-//	void SendData(Motor_CAN_Ctrl *Motor, int16_t Motor1, int16_t Motor2);
-//	void SendData(Motor_CAN_Ctrl *Motor, int16_t Motor1);
+	void SendData(FDCAN_HandleTypeDef *CANx, uint32_t StdID, uint8_t *buf, uint8_t len);
+	void SendData(Motor_CAN_Ctrl *Motor, int16_t Motor1, int16_t Motor2, int16_t Motor3, int16_t Motor4);
+	void SendData(Motor_CAN_Ctrl *Motor, int16_t Motor1, int16_t Motor2, int16_t Motor3);
+	void SendData(Motor_CAN_Ctrl *Motor, int16_t Motor1, int16_t Motor2);
+	void SendData(Motor_CAN_Ctrl *Motor, int16_t Motor1);
 
-//	void CAN_CMD_RESET_ID(Motor_CAN_Ctrl *Motor);
-//private:
-//	void SendData(CANctrl *CANx_Ctrl, uint32_t StdID, const void *buf, uint8_t len);
+	void CAN_CMD_RESET_ID(Motor_CAN_Ctrl *Motor);
+private:
+	void SendData(CANctrl *CANx_Ctrl, uint32_t StdID, uint8_t *buf, uint8_t len);
 };
 
 extern CAN_Ctrl CAN_Cmd;
-//extern void CAN1_Hook(CanRxMsg *Rx_Message);
-//extern void CAN2_Hook(CanRxMsg *Rx_Message);
-//extern void CAN1_Send(CanRxMsg *Rx_Message);
-//extern void CAN2_Send(CanRxMsg *Rx_Message);
+extern void CAN1_Send(uint8_t *Rx_Message);
+extern void CAN2_Send(uint8_t *Rx_Message);
 
 #endif /* __APP_MOTOR_H */

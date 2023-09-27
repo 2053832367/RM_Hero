@@ -49,11 +49,11 @@ void correspondence_ctrl::Corres_Send(void)
 
 //	CAN_Cmd.SendData(CAN1, CAN_CAP_SENT_ID, &SuperCapS, 8);
 
-		if(Rate_Do_Execute(5))
-		{
-			Append_CRC8_Check_Sum(s, sizeof(s));
-			GIMBAL_SERIAL.sendData(s, sizeof(s));
-		}
+////		if(Rate_Do_Execute(5))
+////		{
+////			Append_CRC8_Check_Sum(s, sizeof(s));
+////			GIMBAL_SERIAL.sendData(s, sizeof(s));
+////		}
 
 }
 

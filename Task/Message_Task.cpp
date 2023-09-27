@@ -24,10 +24,15 @@ void Message_Task(void *pvParameters)
 void CAN1_Rx_Task(void *pvParameters)
 {
 	/* USER CODE BEGIN StartDefaultTask */
+	static ID_Data_t CAN1_Rx_Data;
   /* Infinite loop */
   for(;;)
   {		
-    osDelay(1);
+		if(xQueueReceive(CAN1_Rx_Queue, &CAN1_Rx_Data, portMAX_DELAY))
+		{
+			Message.CAN1_Process((uint32_t *)CAN1_Rx_Data.Data_Ptr);
+			Guard.Feed(CanData1);
+		}
   }
   /* USER CODE END StartDefaultTask */
 }
@@ -35,10 +40,15 @@ void CAN1_Rx_Task(void *pvParameters)
 void CAN2_Rx_Task(void *pvParameters)
 {
 	/* USER CODE BEGIN StartDefaultTask */
+	static ID_Data_t CAN2_Rx_Data;
   /* Infinite loop */
   for(;;)
   {		
-    osDelay(1);
+    if(xQueueReceive(CAN2_Rx_Queue, &CAN2_Rx_Data, portMAX_DELAY))
+		{
+			Message.CAN2_Process((uint32_t *)CAN2_Rx_Data.Data_Ptr);
+			Guard.Feed(CanData2);
+		}
   }
   /* USER CODE END StartDefaultTask */
 }
@@ -69,7 +79,7 @@ void Serial_Rx_Task(void *pvParameters)
 			default:
 			break;
 			}
-//			Guard.Feed(Serial_Rx_Data.Data_ID);
+			Guard.Feed(Serial_Rx_Data.Data_ID);
 		}
   }
   /* USER CODE END StartDefaultTask */
@@ -113,9 +123,10 @@ void DR16_Rx_Task(void *pvParameters)
 }
 
 void Message_Ctrl::Init()
-{
-	Serial_ALL_Init();
+{	
+	CAN_ALL_Init();
 	Prefence_Init();
+	Serial_ALL_Init();
 }
 
 void Message_Ctrl::Serialx_Hook(uint8_t *Rx_Message, Serialctrl *Serialx_Ctrl)
@@ -159,6 +170,91 @@ void Message_Ctrl::Gimbal_Serial_Hook(uint8_t *Rx_Message)
 //  //enable DMA
 //  //使能DMA
 //  __HAL_DMA_ENABLE(&hdma_usart1_rx);
+}
+
+void Message_Ctrl::CAN1_Process(uint32_t *Rx_Message)
+{
+	uint8_t Rx_Date[8];
+	for(uint8_t x=0;x<8;x++)
+	{
+					Rx_Date[x]=CAN1_Ctrl.read();
+	}
+	switch(*Rx_Message)
+	{
+	case CAN_CAP_GET_ID:
+	{
+		SuperCapR.situation = (uint8_t)(Rx_Date[0]);
+		SuperCapR.mode = (uint8_t)(Rx_Date[1]);
+		SuperCapR.power = (float)((uint16_t)((Rx_Date[2]) | (Rx_Date[3]) << 8)) * 0.1f;
+		SuperCapR.energy = (uint8_t)(Rx_Date[4]);
+		SuperCapR.power_limit = (uint8_t)(Rx_Date[5]);
+		SuperCapR.errorcode = (uint8_t)(Rx_Date[6]);
+		// SuperCapR.enable = (uint8_t)((Rx_Message)->Data[7]);
+		// SuperCapR.enable = (uint8_t)((Rx_Message)->Data[8]);
+		Guard.Feed(SupercapData);
+		break;
+	}
+#ifdef useMecanum
+	case CAN_YAW_MOTOR_ID:
+	{
+		//处理电机数据宏函数
+		get_gimbal_motor_measuer(&CAN_Cmd.Gimbal.Yaw_Measure, Rx_Message);
+		break;
+	}
+	case CAN_FRIC_MOTOR_ID:
+	{
+		get_motor_measure(&CAN_Cmd.Fric.Fric_Measure, Rx_Message);//底盘大弹丸拨弹轮电机
+		break;
+	}
+#endif
+#ifdef useSteering
+	case CAN_DJI_Motor5_ID:
+	case CAN_DJI_Motor6_ID:
+	case CAN_DJI_Motor7_ID:
+	case CAN_DJI_Motor8_ID:
+	{
+		static uint8_t i = 0;
+		//处理电机ID号
+		i = *Rx_Message - CAN_DJI_Motor5_ID;
+		//处理电机数据宏函数
+		MA_get_motor_measure(CAN_Cmd.Gimbal.GetData(i), Rx_Date);
+		break;
+	}
+#endif
+	default:
+	break;
+	}
+}
+
+void Message_Ctrl::CAN2_Process(uint32_t *Rx_Message)
+{
+	uint8_t Rx_Date[8];
+	for(uint8_t x=0;x<8;x++)
+	{
+					Rx_Date[x]=CAN2_Ctrl.read();
+	}
+	switch(*Rx_Message)
+	{
+	case CAN_DJI_Motor1_ID:
+	case CAN_DJI_Motor2_ID:
+	case CAN_DJI_Motor3_ID:
+	case CAN_DJI_Motor4_ID:
+	{
+		static uint8_t i = 0;
+		//处理电机ID号
+		i = *Rx_Message - CAN_DJI_Motor1_ID;
+		//处理电机数据宏函数
+		MA_get_motor_measure(CAN_Cmd.Chassis.GetData(i), Rx_Date);
+		break;
+	}
+	default:
+	break;
+	}
+}
+
+RC_ctrl_t *get_remote_control_point(void)
+{
+    return &Message.rc_ctrl;
 }
 
 Message_Ctrl *get_message_ctrl_pointer(void)

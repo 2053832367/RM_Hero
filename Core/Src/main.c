@@ -62,69 +62,9 @@ void MX_FREERTOS_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-FDCAN_FilterTypeDef FDCAN1_RXFilter;
-FDCAN_RxHeaderTypeDef FDCAN1_RxHeader;
-uint8_t FDCAN1_RxData[8];
-FDCAN_TxHeaderTypeDef FDCAN1_TxHeader;
-uint8_t FDCAN1_TxData[8];
-
-FDCAN_FilterTypeDef FDCAN2_RXFilter;
-FDCAN_RxHeaderTypeDef FDCAN2_RxHeader;
-uint8_t FDCAN2_RxData[8];
-FDCAN_TxHeaderTypeDef FDCAN2_TxHeader;
-uint8_t FDCAN2_TxData[8];
-
-FDCAN_FilterTypeDef FDCAN3_RXFilter;
-FDCAN_RxHeaderTypeDef FDCAN3_RxHeader;
-uint8_t FDCAN3_RxData[8];
-FDCAN_TxHeaderTypeDef FDCAN3_TxHeader;
-uint8_t FDCAN3_TxData[8];
-
-void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs)
-{
-	if(hfdcan->Instance==FDCAN1)
-	{
-		if((RxFifo0ITs&FDCAN_IT_RX_FIFO0_NEW_MESSAGE)!=RESET)
-		{
-			if(HAL_FDCAN_GetRxMessage(&hfdcan1,FDCAN_RX_FIFO0,&FDCAN1_RxHeader,FDCAN1_RxData) == HAL_OK)
-			{
-				
-			}
-		}
-	}
-	else if(hfdcan->Instance==FDCAN2)
-	{
-		if((RxFifo0ITs&FDCAN_IT_RX_FIFO0_NEW_MESSAGE)!=RESET)
-		{
-			if(HAL_FDCAN_GetRxMessage(&hfdcan2,FDCAN_RX_FIFO0,&FDCAN2_RxHeader,FDCAN2_RxData) == HAL_OK)
-			{
-				
-			}
-		}
-	}
-	else if(hfdcan->Instance==FDCAN3)
-	{
-		if((RxFifo0ITs&FDCAN_IT_RX_FIFO0_NEW_MESSAGE)!=RESET)
-		{
-			if(HAL_FDCAN_GetRxMessage(&hfdcan3,FDCAN_RX_FIFO0,&FDCAN3_RxHeader,FDCAN3_RxData) == HAL_OK)
-			{
-				
-			}
-		}
-	}
-}
 
 void SoftWareInit(void)
 {
-  //		__HAL_UART_CLEAR_IDLEFLAG(&huart1);
-  //
-  //    __HAL_UART_ENABLE_IT(&huart1, UART_IT_RXNE);  //receive interrupt
-  //		__HAL_UART_ENABLE_IT(&huart1, UART_IT_IDLE);  //idle interrupt
-  //		HAL_UART_Receive_DMA(&huart1, (uint8_t*)receive_buff, 10);
-  ////		__HAL_TIM_SetCompare(&htim2,TIM_CHANNEL_1,2000);  //pwm
-  //		huart1_dmal_init(receive_buff,10);
-
-  //		remote_control_init();
 }
 
 /* USER CODE END 0 */

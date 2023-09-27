@@ -6,6 +6,7 @@
 #include "FreeRTOS.h"
 #include "queue.h"
 #include "app_preference.h"
+#include "dev_can.h"
 #include "app_serial.h"
 #include "protocol_dbus.h"
 #include "protocol_judgement.h"
@@ -81,13 +82,14 @@ public:
 
     void Init();
 
-//    void CAN1_Process(CanRxMsg *Rx_Message);
-//    void CAN2_Process(CanRxMsg *Rx_Message);
+    void CAN1_Process(uint32_t *Rx_Message);
+    void CAN2_Process(uint32_t *Rx_Message);
     void Serialx_Hook(uint8_t *Rx_Message, Serialctrl *Serialx_Ctrl);
     void Gimbal_Serial_Hook(uint8_t *Rx_Message);
 };
 
 Message_Ctrl *get_message_ctrl_pointer(void);
+RC_ctrl_t *get_remote_control_point(void);
 
 typedef struct
 {
