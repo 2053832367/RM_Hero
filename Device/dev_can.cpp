@@ -23,7 +23,7 @@ void CANctrl::ChangeID(uint16_t StdID)
     this->StdId = StdID;
 }
 
-void CANctrl::SendData(uint8_t *buf, uint8_t len)
+void CANctrl::SendData(const void *buf, uint8_t len)
 {	
 		FDCAN_TxHeader.Identifier=StdId;
 		FDCAN_TxHeader.IdType=FDCAN_STANDARD_ID;
@@ -35,7 +35,7 @@ void CANctrl::SendData(uint8_t *buf, uint8_t len)
 		FDCAN_TxHeader.TxEventFifoControl=FDCAN_NO_TX_EVENTS;
 		FDCAN_TxHeader.MessageMarker=0;
 
-		HAL_FDCAN_AddMessageToTxFifoQ(CANx,&FDCAN_TxHeader,buf);
+		HAL_FDCAN_AddMessageToTxFifoQ(CANx,&FDCAN_TxHeader,(uint8_t *)buf);
 }
 
 uint8_t CANctrl::read(void)

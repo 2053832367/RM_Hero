@@ -36,7 +36,6 @@ extern "C" {
 extern Chassis_Ctrl Chassis;
 extern Message_Ctrl Message;
 extern Guard_Ctrl Guard;
-extern Chassis_Ctrl Chassis;
 extern UI_Draw_Ctrl UIDraw;
 extern correspondence_ctrl Corres;
 
@@ -44,7 +43,7 @@ extern correspondence_ctrl Corres;
 //extern UI_Draw_Ctrl UIDraw;
 
 //extern LEDctrl LED;
-//extern CAN_Ctrl CAN_Cmd;
+extern CAN_Ctrl CAN_Cmd;
 extern Serial_Ctrl Serial_Cmd;
 
 #endif

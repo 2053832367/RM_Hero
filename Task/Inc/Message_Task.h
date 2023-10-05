@@ -34,6 +34,13 @@ extern QueueHandle_t Serial_Rx_Queue;
 extern QueueHandle_t Referee_Rx_Queue;
 extern QueueHandle_t DR16_Rx_Queue;
 
+#define CAP_CHECK 0x00//¼ì²é×´Ì¬
+#define CAP_CLOSE 0x0f//¹Ø±Õ×´Ì¬
+#define CAP_OPEN 0xf0//¿ªÆô×´Ì¬
+#define CAP_ERROR 0xff//´íÎó×´Ì¬
+#define CAP_MODE1 0x00//¹Ø±Õ²¹³¥
+#define CAP_MODE2 0xff//¿ªÆô²¹³¥
+
 extern UART_HandleTypeDef huart1;
 extern DMA_HandleTypeDef hdma_usart1_rx;
 

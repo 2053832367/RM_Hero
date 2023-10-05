@@ -4,6 +4,7 @@
 #include "cmsis_os2.h"                  // ::CMSIS:RTOS2
 #include "string.h"
 #include "FreeRTOS.h"
+#include "Message_Task.h"
 #include "queue.h"
 #include "app_preference.h"
 #include "app_serial.h"

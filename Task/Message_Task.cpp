@@ -2,7 +2,6 @@
 #include "tasks.h"
 
 Message_Ctrl Message;
-		uint8_t r[20];
 
 void Message_Task(void *pvParameters)
 {
@@ -127,6 +126,7 @@ void Message_Ctrl::Init()
 	CAN_ALL_Init();
 	Prefence_Init();
 	Serial_ALL_Init();
+	robo = get_robo_data_Point();
 }
 
 void Message_Ctrl::Serialx_Hook(uint8_t *Rx_Message, Serialctrl *Serialx_Ctrl)
@@ -147,29 +147,14 @@ void Message_Ctrl::Serialx_Hook(uint8_t *Rx_Message, Serialctrl *Serialx_Ctrl)
 
 void Message_Ctrl::Gimbal_Serial_Hook(uint8_t *Rx_Message)
 {
-//	uint8_t len = Rx_Message[0];
-//	if(Verify_CRC8_Check_Sum(&Rx_Message[1], Rx_Message[0]))
-//	{
-//		ecd_data.s[0] = Rx_Message[3];
-//		ecd_data.s[1] = Rx_Message[4];
-//		GimbalR.ECD = -motor_ecd_to_relative_ecd(ecd_data.d, Gimbal_Motor_Yaw_Offset_ECD);
-//		GimbalR.goal = Rx_Message[5];
-//	}
-//	if(Verify_CRC8_Check_Sum(&Rx_Message[1], Rx_Message[0]))
-//	{
-		for(int i = 0;i < 11;i++)
+	uint8_t len = Rx_Message[0];
+	if(Verify_CRC8_Check_Sum(&Rx_Message[1], Rx_Message[0]))
 	{
-		r[i]=Rx_Message[i];
+		ecd_data.s[0] = Rx_Message[3];
+		ecd_data.s[1] = Rx_Message[4];
+		GimbalR.ECD = -motor_ecd_to_relative_ecd(ecd_data.d, Gimbal_Motor_Yaw_Offset_ECD);
+		GimbalR.goal = Rx_Message[5];
 	}
-//	}
-
-//	__HAL_UART_CLEAR_IDLEFLAG(&huart1);
-//	__HAL_DMA_DISABLE(&hdma_usart1_rx);
-//            
-//	memcpy(r, receive_buff, 20);
-//  //enable DMA
-//  //Ê¹ÄÜDMA
-//  __HAL_DMA_ENABLE(&hdma_usart1_rx);
 }
 
 void Message_Ctrl::CAN1_Process(uint32_t *Rx_Message)

@@ -27,7 +27,7 @@ public:
 
 	void ChangeID(uint16_t StdID);
 
-	void SendData(uint8_t *buf, uint8_t len);
+	void SendData(const void *buf, uint8_t len);
 
 	void IRQHandler(FDCAN_HandleTypeDef *hfdcan , uint32_t RxFifo0ITs);
 		
