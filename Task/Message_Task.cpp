@@ -127,6 +127,7 @@ void Message_Ctrl::Init()
 	CAN_ALL_Init();
 	Prefence_Init();
 	Serial_ALL_Init();
+	robo = get_robo_data_Point();
 }
 
 void Message_Ctrl::Serialx_Hook(uint8_t *Rx_Message, Serialctrl *Serialx_Ctrl)
