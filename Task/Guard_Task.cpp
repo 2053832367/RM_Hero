@@ -20,16 +20,13 @@ void Guard_Task(void *pvParameters)
 
 //警戒任务开始
 void Guard_Ctrl::Start(void)
-{//可独立注释
-    // Init(CanData1, 1000 ,500, &System_RESET);
-    // Init(CanData2, 1000, 500, &System_RESET);
-    // Init(GimbalData, 50000, 500, &Error_Enable, true, 30000, &Close_Enable);
-    // Init(RC_Data, 1000, 500, &System_RESET);
-    // Init(ChassisData, 1000, 500, &System_RESET);
-    // Init(UIdrawData, 1000 ,500, &System_RESET);
-    // Init(CorrespondenceData, 1000 ,500, &System_RESET);
-    // Init(RobotId, 20000, 5000, &Error_Enable, true, 30000, &Close_Enable);
-//	Init(SupercapData,10000,1000,&Error_Enable);
+{
+    // Init(CanData1, 1000 ,100, &System_RESET);
+    // Init(CanData2, 1000, 100, &System_RESET);
+    // Init(ChassisData, 50000, 500, &Error_Enable, true ,30000, &Close_Enable);
+    // Init(RC_Data, 1000, 200, &System_RESET);
+    // Init(GimbalData, 1000, 100, &System_RESET);
+    // Init(CorrespondenceData, 1000 ,100, &System_RESET);
 }
 //警戒任务初始化
 void Guard_Ctrl::Init(ID_e Name, uint32_t StartValue, uint32_t MaxValue, void(*errcb)(uint8_t id), bool Close, uint32_t CloseValue, void(*closecb)(uint8_t id))
@@ -61,6 +58,7 @@ void Guard_Ctrl::Init(ID_e Name, uint32_t StartValue, uint32_t MaxValue, void(*e
         SG_Structure[Name].closecallback = closecb;
     }
 }
+
 void Guard_Ctrl::Init(ID_e Name, uint32_t StartValue, uint32_t MaxValue, void(*errcb)(uint8_t id))
 {
     Init(Name, StartValue, MaxValue, errcb, false, 0, &Guard_Return);
@@ -76,12 +74,11 @@ void Guard_Ctrl::Scan(void)
     for(i = 0;i < GUARD_TOTAL_NUM;i++)
     {
         if(SG_Structure[i].Start == true && (SG_Structure[i].StartValue != 0))
-        {//初始化等待检测
+        {//初始化检测
             SG_Structure[i].DiffValue = xTaskGetTickCount() - SG_Structure[i].Time;
             if(SG_Structure[i].DiffValue > SG_Structure[i].StartValue)
             {//超时执行回调
                 SG_Structure[i].errcallback(i);
-                SG_Structure[i].Porper = false;
                 if(((int32_t)(SG_Structure[i].DiffValue - SG_Structure[i].StartValue) > SG_Structure[i].CloseValue) && (SG_Structure[i].Close == true))
                 {//超时后等待关闭
                     SG_Structure[i].Start = false;
@@ -90,12 +87,11 @@ void Guard_Ctrl::Scan(void)
             }
         }
         else if((SG_Structure[i].Enable == true) && (SG_Structure[i].MaxValue != 0))
-        {//运行超时检测
+        {//运行检测
             SG_Structure[i].DiffValue = xTaskGetTickCount() - SG_Structure[i].Time;
             if(SG_Structure[i].DiffValue > SG_Structure[i].MaxValue)
             {//超时执行回调
                 SG_Structure[i].errcallback(i);
-                SG_Structure[i].Porper = false;
                 if(((int32_t)(SG_Structure[i].DiffValue - SG_Structure[i].MaxValue) > SG_Structure[i].CloseValue) && (SG_Structure[i].Close == true))
                 {//超时后等待关闭
                     SG_Structure[i].Enable = false;
@@ -119,7 +115,7 @@ void Guard_Ctrl::Feed(ID_e Name)
     {
         return;
     }
-    //若正常运行或重连则打开运行超时检测，关闭初始化检测和错误标志
+    //若正常运行或重连则打开运行超时检测关闭初始化检测和错误标志
     Guard.SG_Structure[Name].Enable = true;
     Guard.SG_Structure[Name].Start = false;
     Guard.SG_Structure[Name].Porper = true;
@@ -130,22 +126,21 @@ void Error_Enable(uint8_t id)
 {
     switch(id)
     {
-    case GimbalData:
-    case RefereeData:
+    case ChassisData:
     {
 //        pwmWrite(PH6, 1000);
     }
+    break;
     default:
     break;
     }
 }
-//关闭处理函数(简单操作，复杂操作进任务用return判断)
+//关闭处理函数
 void Close_Enable(uint8_t id)
 {
     switch(id)
     {
-    case GimbalData:
-    case RefereeData:
+    case ChassisData:
     {
 //        pwmWrite(PH6, 0);
     }
@@ -154,7 +149,6 @@ void Close_Enable(uint8_t id)
     break;
     }
 }
-
 //警戒任务使能(feed中的使能只针对已运行任务)
 void Guard_Ctrl::Guard_Enable(void)
 {
@@ -169,6 +163,7 @@ void Guard_Return(uint8_t id)
 {
     return;
 }
+
 //返回任务是否正常工作
 bool Guard_Ctrl::Return(ID_e Name)
 {

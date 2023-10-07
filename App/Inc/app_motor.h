@@ -121,10 +121,10 @@ class CAN_Ctrl
 {
 public:
 	CAN_Ctrl()
-		:Chassis(&hfdcan2, CAN_DJI_Motor_Group2_ID, 4),
-		Gimbal(&hfdcan1, CAN_DJI_Motor_Group1_ID, 4)
+		:Fric(&hfdcan2, CAN_DJI_Motor_Group2_ID, 2),
+		Gimbal(&hfdcan1, CAN_DJI_Motor_Group1_ID, 3)
 	{}
-	Motor_CAN_Ctrl Chassis;
+	Motor_CAN_Ctrl Fric;
 	Motor_CAN_Ctrl Gimbal;
 
 	void SendData(FDCAN_HandleTypeDef *CANx, uint32_t StdID, const void *buf, uint8_t len);

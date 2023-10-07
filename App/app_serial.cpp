@@ -115,10 +115,6 @@ void Serial_Ctrl::Handle(Serialctrl *SerialCtrl, Serial_Data_t *Serial, bool mod
                 Send_to_Message(SerialCtrl, Memory);
             }
         }
-				else if(SerialCtrl == &JUDGE_SERIAL && (Serial->Len != NULL))
-				{
-					Send_to_Message(SerialCtrl, Memory);
-				}
     }
 }
 

@@ -21,11 +21,10 @@ extern "C" {
 }
 #endif
 
-#include "Chassis_Task.h"
+#include "Gimbal_Task.h"
 #include "Message_Task.h"
 #include "Guard_Task.h"
 #include "Correspond_Task.h"
-#include "UIDraw_Task.h"
 
 //#include "app_led.h"
 //#include "app_motor.h"
@@ -33,10 +32,9 @@ extern "C" {
 //#include "app_serial.h"
 //#include "app_preference.h"
 
-extern Chassis_Ctrl Chassis;
+extern Gimbal_Ctrl Gimbal;
 extern Message_Ctrl Message;
 extern Guard_Ctrl Guard;
-extern UI_Draw_Ctrl UIDraw;
 extern correspondence_ctrl Corres;
 
 //extern correspondence_ctrl Corres;

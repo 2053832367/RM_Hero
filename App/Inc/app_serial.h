@@ -24,11 +24,15 @@ extern "C" {
 
 typedef enum
 {
-    game_robot_state_id = 0x01,
-    game_robot_HP_id = 0x02,
-		game_status_id = 0x03,
+    game_robot_state_id_ = 0x01,
+    game_robot_HP_id_ = 0x02,
+		game_status_id_ = 0x03,
 
-    Gimbal_Data_id = 0x51,
+    visual_posture_id = 0x01,
+    game_robot_state_id = 0x02,
+    visual_mode_id = 0x04,
+    game_robot_HP_id = 0x08,
+    chassis_data_id = 0x51,
 }serial_msg_mode_e;
 
 struct Serial_Data_t

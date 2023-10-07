@@ -62,19 +62,12 @@ const osThreadAttr_t RTOSsystem_task_attributes = {
   .stack_size = 128 * 4,
   .priority = (osPriority_t) osPriorityLow2,
 };
-/* Definitions for Chassis_task */
-osThreadId_t Chassis_taskHandle;
-const osThreadAttr_t Chassis_task_attributes = {
-  .name = "Chassis_task",
+/* Definitions for Gimbal_task */
+osThreadId_t Gimbal_taskHandle;
+const osThreadAttr_t Gimbal_task_attributes = {
+  .name = "Gimbal_task",
   .stack_size = 512 * 4,
   .priority = (osPriority_t) osPriorityLow5,
-};
-/* Definitions for UIDraw_task */
-osThreadId_t UIDraw_taskHandle;
-const osThreadAttr_t UIDraw_task_attributes = {
-  .name = "UIDraw_task",
-  .stack_size = 512 * 4,
-  .priority = (osPriority_t) osPriorityLow3,
 };
 /* Definitions for Guard_task */
 osThreadId_t Guard_taskHandle;
@@ -118,13 +111,6 @@ const osThreadAttr_t Serial_Rx_task_attributes = {
   .stack_size = 128 * 4,
   .priority = (osPriority_t) osPriorityLow7,
 };
-/* Definitions for Referee_Rx_task */
-osThreadId_t Referee_Rx_taskHandle;
-const osThreadAttr_t Referee_Rx_task_attributes = {
-  .name = "Referee_Rx_task",
-  .stack_size = 128 * 4,
-  .priority = (osPriority_t) osPriorityLow7,
-};
 /* Definitions for DR16_Rx_task */
 osThreadId_t DR16_Rx_taskHandle;
 const osThreadAttr_t DR16_Rx_task_attributes = {
@@ -140,21 +126,18 @@ QueueHandle_t Message_Queue;
 QueueHandle_t CAN1_Rx_Queue;
 QueueHandle_t CAN2_Rx_Queue;
 QueueHandle_t Serial_Rx_Queue;
-QueueHandle_t Referee_Rx_Queue;
 QueueHandle_t DR16_Rx_Queue;
 /* USER CODE END FunctionPrototypes */
 
 void StartDefaultTask(void *argument);
 extern void RTOSsystem_Task(void *argument);
-extern void Chassis_Task(void *argument);
-extern void UIDraw_Task(void *argument);
+extern void Gimbal_Task(void *argument);
 extern void Guard_Task(void *argument);
 extern void Correspond_Task(void *argument);
 extern void Message_Task(void *argument);
 extern void CAN1_Rx_Task(void *argument);
 extern void CAN2_Rx_Task(void *argument);
 extern void Serial_Rx_Task(void *argument);
-extern void Referee_Rx_Task(void *argument);
 extern void DR16_Rx_Task(void *argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
@@ -187,7 +170,6 @@ void MX_FREERTOS_Init(void) {
 	CAN1_Rx_Queue = xQueueCreate(8, sizeof(ID_Data_t));
 	CAN2_Rx_Queue = xQueueCreate(8, sizeof(ID_Data_t));
 	Serial_Rx_Queue = xQueueCreate(4, sizeof(ID_Data_t));
-	Referee_Rx_Queue = xQueueCreate(2, sizeof(ID_Data_t));
 	DR16_Rx_Queue = xQueueCreate(2, sizeof(ID_Data_t));
   /* USER CODE END RTOS_QUEUES */
 
@@ -198,11 +180,8 @@ void MX_FREERTOS_Init(void) {
   /* creation of RTOSsystem_task */
   RTOSsystem_taskHandle = osThreadNew(RTOSsystem_Task, NULL, &RTOSsystem_task_attributes);
 
-  /* creation of Chassis_task */
-  Chassis_taskHandle = osThreadNew(Chassis_Task, NULL, &Chassis_task_attributes);
-
-  /* creation of UIDraw_task */
-  UIDraw_taskHandle = osThreadNew(UIDraw_Task, NULL, &UIDraw_task_attributes);
+  /* creation of Gimbal_task */
+  Gimbal_taskHandle = osThreadNew(Gimbal_Task, NULL, &Gimbal_task_attributes);
 
   /* creation of Guard_task */
   Guard_taskHandle = osThreadNew(Guard_Task, NULL, &Guard_task_attributes);
@@ -221,9 +200,6 @@ void MX_FREERTOS_Init(void) {
 
   /* creation of Serial_Rx_task */
   Serial_Rx_taskHandle = osThreadNew(Serial_Rx_Task, NULL, &Serial_Rx_task_attributes);
-
-  /* creation of Referee_Rx_task */
-  Referee_Rx_taskHandle = osThreadNew(Referee_Rx_Task, NULL, &Referee_Rx_task_attributes);
 
   /* creation of DR16_Rx_task */
   DR16_Rx_taskHandle = osThreadNew(DR16_Rx_Task, NULL, &DR16_Rx_task_attributes);
