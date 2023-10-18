@@ -1,47 +1,27 @@
 #include "dev_serial.h"
 #include "app_preference.h"
 
-Serialctrl Serial1_Ctrl(&huart1, &hdma_usart1_rx, Serial1_Buffer_Size);
-Serialctrl Serial2_Ctrl(&huart2, &hdma_usart2_rx, Serial2_Buffer_Size);
-Serialctrl Serial4_Ctrl(&huart4, NULL ,Serial4_Buffer_Size);
-Serialctrl Serial5_Ctrl(&huart5, NULL ,Serial5_Buffer_Size);
+Serialctrl Serial1_Ctrl(&huart1, &hdma_usart1_rx, Serial1_Buffer_Size, Serial1_Mode);
+Serialctrl Serial2_Ctrl(&huart2, &hdma_usart2_rx, Serial2_Buffer_Size, Serial2_Mode);
+Serialctrl Serial4_Ctrl(&huart4, NULL ,Serial4_Buffer_Size, Serial4_Mode);
+Serialctrl Serial5_Ctrl(&huart5, NULL ,Serial5_Buffer_Size, Serial5_Mode);
 
-Serialctrl::Serialctrl(UART_HandleTypeDef *_huartx, DMA_HandleTypeDef * hdma_usart_rx , uint32_t BufferSize)
+Serialctrl::Serialctrl(UART_HandleTypeDef *_huartx, DMA_HandleTypeDef * hdma_usart_rx , uint32_t BufferSize, uint8_t Serial_Mode)
 {
     this->huartx = _huartx;
 		this->hdma_usart_rx = hdma_usart_rx;
+		this->Serial_Mode = Serial_Mode;
     USART_Function = 0;
-//    newBuffer(&_rx_buffer, BufferSize);
+		if(this->Serial_Mode == Serial_NORMAL_Mode)
+		{
+    newBuffer(&_rx_buffer, BufferSize);
+		}
 }
 
 void Serialctrl::attachInterrupt(USART_CallbackFunction_t Function)
 {
     USART_Function = Function;
 }
-
-//void Serialctrl::IRQHandler(void)
-//{
-//    if(USART_GetITStatus(USARTx, USART_IT_RXNE) != RESET)
-//    {
-//        uint8_t c = USART_ReceiveData(USARTx);
-//        Buffer_Write(&_rx_buffer, c);
-//        if(USART_Function)
-//        {
-//            USART_Function(0);
-//        }
-//        USART_ClearITPendingBit(USARTx, USART_IT_RXNE);
-//    }
-
-//    if(USART_GetITStatus(USARTx, USART_IT_IDLE) != RESET)
-//    {
-//        uint8_t c = USART_ReceiveData(USARTx);
-//        if(USART_Function)
-//        {
-//            USART_Function(1);
-//        }
-//        USART_ClearITPendingBit(USARTx, USART_IT_IDLE);
-//    }
-//}
 
 void Serialctrl::IRQHandler_RXNE(uint8_t c)
 {
@@ -131,6 +111,12 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
     HAL_UART_Receive_IT(&huart1, &Serial1_Ctrl.receive_RXNE, 1);    // 继续使能RX中断
         
     }
+		if(huart->Instance == USART2){
+        
+		Serial2_Ctrl.IRQHandler_RXNE(Serial2_Ctrl.receive_RXNE);
+    HAL_UART_Receive_IT(&huart2, &Serial2_Ctrl.receive_RXNE, 1);    // 继续使能RX中断
+        
+    }
 }
 //串口接收空闲中断回调函数，这个是从hal里面新加的
 void HAL_UART_IdleCpltCallback(UART_HandleTypeDef *huart)
@@ -172,6 +158,9 @@ void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart)
     //当这个串口发生了错误，一定要在重新使能接收中断
     if(huart ->Instance == USART1){
 		HAL_UART_Receive_IT(&huart1, &Serial1_Ctrl.receive_RXNE, 1);
+	}
+		if(huart ->Instance == USART2){
+		HAL_UART_Receive_IT(&huart2, &Serial2_Ctrl.receive_RXNE, 1);
 	}
     //其他串口......
 }

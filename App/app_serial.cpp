@@ -28,16 +28,22 @@ void Serial5_Hook(bool mode)
 
 void Serial_ALL_Init(void)
 {
-    //	HAL_UART_Receive_IT(&huart1,&Serial1_Ctrl.receive_RXNE,1);   // 重新使能接收中断
-
-    //		__HAL_UART_ENABLE_IT(&huart1, UART_IT_IDLE);  //idle interrupt
-    //		HAL_UART_Receive_DMA(&huart1, (uint8_t*)&(Serial_Cmd.Serial1.Data[1]), Serial1_Buffer_Size);
+#if ( Serial1_Mode == Serial_NORMAL_Mode )
+    HAL_UART_Receive_IT(&huart1,&Serial1_Ctrl.receive_RXNE,1);   // 重新使能接收中断
+		__HAL_UART_ENABLE_IT(&huart1, UART_IT_IDLE);  //idle interrupt
+#endif
+#if ( Serial1_Mode == Serial_DMA_Mode )
     MA_UART_Receive_DMA_Init(&huart1, &hdma_usart1_rx, (uint8_t *)&(Serial_Cmd.Serial1.Data[0][1]), (uint8_t *)&(Serial_Cmd.Serial1.Data[1][1]), Serial1_Buffer_Size);
-
-    //		__HAL_UART_ENABLE_IT(&huart2, UART_IT_IDLE);  //idle interrupt
-    //		HAL_UART_Receive_DMA(&huart2, (uint8_t*)&(Serial_Cmd.Serial2.Data[1]), Serial2_Buffer_Size);
+#endif
+	
+#if ( Serial2_Mode == Serial_NORMAL_Mode )
+		HAL_UART_Receive_IT(&huart2,&Serial2_Ctrl.receive_RXNE,1);   // 重新使能接收中断
+    __HAL_UART_ENABLE_IT(&huart2, UART_IT_IDLE);  //idle interrupt
+#endif
+#if ( Serial2_Mode == Serial_DMA_Mode )
     MA_UART_Receive_DMA_Init(&huart2, &hdma_usart2_rx, (uint8_t *)&(Serial_Cmd.Serial2.Data[0][1]), (uint8_t *)&(Serial_Cmd.Serial2.Data[1][1]), Serial2_Buffer_Size);
-
+#endif
+	
     Serial1_Ctrl.attachInterrupt(Serial1_Hook);
     Serial2_Ctrl.attachInterrupt(Serial2_Hook);
     Serial4_Ctrl.attachInterrupt(Serial4_Hook);
@@ -66,8 +72,50 @@ void Serial_Ctrl::Hook(USART_TypeDef *SERIAL, bool mode)
 
 void Serial_Ctrl::Handle(Serialctrl *SerialCtrl, Serial_Data_t *Serial, bool mode)
 {
-    if (mode == 1)
+		if (Serial->Mode == Serial_NORMAL_Mode)
+		{
+			if(mode == 0)
+			{
+        Serial->Temp = SerialCtrl->peek();
+        if(Serial->Header != NULL && Serial->Temp != Serial->Header)
+        {
+            SerialCtrl->read();
+            return;
+        }
+			}
+			if (mode == 1)
+			{		
+				Serial->Len = SerialCtrl->available();
+				if((Serial->Len == Serial->Lenth0 ||Serial->Len == Serial->Lenth1 ||Serial->Len == Serial->Lenth2 ||Serial->Len == Serial->Lenth3) && (Serial->Len != NULL))
+        {
+					Serial->Data[0][0] = Serial->Len;
+					for(uint8_t i = 0; i < Serial->Len; i++)
+					{
+            Serial->Data[0][i + 1] = SerialCtrl->read();
+					}
+					Serial->Len = SerialCtrl->available();
+					if(Serial->Tail != NULL && Serial->Data[0][Serial->Len] != Serial->Tail)
+					{
+            Serial->Data[0][0] = 0;
+					}
+					if(Serial->Data[0][0] != 0)
+					{
+            Send_to_Message(SerialCtrl,0);
+					}
+				}
+				else
+				{
+					for(uint8_t i = 0; i < Serial->Len; i++)
+					{
+            SerialCtrl->read();
+					}
+				}
+			}
+		}
+    if (Serial->Mode == Serial_DMA_Mode)
     {
+			if (mode == 1)
+			{
         bool Memory;
         /* Current memory buffer used is Memory 0 */
         // disable DMA
@@ -103,7 +151,7 @@ void Serial_Ctrl::Handle(Serialctrl *SerialCtrl, Serial_Data_t *Serial, bool mod
         __HAL_DMA_ENABLE(SerialCtrl->hdma_usart_rx);
 				
 				
-        if ((Serial->Len == Serial->Lenth0 || Serial->Lenth1 || Serial->Lenth2 || Serial->Lenth3) && (Serial->Len != NULL))
+        if ((Serial->Len == Serial->Lenth0 ||Serial->Len == Serial->Lenth1 ||Serial->Len == Serial->Lenth2 ||Serial->Len == Serial->Lenth3) && (Serial->Len != NULL))
         {
             Serial->Data[Memory][0] = Serial->Len;
             if (Serial->Header == NULL && Serial->Tail == NULL)
@@ -115,6 +163,7 @@ void Serial_Ctrl::Handle(Serialctrl *SerialCtrl, Serial_Data_t *Serial, bool mod
                 Send_to_Message(SerialCtrl, Memory);
             }
         }
+			}
     }
 }
 

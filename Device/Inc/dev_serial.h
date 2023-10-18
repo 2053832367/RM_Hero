@@ -22,11 +22,13 @@ typedef void (*USART_CallbackFunction_t)(bool mode);
 class Serialctrl: public Buffer
 {
 public:
-	Serialctrl(UART_HandleTypeDef *_huartx, DMA_HandleTypeDef * hdma_usart_rx , uint32_t BufferSize);
+	Serialctrl(UART_HandleTypeDef *_huartx, DMA_HandleTypeDef * hdma_usart_rx , uint32_t BufferSize , uint8_t Serial_Mode);
 	void attachInterrupt(USART_CallbackFunction_t Function);
 //	void IRQHandler(void);
 void IRQHandler_RXNE(uint8_t c);
 void IRQHandler_IDLE(void);
+
+uint8_t Serial_Mode;
 
 uint8_t receive_RXNE;
 uint8_t receive_IDLE;

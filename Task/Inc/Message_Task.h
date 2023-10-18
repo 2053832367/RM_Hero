@@ -219,7 +219,7 @@ public:
 	Chassis_Receive_Data_t ChassisR;
 	gyro_data_t Gyro;
 
-	RC_ctrl_t rc_ctrl;
+	RC_ctrl_t *RC_Ptr;
 
 	union F Error_X;
 	union F Error_Y;

@@ -87,18 +87,17 @@ void Serial_Rx_Task(void *pvParameters)
 void DR16_Rx_Task(void *pvParameters)
 {
 	/* USER CODE BEGIN StartDefaultTask */
-	static ID_Data_t DR16_Rx_Data;
-	
+	static ID_Data_t DR16_Rx_Data;	
 	//remote control data 
 	//Ò£¿ØÆ÷¿ØÖÆ±äÁ¿
 	
   /* Infinite loop */
   for(;;)
   {		
-		if(xQueueReceive(DR16_Rx_Queue, &DR16_Rx_Data, portMAX_DELAY))
+		if(xQueueReceive(DR16_Rx_Queue, &DR16_Rx_Data.Data_Ptr, portMAX_DELAY))
 		{
-			sbus_to_rc(&( ((uint8_t *)(DR16_Rx_Data.Data_Ptr))[1]) ,&(Message.rc_ctrl));
-			rc_key_v_fresh((RC_ctrl_t *)&(Message.rc_ctrl));
+			sbus_to_rc(&( ((uint8_t *)(DR16_Rx_Data.Data_Ptr))[1]) ,Message.RC_Ptr);
+			rc_key_v_fresh(Message.RC_Ptr);
 			Guard.Feed(RCData);
 		}
   }
@@ -107,6 +106,7 @@ void DR16_Rx_Task(void *pvParameters)
 
 void Message_Ctrl::Init()
 {	
+	Message.RC_Ptr = &RC_ctrl;
 	CAN_ALL_Init();
 	Prefence_Init();
 	Serial_ALL_Init();
@@ -409,7 +409,7 @@ void Message_Ctrl::Gyro_CAN_Hook(uint32_t *Rx_Message ,uint8_t *Rx_Date)
 
 RC_ctrl_t *get_remote_control_point(void)
 {
-    return &Message.rc_ctrl;
+    return Message.RC_Ptr;
 }
 
 Message_Ctrl *get_message_ctrl_pointer(void)

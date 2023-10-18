@@ -84,7 +84,7 @@ typedef __packed struct
 } RC_ctrl_t;
 
 /* ----------------------- Internal Data ----------------------------------- */
-
+extern RC_ctrl_t RC_ctrl;
 void sbus_to_rc(volatile const uint8_t *sbus_buf, RC_ctrl_t *rc_ctrl);
 #ifdef __cplusplus
 }
