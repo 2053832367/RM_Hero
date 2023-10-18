@@ -93,11 +93,11 @@ void Serial_Ctrl::Handle(Serialctrl *SerialCtrl, Serial_Data_t *Serial, bool mod
 					{
             Serial->Data[0][i + 1] = SerialCtrl->read();
 					}
-					Serial->Len = SerialCtrl->available();
 					if(Serial->Tail != NULL && Serial->Data[0][Serial->Len] != Serial->Tail)
 					{
             Serial->Data[0][0] = 0;
 					}
+					Serial->Len = SerialCtrl->available();
 					if(Serial->Data[0][0] != 0)
 					{
             Send_to_Message(SerialCtrl,0);

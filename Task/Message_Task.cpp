@@ -2,6 +2,7 @@
 #include "tasks.h"
 
 Message_Ctrl Message;
+uint8_t r[20];
 
 void Message_Task(void *pvParameters)
 {
@@ -229,58 +230,62 @@ void Message_Ctrl::Visual_Serial_Hook(uint8_t *Rx_Message)
 
 void Message_Ctrl::Chassis_Serial_Hook(uint8_t *Rx_Message)
 {
-	uint8_t i;
-	uint8_t len = Rx_Message[0];
+//	uint8_t i;
+//	uint8_t len = Rx_Message[0];
 
-	if(Verify_CRC8_Check_Sum(&Rx_Message[1], Rx_Message[0]))
-	{
-		if(Rx_Message[2] == game_robot_state_id_)
-		{
-			memcpy(&Game_State, &Rx_Message[1], sizeof(game_robot_state_t));
-
-			uint8_t Bullet_Speed_Set;
-			if(Game_State.bullet_speed != bullet_speed_last)
-			{
-				bullet_speed_last = Game_State.bullet_speed;
-				if(Message.Game_State.bullet_speed_limit != 0)
-				{
-					Bullet_Speed_Set = Message.Game_State.bullet_speed_limit;
-				}
-				else
-				{
-					Bullet_Speed_Set = Gimbal.Data.Fric_Gear[Gimbal.Data.Gear - 1];
-				}
-				//待改成pid,无固定周期,没想法
-				if(Game_State.bullet_speed - Bullet_Speed_Set > -(Bullet_Speed_Set*0.05f))
-				{
-					Gimbal.Data.Fric_Set[Gimbal.Data.Gear - 1] -= 40;
-				}
-				else if(Game_State.bullet_speed - Bullet_Speed_Set > -(Bullet_Speed_Set*0.08f))
-				{
-					Gimbal.Data.Fric_Set[Gimbal.Data.Gear - 1] -= 20;
-				}
-				else if(Game_State.bullet_speed - Bullet_Speed_Set < -(Bullet_Speed_Set*0.15f))
-				{
-					Gimbal.Data.Fric_Set[Gimbal.Data.Gear - 1] += 80;
-				}
-				else if(Game_State.bullet_speed - Bullet_Speed_Set < -(Bullet_Speed_Set*0.08f))
-				{
-					Gimbal.Data.Fric_Set[Gimbal.Data.Gear - 1] += 20;
-				}
-			}
-		}
-//		else if(Rx_Message[2] == game_robot_HP_id_)
+//	if(Verify_CRC8_Check_Sum(&Rx_Message[1], Rx_Message[0]))
+//	{
+//		if(Rx_Message[2] == game_robot_state_id_)
 //		{
-//			memcpy(&Message.Game_HP, &Rx_Message[1], sizeof(ext_game_robot_HP_t));
+//			memcpy(&Game_State, &Rx_Message[1], sizeof(game_robot_state_t));
+
+//			uint8_t Bullet_Speed_Set;
+//			if(Game_State.bullet_speed != bullet_speed_last)
+//			{
+//				bullet_speed_last = Game_State.bullet_speed;
+//				if(Message.Game_State.bullet_speed_limit != 0)
+//				{
+//					Bullet_Speed_Set = Message.Game_State.bullet_speed_limit;
+//				}
+//				else
+//				{
+//					Bullet_Speed_Set = Gimbal.Data.Fric_Gear[Gimbal.Data.Gear - 1];
+//				}
+//				//待改成pid,无固定周期,没想法
+//				if(Game_State.bullet_speed - Bullet_Speed_Set > -(Bullet_Speed_Set*0.05f))
+//				{
+//					Gimbal.Data.Fric_Set[Gimbal.Data.Gear - 1] -= 40;
+//				}
+//				else if(Game_State.bullet_speed - Bullet_Speed_Set > -(Bullet_Speed_Set*0.08f))
+//				{
+//					Gimbal.Data.Fric_Set[Gimbal.Data.Gear - 1] -= 20;
+//				}
+//				else if(Game_State.bullet_speed - Bullet_Speed_Set < -(Bullet_Speed_Set*0.15f))
+//				{
+//					Gimbal.Data.Fric_Set[Gimbal.Data.Gear - 1] += 80;
+//				}
+//				else if(Game_State.bullet_speed - Bullet_Speed_Set < -(Bullet_Speed_Set*0.08f))
+//				{
+//					Gimbal.Data.Fric_Set[Gimbal.Data.Gear - 1] += 20;
+//				}
+//			}
 //		}
-		else if(Rx_Message[2] == game_status_id_)
-		{
-			memcpy(&Message.game_status, &Rx_Message[1], sizeof(game_status_t));
-		}
-		else if(Rx_Message[2] == chassis_data_id)
-		{
-			memcpy(&Message.ChassisR, &Rx_Message[1], sizeof(Chassis_Receive_Data_t));
-		}
+////		else if(Rx_Message[2] == game_robot_HP_id_)
+////		{
+////			memcpy(&Message.Game_HP, &Rx_Message[1], sizeof(ext_game_robot_HP_t));
+////		}
+//		else if(Rx_Message[2] == game_status_id_)
+//		{
+//			memcpy(&Message.game_status, &Rx_Message[1], sizeof(game_status_t));
+//		}
+//		else if(Rx_Message[2] == chassis_data_id)
+//		{
+//			memcpy(&Message.ChassisR, &Rx_Message[1], sizeof(Chassis_Receive_Data_t));
+//		}
+//	}
+	for(int i = 0;i < Rx_Message[0]+1;i++)
+	{
+		r[i]=Rx_Message[i];
 	}
 }
 
