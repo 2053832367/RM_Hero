@@ -67,14 +67,17 @@ void Serial_Rx_Task(void *pvParameters)
 			case SerialData1:
 			Message.Serialx_Hook((uint8_t *)Serial_Rx_Data.Data_Ptr, &Serial1_Ctrl);
 			break;
-			case SerialData2:
-			Message.Serialx_Hook((uint8_t *)Serial_Rx_Data.Data_Ptr, &Serial2_Ctrl);
+			case SerialData3:
+			Message.Serialx_Hook((uint8_t *)Serial_Rx_Data.Data_Ptr, &Serial3_Ctrl);
 			break;
 			case SerialData4:
 			Message.Serialx_Hook((uint8_t *)Serial_Rx_Data.Data_Ptr, &Serial4_Ctrl);
 			break;
-			case SerialData5:
-			Message.Serialx_Hook((uint8_t *)Serial_Rx_Data.Data_Ptr, &Serial5_Ctrl);
+			case SerialData7:
+			Message.Serialx_Hook((uint8_t *)Serial_Rx_Data.Data_Ptr, &Serial7_Ctrl);
+			break;
+			case SerialData8:
+			Message.Serialx_Hook((uint8_t *)Serial_Rx_Data.Data_Ptr, &Serial8_Ctrl);
 			break;
 			default:
 			break;
@@ -189,42 +192,47 @@ void Message_Ctrl::CAN2_Process(uint32_t *Rx_Message)
 
 void Message_Ctrl::Visual_Serial_Hook(uint8_t *Rx_Message)
 {
-	uint8_t i;
-	uint8_t len = Rx_Message[0];
-	VisualR.Fps.Statistic_Update(xTaskGetTickCount());
-	if(Rx_Message[2] == 0)
-	{
-		VisualR.State = false;
-	}
-	else
-	{
-		VisualR.State = true;
+//	uint8_t i;
+//	uint8_t len = Rx_Message[0];
+//	VisualR.Fps.Statistic_Update(xTaskGetTickCount());
+//	if(Rx_Message[2] == 0)
+//	{
+//		VisualR.State = false;
+//	}
+//	else
+//	{
+//		VisualR.State = true;
 
-		for(i = 0;i < 4;i++)
-		{
-			Error_X.I[i] = Rx_Message[i + 3];
-			Error_Y.I[i] = Rx_Message[i + 7];
-		}
-//		VisualR.Error_X = -Error_X.F + Gimbal.Yaw.angle;
-//		VisualR.Error_Y = -Error_Y.F + Gimbal.Pitch.angle;
-		VisualR.Error_X = Error_X.F;
-		VisualR.Error_Y = Error_Y.F;
-	}
-	if(VisualR.State)
-	{
-		VisualR.Goal = true;
-	}
-	if(VisualR.target == 0)
-	{
-		VisualR.Goal = false;
-		VisualR.Error_X = Gimbal.Yaw.angle;
-		VisualR.Error_Y = Gimbal.Pitch.angle;
-	}
+//		for(i = 0;i < 4;i++)
+//		{
+//			Error_X.I[i] = Rx_Message[i + 3];
+//			Error_Y.I[i] = Rx_Message[i + 7];
+//		}
+////		VisualR.Error_X = -Error_X.F + Gimbal.Yaw.angle;
+////		VisualR.Error_Y = -Error_Y.F + Gimbal.Pitch.angle;
+//		VisualR.Error_X = Error_X.F;
+//		VisualR.Error_Y = Error_Y.F;
+//	}
+//	if(VisualR.State)
+//	{
+//		VisualR.Goal = true;
+//	}
+//	if(VisualR.target == 0)
+//	{
+//		VisualR.Goal = false;
+//		VisualR.Error_X = Gimbal.Yaw.angle;
+//		VisualR.Error_Y = Gimbal.Pitch.angle;
+//	}
 
-	if(VisualR.target > 0)
+//	if(VisualR.target > 0)
+//	{
+//		VisualR.Yaw_Speed = Target_Speed_Calc(&Visual_Yaw_Speed, xTaskGetTickCount(), VisualR.Error_X);
+//		VisualR.Pitch_Speed = Target_Speed_Calc(&Visual_Pitch_Speed, xTaskGetTickCount(), VisualR.Error_Y);
+//	}
+
+for(int i = 0;i < Rx_Message[0]+1;i++)
 	{
-		VisualR.Yaw_Speed = Target_Speed_Calc(&Visual_Yaw_Speed, xTaskGetTickCount(), VisualR.Error_X);
-		VisualR.Pitch_Speed = Target_Speed_Calc(&Visual_Pitch_Speed, xTaskGetTickCount(), VisualR.Error_Y);
+		r[i]=Rx_Message[i];
 	}
 }
 

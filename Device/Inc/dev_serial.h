@@ -51,16 +51,26 @@ private:
 };
 
 extern Serialctrl Serial1_Ctrl;
-extern Serialctrl Serial2_Ctrl;
+extern Serialctrl Serial3_Ctrl;
 extern Serialctrl Serial4_Ctrl;
-extern Serialctrl Serial5_Ctrl;
+extern Serialctrl Serial7_Ctrl;
+extern Serialctrl Serial8_Ctrl;
 
 extern UART_HandleTypeDef huart4;
-extern UART_HandleTypeDef huart5;
+extern UART_HandleTypeDef huart7;
+extern UART_HandleTypeDef huart8;
 extern UART_HandleTypeDef huart1;
-extern UART_HandleTypeDef huart2;
+extern UART_HandleTypeDef huart3;
 
+extern DMA_HandleTypeDef hdma_uart4_rx;
+extern DMA_HandleTypeDef hdma_uart4_tx;
+extern DMA_HandleTypeDef hdma_uart7_rx;
+extern DMA_HandleTypeDef hdma_uart7_tx;
+extern DMA_HandleTypeDef hdma_uart8_rx;
+extern DMA_HandleTypeDef hdma_uart8_tx;
 extern DMA_HandleTypeDef hdma_usart1_rx;
-extern DMA_HandleTypeDef hdma_usart2_rx;
+extern DMA_HandleTypeDef hdma_usart1_tx;
+extern DMA_HandleTypeDef hdma_usart3_rx;
+extern DMA_HandleTypeDef hdma_usart3_tx;
 
 #endif /* _DEV_SERIAL */

@@ -18,9 +18,10 @@ extern "C" {
 #endif
 
 #define SERIAL1 USART1
-#define SERIAL2 USART2
+#define SERIAL3 USART3
 #define SERIAL4 UART4
-#define SERIAL5 UART5
+#define SERIAL7 UART7
+#define SERIAL8 UART8
 
 typedef enum
 {
@@ -62,9 +63,10 @@ class Serial_Ctrl
 public:
     Serial_Ctrl()
         :Serial1(Serial1_Data_Header, Serial1_Data_Tail, Serial1_Data_Lenth0, Serial1_Data_Lenth1, Serial1_Data_Lenth2, Serial1_Data_Lenth3, Serial1_Buffer_Size, Serial1_Mode),
-        Serial2(Serial2_Data_Header, Serial2_Data_Tail, Serial2_Data_Lenth0, Serial2_Data_Lenth1, Serial2_Data_Lenth2, Serial2_Data_Lenth3, Serial2_Buffer_Size, Serial2_Mode),
+        Serial3(Serial3_Data_Header, Serial3_Data_Tail, Serial3_Data_Lenth0, Serial3_Data_Lenth1, Serial3_Data_Lenth2, Serial3_Data_Lenth3, Serial3_Buffer_Size, Serial3_Mode),
         Serial4(Serial4_Data_Header, Serial4_Data_Tail, Serial4_Data_Lenth0, Serial4_Data_Lenth1, Serial4_Data_Lenth2, Serial4_Data_Lenth3, Serial4_Buffer_Size, Serial4_Mode),
-        Serial5(Serial5_Data_Header, Serial5_Data_Tail, Serial5_Data_Lenth0, Serial5_Data_Lenth1, Serial5_Data_Lenth2, Serial5_Data_Lenth3, Serial5_Buffer_Size, Serial5_Mode)
+        Serial7(Serial7_Data_Header, Serial7_Data_Tail, Serial7_Data_Lenth0, Serial7_Data_Lenth1, Serial7_Data_Lenth2, Serial7_Data_Lenth3, Serial7_Buffer_Size, Serial7_Mode),
+        Serial8(Serial8_Data_Header, Serial8_Data_Tail, Serial8_Data_Lenth0, Serial8_Data_Lenth1, Serial8_Data_Lenth2, Serial8_Data_Lenth3, Serial8_Buffer_Size, Serial8_Mode)
     {}
 
     void Hook(USART_TypeDef *SERIAL, bool mode);
@@ -76,9 +78,10 @@ public:
     ~Serial_Ctrl() {}
 
     Serial_Data_t Serial1;
-    Serial_Data_t Serial2;
+    Serial_Data_t Serial3;
     Serial_Data_t Serial4;
-    Serial_Data_t Serial5;
+    Serial_Data_t Serial7;
+    Serial_Data_t Serial8;
 			
 private:
     void *buf;

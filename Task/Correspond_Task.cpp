@@ -34,35 +34,44 @@ void correspondence_ctrl::Corres_Init(void)
 
 void correspondence_ctrl::Corres_Send(void)
 {
-	if(Rate_Do_Execute(5))
-	{//10MS一次
-		VISUAL_SERIAL.sendData(0xff);
-		VISUAL_SERIAL.sendData(&Visual_Posture.Yaw[0], 14);
-		VISUAL_SERIAL.sendData(0xfe);
-	}
-	// if(Rate_Do_Execute(5))
-	// {//10MS一次
-	// 	Append_CRC8_Check_Sum(&Visual_Posture.Header, sizeof(Visual_Posture_Data_t));
-	// 	VISUAL_SERIAL.sendData(&Visual_Posture, sizeof(Visual_Posture_Data_t));
-	// }
-	// if(Rate_Do_Execute(50))
-	// {
-	// 	Append_CRC8_Check_Sum(&Game_Sate.Header, sizeof(game_robot_state_t_));
-	// 	VISUAL_SERIAL.sendData(&Game_Sate, sizeof(game_robot_state_t_));
-	// }
-	// if(Rate_Do_Execute(50))
-	// {
-	// 	Append_CRC8_Check_Sum(&Visual_Mode.Header, sizeof(Visual_Mode_Data_t));
-	// 	VISUAL_SERIAL.sendData(&Visual_Mode, sizeof(Visual_Mode_Data_t));
-	// }
-	// if(Rate_Do_Execute(50))
-	// {
-	// 	Append_CRC8_Check_Sum(&Game_HP.Header, sizeof(Game_HP_t));
-	// 	VISUAL_SERIAL.sendData(&Game_HP, sizeof(Game_HP_t));
-	// }
-	Append_CRC8_Check_Sum(&ChassisS.Header, sizeof(Chassis_Send_Data_t));
-	CHASSIS_SERIAL.sendData(&ChassisS, sizeof(Chassis_Send_Data_t));
-	Corres.RGB_Send();
+//	if(Rate_Do_Execute(5))
+//	{//10MS一次
+//		VISUAL_SERIAL.sendData(0xff);
+//		VISUAL_SERIAL.sendData(&Visual_Posture.Yaw[0], 14);
+//		VISUAL_SERIAL.sendData(0xfe);
+//	}
+//	// if(Rate_Do_Execute(5))
+//	// {//10MS一次
+//	// 	Append_CRC8_Check_Sum(&Visual_Posture.Header, sizeof(Visual_Posture_Data_t));
+//	// 	VISUAL_SERIAL.sendData(&Visual_Posture, sizeof(Visual_Posture_Data_t));
+//	// }
+//	// if(Rate_Do_Execute(50))
+//	// {
+//	// 	Append_CRC8_Check_Sum(&Game_Sate.Header, sizeof(game_robot_state_t_));
+//	// 	VISUAL_SERIAL.sendData(&Game_Sate, sizeof(game_robot_state_t_));
+//	// }
+//	// if(Rate_Do_Execute(50))
+//	// {
+//	// 	Append_CRC8_Check_Sum(&Visual_Mode.Header, sizeof(Visual_Mode_Data_t));
+//	// 	VISUAL_SERIAL.sendData(&Visual_Mode, sizeof(Visual_Mode_Data_t));
+//	// }
+//	// if(Rate_Do_Execute(50))
+//	// {
+//	// 	Append_CRC8_Check_Sum(&Game_HP.Header, sizeof(Game_HP_t));
+//	// 	VISUAL_SERIAL.sendData(&Game_HP, sizeof(Game_HP_t));
+//	// }
+//	Append_CRC8_Check_Sum(&ChassisS.Header, sizeof(Chassis_Send_Data_t));
+//	CHASSIS_SERIAL.sendData(&ChassisS, sizeof(Chassis_Send_Data_t));
+//	Corres.RGB_Send();
+
+	if(Rate_Do_Execute(500))
+		{
+			Append_CRC8_Check_Sum(s, sizeof(s));
+			Serial1_Ctrl.sendData(s, sizeof(s));
+			Serial3_Ctrl.sendData(s, sizeof(s));
+			Serial7_Ctrl.sendData(s, sizeof(s));
+			Serial8_Ctrl.sendData(s, sizeof(s));
+		}
 }
 
 void correspondence_ctrl::Corres_Feedback(void)

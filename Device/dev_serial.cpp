@@ -2,9 +2,10 @@
 #include "app_preference.h"
 
 Serialctrl Serial1_Ctrl(&huart1, &hdma_usart1_rx, Serial1_Buffer_Size, Serial1_Mode);
-Serialctrl Serial2_Ctrl(&huart2, &hdma_usart2_rx, Serial2_Buffer_Size, Serial2_Mode);
-Serialctrl Serial4_Ctrl(&huart4, NULL ,Serial4_Buffer_Size, Serial4_Mode);
-Serialctrl Serial5_Ctrl(&huart5, NULL ,Serial5_Buffer_Size, Serial5_Mode);
+Serialctrl Serial3_Ctrl(&huart3, &hdma_usart3_rx, Serial3_Buffer_Size, Serial3_Mode);
+Serialctrl Serial4_Ctrl(&huart4, &hdma_uart4_rx ,Serial4_Buffer_Size, Serial4_Mode);
+Serialctrl Serial7_Ctrl(&huart7, &hdma_uart7_rx ,Serial7_Buffer_Size, Serial7_Mode);
+Serialctrl Serial8_Ctrl(&huart8, &hdma_uart8_rx ,Serial8_Buffer_Size, Serial8_Mode);
 
 Serialctrl::Serialctrl(UART_HandleTypeDef *_huartx, DMA_HandleTypeDef * hdma_usart_rx , uint32_t BufferSize, uint8_t Serial_Mode)
 {
@@ -111,10 +112,26 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
     HAL_UART_Receive_IT(&huart1, &Serial1_Ctrl.receive_RXNE, 1);    // 继续使能RX中断
         
     }
-		if(huart->Instance == USART2){
+		if(huart->Instance == USART3){
         
-		Serial2_Ctrl.IRQHandler_RXNE(Serial2_Ctrl.receive_RXNE);
-    HAL_UART_Receive_IT(&huart2, &Serial2_Ctrl.receive_RXNE, 1);    // 继续使能RX中断
+		Serial3_Ctrl.IRQHandler_RXNE(Serial3_Ctrl.receive_RXNE);
+    HAL_UART_Receive_IT(&huart3, &Serial3_Ctrl.receive_RXNE, 1);    // 继续使能RX中断
+        
+    }
+		if(huart->Instance == UART4){
+        
+		Serial4_Ctrl.IRQHandler_RXNE(Serial4_Ctrl.receive_RXNE);
+    HAL_UART_Receive_IT(&huart4, &Serial4_Ctrl.receive_RXNE, 1);    // 继续使能RX中断
+        
+    }if(huart->Instance == UART7){
+        
+		Serial7_Ctrl.IRQHandler_RXNE(Serial7_Ctrl.receive_RXNE);
+    HAL_UART_Receive_IT(&huart7, &Serial7_Ctrl.receive_RXNE, 1);    // 继续使能RX中断
+        
+    }if(huart->Instance == UART8){
+        
+		Serial8_Ctrl.IRQHandler_RXNE(Serial8_Ctrl.receive_RXNE);
+    HAL_UART_Receive_IT(&huart8, &Serial8_Ctrl.receive_RXNE, 1);    // 继续使能RX中断
         
     }
 }
@@ -129,12 +146,36 @@ void HAL_UART_IdleCpltCallback(UART_HandleTypeDef *huart)
 		Serial1_Ctrl.IRQHandler_IDLE(); 
 //		__HAL_DMA_ENABLE(&hdma_usart1_rx);
     }
-		if(huart->Instance == USART2){  
+		if(huart->Instance == USART3){  
         
 //    Serial1_Ctrl.receive_IDLE = huart1.Instance->RDR;
-		__HAL_UART_CLEAR_IDLEFLAG(&huart2);
+		__HAL_UART_CLEAR_IDLEFLAG(&huart3);
 //		__HAL_DMA_DISABLE(&hdma_usart2_rx);
-		Serial2_Ctrl.IRQHandler_IDLE(); 
+		Serial3_Ctrl.IRQHandler_IDLE(); 
+//		__HAL_DMA_ENABLE(&hdma_usart2_rx);
+    }
+		if(huart->Instance == UART4){  
+        
+//    Serial1_Ctrl.receive_IDLE = huart1.Instance->RDR;
+		__HAL_UART_CLEAR_IDLEFLAG(&huart4);
+//		__HAL_DMA_DISABLE(&hdma_usart2_rx);
+		Serial4_Ctrl.IRQHandler_IDLE(); 
+//		__HAL_DMA_ENABLE(&hdma_usart2_rx);
+    }
+		if(huart->Instance == UART7){  
+        
+//    Serial1_Ctrl.receive_IDLE = huart1.Instance->RDR;
+		__HAL_UART_CLEAR_IDLEFLAG(&huart7);
+//		__HAL_DMA_DISABLE(&hdma_usart2_rx);
+		Serial7_Ctrl.IRQHandler_IDLE(); 
+//		__HAL_DMA_ENABLE(&hdma_usart2_rx);
+    }
+		if(huart->Instance == UART8){  
+        
+//    Serial1_Ctrl.receive_IDLE = huart1.Instance->RDR;
+		__HAL_UART_CLEAR_IDLEFLAG(&huart8);
+//		__HAL_DMA_DISABLE(&hdma_usart2_rx);
+		Serial8_Ctrl.IRQHandler_IDLE(); 
 //		__HAL_DMA_ENABLE(&hdma_usart2_rx);
     }
 }
@@ -159,8 +200,17 @@ void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart)
     if(huart ->Instance == USART1){
 		HAL_UART_Receive_IT(&huart1, &Serial1_Ctrl.receive_RXNE, 1);
 	}
-		if(huart ->Instance == USART2){
-		HAL_UART_Receive_IT(&huart2, &Serial2_Ctrl.receive_RXNE, 1);
+		if(huart ->Instance == USART3){
+		HAL_UART_Receive_IT(&huart3, &Serial3_Ctrl.receive_RXNE, 1);
+	}
+		if(huart ->Instance == UART4){
+		HAL_UART_Receive_IT(&huart4, &Serial4_Ctrl.receive_RXNE, 1);
+	}
+		if(huart ->Instance == UART7){
+		HAL_UART_Receive_IT(&huart7, &Serial7_Ctrl.receive_RXNE, 1);
+	}
+		if(huart ->Instance == UART8){
+		HAL_UART_Receive_IT(&huart8, &Serial8_Ctrl.receive_RXNE, 1);
 	}
     //其他串口......
 }
