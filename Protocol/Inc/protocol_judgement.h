@@ -405,7 +405,7 @@ typedef __packed struct
 	tMsg_head       											 		UIMsg_head;
 	uint16_t         													CmdID;
 	ext_student_interactive_header_data_t  		UIdraw_header_id;
-	graphic_data_struct_t                     MA_UI_date[7];
+	graphic_data_struct_t                     MA_UI_data[7];
 	uint16_t        													CRC16;
 }MA_UIgraphic_struct_t;
 
@@ -414,7 +414,7 @@ typedef __packed struct
 	tMsg_head       											 		UIMsg_head;
 	uint16_t         													CmdID;
 	ext_student_interactive_header_data_t  		UIdraw_header_id;
-	number_data_struct_t                     	MA_UI_date[7];
+	number_data_struct_t                     	MA_UI_data[7];
 	uint16_t        													CRC16;
 }MA_UInumber_struct_t;
 

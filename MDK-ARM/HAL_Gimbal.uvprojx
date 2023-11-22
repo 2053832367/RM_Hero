@@ -673,6 +673,11 @@
               <FileType>8</FileType>
               <FilePath>..\App\app_rgb.cpp</FilePath>
             </File>
+            <File>
+              <FileName>app_oled.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\App\app_oled.cpp</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

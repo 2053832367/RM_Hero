@@ -9,6 +9,7 @@
 #include "app_preference.h"
 #include "app_serial.h"
 #include "app_rgb.h"
+#include "app_oled.h"
 #include "drivers_statistic.h"
 #include "protocol_crc.h"
 

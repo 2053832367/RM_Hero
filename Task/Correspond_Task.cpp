@@ -25,6 +25,7 @@ correspondence_ctrl Corres;
 void correspondence_ctrl::Corres_Init(void)
 {
 	WS2812_INIT();
+	OLED_Init();
 	
 	Data.Shoot_Unoin.F = 14.0f;
 
@@ -71,6 +72,12 @@ void correspondence_ctrl::Corres_Send(void)
 			Serial3_Ctrl.sendData(s, sizeof(s));
 			Serial7_Ctrl.sendData(s, sizeof(s));
 			Serial8_Ctrl.sendData(s, sizeof(s));
+		}
+		
+	if(Rate_Do_Execute(500))
+		{
+			sprintf(OLED,"MA");
+			OLED_ShowString(0,4,(uint8_t *)OLED,16);
 		}
 }
 

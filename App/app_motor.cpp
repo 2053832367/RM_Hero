@@ -3,7 +3,7 @@
 #include "Message_Task.h"
 CAN_Ctrl CAN_Cmd;
 
-void CAN1_Send(uint32_t *FDCAN_RxID)
+void CAN1_Send(CanRxMsg *FDCAN_RxID)
 {
 	BaseType_t xHigherPriorityTaskWoken = pdFALSE;
 	ID_Data[CanData1].Data_Ptr = FDCAN_RxID;
@@ -11,7 +11,7 @@ void CAN1_Send(uint32_t *FDCAN_RxID)
 	portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
 }
 
-void CAN2_Send(uint32_t *FDCAN_RxID)
+void CAN2_Send(CanRxMsg *FDCAN_RxID)
 {
 	BaseType_t xHigherPriorityTaskWoken = pdFALSE;
 	ID_Data[CanData2].Data_Ptr = FDCAN_RxID;

@@ -16,7 +16,19 @@ extern "C" {
 #include "fdcan.h"
 #include "stm32h7xx_hal.h"
 
-typedef void(*CAN_CallbackFunction_t)(uint32_t *FDCAN_RxID);
+union u32_u8
+{
+    uint32_t u32;
+    uint8_t u8[4];
+};
+
+typedef struct
+{
+  u32_u8 StdId;
+  uint8_t Data[8];
+} CanRxMsg;
+
+typedef void(*CAN_CallbackFunction_t)(CanRxMsg *FDCAN_RxID);
 
 class CANctrl: public Buffer
 {
@@ -32,8 +44,7 @@ public:
 	void IRQHandler(FDCAN_HandleTypeDef *hfdcan , uint32_t RxFifo0ITs);
 		
 	FDCAN_RxHeaderTypeDef FDCAN_RxHeader;
-	uint32_t FDCAN_RxID;
-	uint8_t FDCAN_RxData[8];
+	CanRxMsg FDCAN_RxData;
 		
 	FDCAN_TxHeaderTypeDef FDCAN_TxHeader;
 

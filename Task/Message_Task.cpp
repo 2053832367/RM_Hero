@@ -30,7 +30,7 @@ void CAN1_Rx_Task(void *pvParameters)
   {		
 		if(xQueueReceive(CAN1_Rx_Queue, &CAN1_Rx_Data, portMAX_DELAY))
 		{
-			Message.CAN1_Process((uint32_t *)CAN1_Rx_Data.Data_Ptr);
+			Message.CAN1_Process((CanRxMsg *)CAN1_Rx_Data.Data_Ptr);
 			Guard.Feed(CanData1);
 		}
   }
@@ -46,7 +46,7 @@ void CAN2_Rx_Task(void *pvParameters)
   {		
     if(xQueueReceive(CAN2_Rx_Queue, &CAN2_Rx_Data, portMAX_DELAY))
 		{
-			Message.CAN2_Process((uint32_t *)CAN2_Rx_Data.Data_Ptr);
+			Message.CAN2_Process((CanRxMsg *)CAN2_Rx_Data.Data_Ptr);
 			Guard.Feed(CanData2);
 		}
   }
@@ -136,14 +136,18 @@ void Message_Ctrl::Serialx_Hook(uint8_t *Rx_Message, Serialctrl *Serialx_Ctrl)
 	}
 }
 
-void Message_Ctrl::CAN1_Process(uint32_t *Rx_Message)
+void Message_Ctrl::CAN1_Process(CanRxMsg *Rx_Message)
 {
-	uint8_t Rx_Date[8];
+	CanRxMsg Rx_Data;
+	for(uint8_t x=0;x<4;x++)
+	{
+					Rx_Data.StdId.u8[x]=CAN1_Ctrl.read();
+	}
 	for(uint8_t x=0;x<8;x++)
 	{
-					Rx_Date[x]=CAN1_Ctrl.read();
+					Rx_Data.Data[x]=CAN1_Ctrl.read();
 	}
-	switch(*Rx_Message)
+	switch(Rx_Data.StdId.u32)
 	{
 	case CAN_DJI_Motor5_ID:
 	case CAN_DJI_Motor6_ID:
@@ -151,9 +155,9 @@ void Message_Ctrl::CAN1_Process(uint32_t *Rx_Message)
 	{
 		static uint8_t i = 0;
 		//处理电机ID号
-		i = *Rx_Message - CAN_DJI_Motor5_ID;
+		i = Rx_Data.StdId.u32 - CAN_DJI_Motor5_ID;
 		//处理电机数据宏函数
-		MA_get_motor_measure(CAN_Cmd.Gimbal.GetData(i), Rx_Date);
+		MA_get_motor_measure(CAN_Cmd.Gimbal.GetData(i), Rx_Data.Data);
 		break;
 	}
 	default:
@@ -163,28 +167,32 @@ void Message_Ctrl::CAN1_Process(uint32_t *Rx_Message)
 	}
 }
 
-void Message_Ctrl::CAN2_Process(uint32_t *Rx_Message)
+void Message_Ctrl::CAN2_Process(CanRxMsg *Rx_Message)
 {
-	uint8_t Rx_Date[8];
+	CanRxMsg Rx_Data;
+	for(uint8_t x=0;x<4;x++)
+	{
+					Rx_Data.StdId.u8[x]=CAN2_Ctrl.read();
+	}
 	for(uint8_t x=0;x<8;x++)
 	{
-					Rx_Date[x]=CAN2_Ctrl.read();
+					Rx_Data.Data[x]=CAN2_Ctrl.read();
 	}
-	switch(*Rx_Message)
+	switch(Rx_Data.StdId.u32)
 	{
 	case CAN_DJI_Motor1_ID:
 	case CAN_DJI_Motor2_ID:
 	{
 		static uint8_t i = 0;
 		//处理电机ID号
-		i = *Rx_Message - CAN_DJI_Motor1_ID;
+		i = Rx_Data.StdId.u32 - CAN_DJI_Motor1_ID;
 		//处理电机数据宏函数
-		MA_get_motor_measure(CAN_Cmd.Fric.GetData(i), Rx_Date);
+		MA_get_motor_measure(CAN_Cmd.Fric.GetData(i), Rx_Data.Data);
 		break;
 	}
 	default:
 	{
-		Gyro_CAN_Hook(Rx_Message , Rx_Date);
+		Gyro_CAN_Hook(&Rx_Data.StdId.u32 , Rx_Data.Data);
 		break;
 	}
 	}
@@ -302,6 +310,8 @@ void Message_Ctrl::Gyro_Serial_Hook(uint8_t *Rx_Message)
 	int16_t temp = 0;
 	uint8_t len = Rx_Message[0];
 
+	if(len == GYRO_SERIAL_Data_Lenth1)
+	{
 	switch(Rx_Message[2])
 	{
 	case 0x52:
@@ -322,6 +332,41 @@ void Message_Ctrl::Gyro_Serial_Hook(uint8_t *Rx_Message)
 	default:
 	break;
 	}
+	}
+	else if(len == GYRO_SERIAL_Data_Lenth2)
+	{
+	switch(Rx_Message[2])
+	{
+	case 0x52:
+	{
+		memcpy(&temp, &Rx_Message[7], 2);
+		Gyro.data.SpeedZ = temp / 32768.0f * 2000.0f;
+		Gyro.Gyro_Speed_fps.Statistic_Update(xTaskGetTickCount());
+		
+		memcpy(&temp, &Rx_Message[18], 2);
+		Gyro.data.AngleY = temp / 32768.0f * 180.0f;
+		Gyro.Gyro_Angle_fps.Statistic_Update(xTaskGetTickCount());
+		Gyro.time[1] = xTaskGetTickCount();
+
+		break;
+	}
+	case 0x53:
+	{
+		memcpy(&temp, &Rx_Message[7], 2);
+		Gyro.data.AngleY = temp / 32768.0f * 180.0f;
+		Gyro.Gyro_Angle_fps.Statistic_Update(xTaskGetTickCount());
+		Gyro.time[1] = xTaskGetTickCount();
+		
+		memcpy(&temp, &Rx_Message[18], 2);
+		Gyro.data.SpeedZ = temp / 32768.0f * 2000.0f;
+		Gyro.Gyro_Speed_fps.Statistic_Update(xTaskGetTickCount());
+
+		break;
+	}
+	default:
+	break;
+	}
+	}
 
 	if(Gyro.time[1] == Gyro.last_time[1])
 	{
@@ -338,43 +383,43 @@ void Message_Ctrl::Gyro_Serial_Hook(uint8_t *Rx_Message)
 	Gyro.Last_angle = Gyro.data.AngleY;
 }
 
-void Message_Ctrl::Gyro_CAN_Hook(uint32_t *Rx_Message ,uint8_t *Rx_Date)
+void Message_Ctrl::Gyro_CAN_Hook(uint32_t *Rx_Message ,uint8_t *Rx_Data)
 {
 	uint8_t i;
 	switch(*Rx_Message)
 	{
 	case 0x514:
 	{
-		Gyro.data.AccX = (int16_t)((Rx_Date[1] << 8) + Rx_Date[0]);
-		Gyro.data.AccY = (int16_t)((Rx_Date[3] << 8) + Rx_Date[2]);
-		Gyro.data.AccZ = (int16_t)((Rx_Date[5] << 8) + Rx_Date[4]);
+		Gyro.data.AccX = (int16_t)((Rx_Data[1] << 8) + Rx_Data[0]);
+		Gyro.data.AccY = (int16_t)((Rx_Data[3] << 8) + Rx_Data[2]);
+		Gyro.data.AccZ = (int16_t)((Rx_Data[5] << 8) + Rx_Data[4]);
 		Gyro.Gyro_Acc_fps.Statistic_Update(xTaskGetTickCount());
 		Gyro.time[0] = xTaskGetTickCount();
 		break;
 	}
 	case 0x515:
 	{
-		Gyro.data.SpeedX = (int16_t)((Rx_Date[1] << 8) + Rx_Date[0]);
-		Gyro.data.SpeedY = (int16_t)((Rx_Date[3] << 8) + Rx_Date[2]);
-		Gyro.data.SpeedZ = (int16_t)((Rx_Date[5] << 8) + Rx_Date[4]);
+		Gyro.data.SpeedX = (int16_t)((Rx_Data[1] << 8) + Rx_Data[0]);
+		Gyro.data.SpeedY = (int16_t)((Rx_Data[3] << 8) + Rx_Data[2]);
+		Gyro.data.SpeedZ = (int16_t)((Rx_Data[5] << 8) + Rx_Data[4]);
 		Gyro.Gyro_Speed_fps.Statistic_Update(xTaskGetTickCount());
 		Gyro.time[1] = xTaskGetTickCount();
 		break;
 	}
 	case 0x516:
 	{
-		Gyro.data.MagX = (int16_t)((Rx_Date[1] << 8) + Rx_Date[0]);
-		Gyro.data.MagY = (int16_t)((Rx_Date[3] << 8) + Rx_Date[2]);
-		Gyro.data.MagZ = (int16_t)((Rx_Date[5] << 8) + Rx_Date[4]);
+		Gyro.data.MagX = (int16_t)((Rx_Data[1] << 8) + Rx_Data[0]);
+		Gyro.data.MagY = (int16_t)((Rx_Data[3] << 8) + Rx_Data[2]);
+		Gyro.data.MagZ = (int16_t)((Rx_Data[5] << 8) + Rx_Data[4]);
 		Gyro.Gyro_Mag_fps.Statistic_Update(xTaskGetTickCount());
 		Gyro.time[2] = xTaskGetTickCount();
 		break;
 	}
 	case 0x517:
 	{
-		Gyro.data.AngleP = (int16_t)((Rx_Date[1] << 8) + Rx_Date[0]);
-		Gyro.data.AngleR = (int16_t)((Rx_Date[3] << 8) + Rx_Date[2]);
-		Gyro.data.AngleY = (int16_t)((Rx_Date[5] << 8) + Rx_Date[4]);
+		Gyro.data.AngleP = (int16_t)((Rx_Data[1] << 8) + Rx_Data[0]);
+		Gyro.data.AngleR = (int16_t)((Rx_Data[3] << 8) + Rx_Data[2]);
+		Gyro.data.AngleY = (int16_t)((Rx_Data[5] << 8) + Rx_Data[4]);
 		Gyro.Gyro_Angle_fps.Statistic_Update(xTaskGetTickCount());
 		Gyro.time[3] = xTaskGetTickCount();
 		break;
@@ -422,7 +467,7 @@ void Message_Ctrl::Gyro_CAN_Hook(uint32_t *Rx_Message ,uint8_t *Rx_Date)
 
 RC_ctrl_t *get_remote_control_point(void)
 {
-    return Message.RC_Ptr;
+    return &RC_ctrl;
 }
 
 Message_Ctrl *get_message_ctrl_pointer(void)

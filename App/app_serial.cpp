@@ -187,11 +187,17 @@ void Serial_Ctrl::Handle(Serialctrl *SerialCtrl, Serial_Data_t *Serial, bool mod
         if ((Serial->Len == Serial->Lenth0 ||Serial->Len == Serial->Lenth1 ||Serial->Len == Serial->Lenth2 ||Serial->Len == Serial->Lenth3) && (Serial->Len != NULL))
         {
             Serial->Data[Memory][0] = Serial->Len;
-            if (Serial->Header == NULL && Serial->Tail == NULL)
-            {
-                Send_to_Message(SerialCtrl, Memory);
-            }
-            else if (Serial->Header == Serial->Data[Memory][1] && Serial->Tail == Serial->Data[Memory][Serial->Len])
+						if(Serial->Header != NULL && Serial->Header != Serial->Data[Memory][1])
+						{
+								Serial->Len = 0;
+								return;
+						}
+						if(Serial->Tail != NULL && Serial->Tail != Serial->Data[Memory][Serial->Len])
+						{
+								Serial->Len = 0;
+								return;
+						}
+            if (Serial->Len != 0)
             {
                 Send_to_Message(SerialCtrl, Memory);
             }

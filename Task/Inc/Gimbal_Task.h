@@ -56,6 +56,22 @@ extern "C"
 #ifndef Motor_Ecd_to_Rad
 #define Motor_Ecd_to_Rad 0.000766990394f //      2*  PI  /8192
 #endif
+
+//// 规整ECD(范围±4096)
+//#define motor_ecd_to_relative_ecd(fp32 angle, fp32 offset_ecd)
+//{
+//	int32_t relative_angle_change = angle - offset_ecd;
+//	if(relative_angle_change > 4096)
+//	{
+//		relative_angle_change -= 8192;
+//	}
+//	else if(relative_angle_change < -4096)
+//	{
+//		relative_angle_change += 8192;
+//	}
+//	return relative_angle_change;
+//}
+
 //处理是否Pitch反装
 #if GIMBAL_PITCH_MIN_ECD > GIMBAL_PITCH_MAX_ECD
 #define PITCH_MOTOR_REVERSE (-1)

@@ -49,16 +49,20 @@ void CANctrl::IRQHandler(FDCAN_HandleTypeDef *hfdcan,uint32_t RxFifo0ITs)
 {
 	if((RxFifo0ITs&FDCAN_IT_RX_FIFO0_NEW_MESSAGE)!=RESET)
 		{
-			if(HAL_FDCAN_GetRxMessage(hfdcan,FDCAN_RX_FIFO0,&FDCAN_RxHeader,FDCAN_RxData) == HAL_OK)
+			if(HAL_FDCAN_GetRxMessage(hfdcan,FDCAN_RX_FIFO0,&FDCAN_RxHeader,FDCAN_RxData.Data) == HAL_OK)
 			{
+				FDCAN_RxData.StdId.u32 = FDCAN_RxHeader.Identifier;
+				for(uint8_t x=0;x<4;x++)
+				{
+					Buffer_Write(&_rx_buffer, FDCAN_RxData.StdId.u8[x]);
+				}
 				for(uint8_t x=0;x<8;x++)
 				{
-					Buffer_Write(&_rx_buffer, FDCAN_RxData[x]);
+					Buffer_Write(&_rx_buffer, FDCAN_RxData.Data[x]);
 				}
-				FDCAN_RxID = FDCAN_RxHeader.Identifier;
 				if(CAN_Function)
         {
-            CAN_Function(&FDCAN_RxID);
+            CAN_Function(&FDCAN_RxData);
         }
 			}
 		}

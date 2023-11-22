@@ -229,13 +229,13 @@ public:
 	void Init();
 	void MahonyAHRSupdate(float gx, float gy, float gz, float ax, float ay, float az, float mx, float my, float mz);
 	void ToEulerAngles(fp32 q1, fp32 q2, fp32 q3, fp32 q4);
-	void CAN1_Process(uint32_t *Rx_Message);
-	void CAN2_Process(uint32_t *Rx_Message);
+	void CAN1_Process(CanRxMsg *Rx_Message);
+	void CAN2_Process(CanRxMsg *Rx_Message);
 	void Serialx_Hook(uint8_t *Rx_Message, Serialctrl *Serialx_Ctrl);
 	void Visual_Serial_Hook(uint8_t *Rx_Message);
 	void Gyro_Serial_Hook(uint8_t *Rx_Message);
 	void Chassis_Serial_Hook(uint8_t *Rx_Message);
-	void Gyro_CAN_Hook(uint32_t *Rx_Message ,uint8_t *Rx_Date);
+	void Gyro_CAN_Hook(uint32_t *Rx_Message ,uint8_t *Rx_Data);
 	float Target_Speed_Calc(speed_calc_data_t *S, uint32_t time, float position);
 private:
 	speed_calc_data_t Visual_Yaw_Speed;

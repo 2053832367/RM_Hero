@@ -51,6 +51,7 @@
 "hal_gimbal\app_preference.o"
 "hal_gimbal\app_serial.o"
 "hal_gimbal\app_rgb.o"
+"hal_gimbal\app_oled.o"
 "hal_gimbal\dev_can.o"
 "hal_gimbal\dev_serial.o"
 "hal_gimbal\dev_system.o"
