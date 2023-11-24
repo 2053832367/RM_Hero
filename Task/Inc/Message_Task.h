@@ -19,6 +19,7 @@ extern "C" {
 	void Message_Task(void *pvParameters);
 	void CAN1_Rx_Task(void *pvParameters);
 	void CAN2_Rx_Task(void *pvParameters);
+	void CAN3_Rx_Task(void *pvParameters);
 	void Serial_Rx_Task(void *pvParameters);
 	void DR16_Rx_Task(void *pvParameters);
 
@@ -31,6 +32,7 @@ extern QueueHandle_t Message_Queue;   		//消息队列句柄
 extern QueueHandle_t Message_Queue;
 extern QueueHandle_t CAN1_Rx_Queue;
 extern QueueHandle_t CAN2_Rx_Queue;
+extern QueueHandle_t CAN3_Rx_Queue;
 extern QueueHandle_t Serial_Rx_Queue;
 extern QueueHandle_t DR16_Rx_Queue;
 
@@ -231,6 +233,7 @@ public:
 	void ToEulerAngles(fp32 q1, fp32 q2, fp32 q3, fp32 q4);
 	void CAN1_Process(CanRxMsg *Rx_Message);
 	void CAN2_Process(CanRxMsg *Rx_Message);
+	void CAN3_Process(CanRxMsg *Rx_Message);
 	void Serialx_Hook(uint8_t *Rx_Message, Serialctrl *Serialx_Ctrl);
 	void Visual_Serial_Hook(uint8_t *Rx_Message);
 	void Gyro_Serial_Hook(uint8_t *Rx_Message);

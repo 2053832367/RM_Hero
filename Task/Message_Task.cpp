@@ -53,6 +53,22 @@ void CAN2_Rx_Task(void *pvParameters)
   /* USER CODE END StartDefaultTask */
 }
 
+void CAN3_Rx_Task(void *pvParameters)
+{
+	/* USER CODE BEGIN StartDefaultTask */
+	static ID_Data_t CAN3_Rx_Data;
+  /* Infinite loop */
+  for(;;)
+  {		
+    if(xQueueReceive(CAN3_Rx_Queue, &CAN3_Rx_Data, portMAX_DELAY))
+		{
+			Message.CAN3_Process((CanRxMsg *)CAN3_Rx_Data.Data_Ptr);
+			Guard.Feed(CanData3);
+		}
+  }
+  /* USER CODE END StartDefaultTask */
+}
+
 void Serial_Rx_Task(void *pvParameters)
 {
 	/* USER CODE BEGIN StartDefaultTask */
@@ -194,6 +210,37 @@ void Message_Ctrl::CAN2_Process(CanRxMsg *Rx_Message)
 	{
 		Gyro_CAN_Hook(&Rx_Data.StdId.u32 , Rx_Data.Data);
 		break;
+	}
+	}
+}
+
+void Message_Ctrl::CAN3_Process(CanRxMsg *Rx_Message)
+{
+	CanRxMsg Rx_Data;
+	for(uint8_t x=0;x<4;x++)
+	{
+					Rx_Data.StdId.u8[x]=CAN2_Ctrl.read();
+	}
+	for(uint8_t x=0;x<8;x++)
+	{
+					Rx_Data.Data[x]=CAN2_Ctrl.read();
+	}
+	switch(Rx_Data.StdId.u32)
+	{
+	case CAN_DJI_Motor1_ID:
+	case CAN_DJI_Motor2_ID:
+	{
+//		static uint8_t i = 0;
+//		//处理电机ID号
+//		i = Rx_Data.StdId.u32 - CAN_DJI_Motor1_ID;
+//		//处理电机数据宏函数
+//		MA_get_motor_measure(CAN_Cmd.Fric.GetData(i), Rx_Data.Data);
+//		break;
+//	}
+//	default:
+//	{
+//		Gyro_CAN_Hook(&Rx_Data.StdId.u32 , Rx_Data.Data);
+//		break;
 	}
 	}
 }

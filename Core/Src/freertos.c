@@ -73,7 +73,7 @@ const osThreadAttr_t Gimbal_task_attributes = {
 osThreadId_t Guard_taskHandle;
 const osThreadAttr_t Guard_task_attributes = {
   .name = "Guard_task",
-  .stack_size = 256 * 4,
+  .stack_size = 128 * 4,
   .priority = (osPriority_t) osPriorityLow6,
 };
 /* Definitions for Correspond_task */
@@ -118,6 +118,13 @@ const osThreadAttr_t DR16_Rx_task_attributes = {
   .stack_size = 128 * 4,
   .priority = (osPriority_t) osPriorityLow7,
 };
+/* Definitions for CAN3_Rx_task */
+osThreadId_t CAN3_Rx_taskHandle;
+const osThreadAttr_t CAN3_Rx_task_attributes = {
+  .name = "CAN3_Rx_task",
+  .stack_size = 128 * 4,
+  .priority = (osPriority_t) osPriorityLow7,
+};
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
@@ -125,6 +132,7 @@ const osThreadAttr_t DR16_Rx_task_attributes = {
 QueueHandle_t Message_Queue;
 QueueHandle_t CAN1_Rx_Queue;
 QueueHandle_t CAN2_Rx_Queue;
+QueueHandle_t CAN3_Rx_Queue;
 QueueHandle_t Serial_Rx_Queue;
 QueueHandle_t DR16_Rx_Queue;
 /* USER CODE END FunctionPrototypes */
@@ -139,6 +147,7 @@ extern void CAN1_Rx_Task(void *argument);
 extern void CAN2_Rx_Task(void *argument);
 extern void Serial_Rx_Task(void *argument);
 extern void DR16_Rx_Task(void *argument);
+extern void CAN3_Rx_Task(void *argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -169,6 +178,7 @@ void MX_FREERTOS_Init(void) {
 	Message_Queue = xQueueCreate(8, sizeof(ID_Data_t));
 	CAN1_Rx_Queue = xQueueCreate(8, sizeof(ID_Data_t));
 	CAN2_Rx_Queue = xQueueCreate(8, sizeof(ID_Data_t));
+	CAN3_Rx_Queue = xQueueCreate(8, sizeof(ID_Data_t));
 	Serial_Rx_Queue = xQueueCreate(4, sizeof(ID_Data_t));
 	DR16_Rx_Queue = xQueueCreate(2, sizeof(ID_Data_t));
   /* USER CODE END RTOS_QUEUES */
@@ -203,6 +213,9 @@ void MX_FREERTOS_Init(void) {
 
   /* creation of DR16_Rx_task */
   DR16_Rx_taskHandle = osThreadNew(DR16_Rx_Task, NULL, &DR16_Rx_task_attributes);
+
+  /* creation of CAN3_Rx_task */
+  CAN3_Rx_taskHandle = osThreadNew(CAN3_Rx_Task, NULL, &CAN3_Rx_task_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */

@@ -19,6 +19,14 @@ void CAN2_Send(CanRxMsg *FDCAN_RxID)
 	portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
 }
 
+void CAN3_Send(CanRxMsg *FDCAN_RxID)
+{
+	BaseType_t xHigherPriorityTaskWoken = pdFALSE;
+	ID_Data[CanData3].Data_Ptr = FDCAN_RxID;
+	xQueueSendFromISR(CAN3_Rx_Queue, &ID_Data[CanData3], &xHigherPriorityTaskWoken);
+	portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
+}
+
 void CAN_ALL_Init(void)
 {
 	CAN1_Ctrl.attachInterrupt(CAN1_Send);

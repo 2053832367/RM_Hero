@@ -141,5 +141,6 @@ private:
 extern CAN_Ctrl CAN_Cmd;
 extern void CAN1_Send(uint8_t *Rx_Message);
 extern void CAN2_Send(uint8_t *Rx_Message);
+extern void CAN3_Send(uint8_t *Rx_Message);
 
 #endif /* __APP_MOTOR_H */
