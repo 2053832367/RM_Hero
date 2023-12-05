@@ -31,6 +31,7 @@ void CAN_ALL_Init(void)
 {
 	CAN1_Ctrl.attachInterrupt(CAN1_Send);
 	CAN2_Ctrl.attachInterrupt(CAN2_Send);
+	CAN3_Ctrl.attachInterrupt(CAN3_Send);
 }
 
 void CAN_Ctrl::SendData(CANctrl *CANx_Ctrl, uint32_t StdID, const void *buf, uint8_t len)
@@ -48,6 +49,10 @@ void CAN_Ctrl::SendData(FDCAN_HandleTypeDef *CANx, uint32_t StdID, const void *b
 	if(CANx == &hfdcan2)
 	{
 		SendData(&CAN2_Ctrl, StdID, buf, len);
+	}
+	if(CANx == &hfdcan3)
+	{
+		SendData(&CAN3_Ctrl, StdID, buf, len);
 	}
 }
 

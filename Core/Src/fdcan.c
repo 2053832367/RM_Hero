@@ -21,7 +21,9 @@
 #include "fdcan.h"
 
 /* USER CODE BEGIN 0 */
-
+uint32_t check_fdcan1_RAM_Offset;    /* 计算fdcan1占用RAM的大小(用于设置fdcan2的MessageRAMOffset) (check_fdcan1_RAM_Offset = hfdcan1.msgRam.EndAddress - SRAMCAN_BASE)*/
+uint32_t check_fdcan2_RAM_Offset;    /* 计算fdcan1和fdcan2占用RAM的大小(用于设置fdcan3的MessageRAMOffset) (check_fdcan2_RAM_Offset = hfdcan2.msgRam.EndAddress - SRAMCAN_BASE)*/
+uint32_t check_fdcan3_RAM_Offset;    /* 计算fdcan1和fdcan2和fdcan3占用RAM的大小 (check_fdcan3_RAM_Offset = hfdcan3.msgRam.EndAddress - SRAMCAN_BASE)*/
 /* USER CODE END 0 */
 
 FDCAN_HandleTypeDef hfdcan1;
@@ -113,7 +115,7 @@ void MX_FDCAN2_Init(void)
   hfdcan2.Init.DataSyncJumpWidth = 1;
   hfdcan2.Init.DataTimeSeg1 = 1;
   hfdcan2.Init.DataTimeSeg2 = 1;
-  hfdcan2.Init.MessageRAMOffset = 0;
+  hfdcan2.Init.MessageRAMOffset = 180;
   hfdcan2.Init.StdFiltersNbr = 0;
   hfdcan2.Init.ExtFiltersNbr = 0;
   hfdcan2.Init.RxFifo0ElmtsNbr = 16;
@@ -173,7 +175,7 @@ void MX_FDCAN3_Init(void)
   hfdcan3.Init.DataSyncJumpWidth = 1;
   hfdcan3.Init.DataTimeSeg1 = 1;
   hfdcan3.Init.DataTimeSeg2 = 1;
-  hfdcan3.Init.MessageRAMOffset = 0;
+  hfdcan3.Init.MessageRAMOffset = 450;
   hfdcan3.Init.StdFiltersNbr = 0;
   hfdcan3.Init.ExtFiltersNbr = 0;
   hfdcan3.Init.RxFifo0ElmtsNbr = 16;

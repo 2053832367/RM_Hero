@@ -219,11 +219,11 @@ void Message_Ctrl::CAN3_Process(CanRxMsg *Rx_Message)
 	CanRxMsg Rx_Data;
 	for(uint8_t x=0;x<4;x++)
 	{
-					Rx_Data.StdId.u8[x]=CAN2_Ctrl.read();
+					Rx_Data.StdId.u8[x]=CAN3_Ctrl.read();
 	}
 	for(uint8_t x=0;x<8;x++)
 	{
-					Rx_Data.Data[x]=CAN2_Ctrl.read();
+					Rx_Data.Data[x]=CAN3_Ctrl.read();
 	}
 	switch(Rx_Data.StdId.u32)
 	{

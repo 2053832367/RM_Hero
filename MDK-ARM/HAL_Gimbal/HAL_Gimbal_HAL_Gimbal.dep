@@ -1,6 +1,6 @@
 Dependencies for Project 'HAL_Gimbal', Target 'HAL_Gimbal': (DO NOT MODIFY !)
 CompilerVersion: 5060960::V5.06 update 7 (build 960)::.\ARMCC
-F (startup_stm32h723xx.s)(0x6560CAE9)(--cpu Cortex-M7.fp.dp -g --apcs=interwork -I ../Core/Inc-I.\RTE\_HAL_Gimbal-ID:\MDK5\ARM\CMSIS\5.8.0\CMSIS\Core\Include-ID:\MDK5\Keil\STM32H7xx_DFP\3.1.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include--pd "__UVISION_VERSION SETA 536" --pd "_RTE_ SETA 1" --pd "STM32H723xx SETA 1" --pd "_RTE_ SETA 1"--list startup_stm32h723xx.lst --xref -o hal_gimbal\startup_stm32h723xx.o --depend hal_gimbal\startup_stm32h723xx.d)
+F (startup_stm32h723xx.s)(0x656DDD47)(--cpu Cortex-M7.fp.dp -g --apcs=interwork -I ../Core/Inc-I.\RTE\_HAL_Gimbal-ID:\MDK5\ARM\CMSIS\5.8.0\CMSIS\Core\Include-ID:\MDK5\Keil\STM32H7xx_DFP\3.1.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include--pd "__UVISION_VERSION SETA 536" --pd "_RTE_ SETA 1" --pd "STM32H723xx SETA 1" --pd "_RTE_ SETA 1"--list startup_stm32h723xx.lst --xref -o hal_gimbal\startup_stm32h723xx.o --depend hal_gimbal\startup_stm32h723xx.d)
 F (../Core/Src/main.c)(0x65538562)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ../Task/Inc -I ../App/Inc -I ../Device/Inc -I ../ModuleDrivers/Inc -I ../Protocol/Inc -I ../Algorithm/inc -I ../Middlewares/DSP/Include -I ../Middlewares/DSP --gnu;-diag_suppress=2903,1,1035;--cpp11;-diag_suppress=3337-I.\RTE\_HAL_Gimbal-ID:\MDK5\ARM\CMSIS\5.8.0\CMSIS\Core\Include-ID:\MDK5\Keil\STM32H7xx_DFP\3.1.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32H723xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32H723xx -DARM_MATH_CM7 -D__FPU_USED="1U" -D__FPU_PRESENT="1U" -D__CC_ARM -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING-o hal_gimbal\main.o --omf_browse hal_gimbal\main.crf --depend hal_gimbal\main.d)
 I (../Core/Inc/main.h)(0x655E1621)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h)(0x6513CE9E)
@@ -146,7 +146,7 @@ I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h)(0x6513CE9F)
 I (../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os.h)(0x6513CEA0)
 I (../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h)(0x6513CEA0)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h)(0x6513CEA0)
-I (../App/Inc/app_preference.h)(0x6560CC81)
+I (../App/Inc/app_preference.h)(0x656ED335)
 F (../Core/Src/dma.c)(0x65536CBE)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ../Task/Inc -I ../App/Inc -I ../Device/Inc -I ../ModuleDrivers/Inc -I ../Protocol/Inc -I ../Algorithm/inc -I ../Middlewares/DSP/Include -I ../Middlewares/DSP --gnu;-diag_suppress=2903,1,1035;--cpp11;-diag_suppress=3337-I.\RTE\_HAL_Gimbal-ID:\MDK5\ARM\CMSIS\5.8.0\CMSIS\Core\Include-ID:\MDK5\Keil\STM32H7xx_DFP\3.1.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32H723xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32H723xx -DARM_MATH_CM7 -D__FPU_USED="1U" -D__FPU_PRESENT="1U" -D__CC_ARM -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING-o hal_gimbal\dma.o --omf_browse hal_gimbal\dma.crf --depend hal_gimbal\dma.d)
 I (../Core/Inc/dma.h)(0x64DCA3CD)
 I (../Core/Inc/main.h)(0x655E1621)
@@ -186,7 +186,7 @@ I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim.h)(0x6513CE9F)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim_ex.h)(0x6513CE9F)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart.h)(0x6513CE9F)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h)(0x6513CE9F)
-F (../Core/Src/fdcan.c)(0x655387AF)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ../Task/Inc -I ../App/Inc -I ../Device/Inc -I ../ModuleDrivers/Inc -I ../Protocol/Inc -I ../Algorithm/inc -I ../Middlewares/DSP/Include -I ../Middlewares/DSP --gnu;-diag_suppress=2903,1,1035;--cpp11;-diag_suppress=3337-I.\RTE\_HAL_Gimbal-ID:\MDK5\ARM\CMSIS\5.8.0\CMSIS\Core\Include-ID:\MDK5\Keil\STM32H7xx_DFP\3.1.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32H723xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32H723xx -DARM_MATH_CM7 -D__FPU_USED="1U" -D__FPU_PRESENT="1U" -D__CC_ARM -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING-o hal_gimbal\fdcan.o --omf_browse hal_gimbal\fdcan.crf --depend hal_gimbal\fdcan.d)
+F (../Core/Src/fdcan.c)(0x656DDE12)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ../Task/Inc -I ../App/Inc -I ../Device/Inc -I ../ModuleDrivers/Inc -I ../Protocol/Inc -I ../Algorithm/inc -I ../Middlewares/DSP/Include -I ../Middlewares/DSP --gnu;-diag_suppress=2903,1,1035;--cpp11;-diag_suppress=3337-I.\RTE\_HAL_Gimbal-ID:\MDK5\ARM\CMSIS\5.8.0\CMSIS\Core\Include-ID:\MDK5\Keil\STM32H7xx_DFP\3.1.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32H723xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32H723xx -DARM_MATH_CM7 -D__FPU_USED="1U" -D__FPU_PRESENT="1U" -D__CC_ARM -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING-o hal_gimbal\fdcan.o --omf_browse hal_gimbal\fdcan.crf --depend hal_gimbal\fdcan.d)
 I (../Core/Inc/fdcan.h)(0x651393B5)
 I (../Core/Inc/main.h)(0x655E1621)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h)(0x6513CE9E)
@@ -1428,8 +1428,8 @@ I (../Task/Inc/Message_Task.h)(0x6560CD5B)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h)(0x6513CEA0)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/task.h)(0x6513CEA0)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/list.h)(0x6513CEA0)
-I (../App/Inc/app_preference.h)(0x6560CC81)
-I (../Device/Inc/dev_can.h)(0x655782B2)
+I (../App/Inc/app_preference.h)(0x656ED335)
+I (../Device/Inc/dev_can.h)(0x656D823C)
 I (../Device/Inc/dev_system.h)(0x651EB57A)
 I (D:\MDK5\ARM\ARMCC\include\stdlib.h)(0x60252374)
 I (D:\MDK5\ARM\ARMCC\include\stdbool.h)(0x6025237C)
@@ -1484,13 +1484,13 @@ I (../Protocol/Inc/protocol_crc.h)(0x64CF58FF)
 I (../Algorithm/inc/algorithm_kalman.h)(0x651EB772)
 I (../Middlewares/DSP/Include/arm_math.h)(0x640B20C2)
 I (../Task/Inc/tasks.h)(0x651E81C5)
-I (../Task/Inc/Gimbal_Task.h)(0x655E1BE0)
-I (../App/Inc/app_motor.h)(0x6560CC81)
+I (../Task/Inc/Gimbal_Task.h)(0x656ED1C2)
+I (../App/Inc/app_motor.h)(0x656ED335)
 I (../Task/Inc/Guard_Task.h)(0x65069546)
 I (../Algorithm/inc/algorithm_pid.h)(0x644CDA57)
 I (../Algorithm/inc/algorithm_user_lib.h)(0x640B20C2)
 F (..\Task\Gimbal_Task.cpp)(0x651E8B5A)(--cpp -c --cpu Cortex-M7.fp.dp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ../Task/Inc -I ../App/Inc -I ../Device/Inc -I ../ModuleDrivers/Inc -I ../Protocol/Inc -I ../Algorithm/inc -I ../Middlewares/DSP/Include -I ../Middlewares/DSP --gnu;-diag_suppress=2903,1,1035;--cpp11;-diag_suppress=3337-I.\RTE\_HAL_Gimbal-ID:\MDK5\ARM\CMSIS\5.8.0\CMSIS\Core\Include-ID:\MDK5\Keil\STM32H7xx_DFP\3.1.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32H723xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32H723xx -DARM_MATH_CM7 -D__FPU_USED="1U" -D__FPU_PRESENT="1U" -D__CC_ARM -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING-o hal_gimbal\gimbal_task.o --omf_browse hal_gimbal\gimbal_task.crf --depend hal_gimbal\gimbal_task.d)
-I (../Task/Inc/Gimbal_Task.h)(0x655E1BE0)
+I (../Task/Inc/Gimbal_Task.h)(0x656ED1C2)
 I (../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h)(0x6513CEA0)
 I (D:\MDK5\ARM\ARMCC\include\stdint.h)(0x6025237E)
 I (D:\MDK5\ARM\ARMCC\include\stddef.h)(0x6025237E)
@@ -1505,12 +1505,12 @@ I (../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h)(0x6513CEA0
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h)(0x6513CEA0)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/task.h)(0x6513CEA0)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/list.h)(0x6513CEA0)
-I (../App/Inc/app_preference.h)(0x6560CC81)
-I (../App/Inc/app_motor.h)(0x6560CC81)
+I (../App/Inc/app_preference.h)(0x656ED335)
+I (../App/Inc/app_motor.h)(0x656ED335)
 I (../Device/Inc/dev_system.h)(0x651EB57A)
 I (D:\MDK5\ARM\ARMCC\include\stdlib.h)(0x60252374)
 I (D:\MDK5\ARM\ARMCC\include\stdbool.h)(0x6025237C)
-I (../Device/Inc/dev_can.h)(0x655782B2)
+I (../Device/Inc/dev_can.h)(0x656D823C)
 I (../ModuleDrivers/Inc/drivers_buffer.h)(0x64CE428F)
 I (D:\MDK5\ARM\ARMCC\include\stdio.h)(0x60252374)
 I (../Core/Inc/fdcan.h)(0x651393B5)
@@ -1605,8 +1605,8 @@ I (../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h)(0x6513CEA0
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h)(0x6513CEA0)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/task.h)(0x6513CEA0)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/list.h)(0x6513CEA0)
-I (../App/Inc/app_preference.h)(0x6560CC81)
-F (..\Task\Message_Task.cpp)(0x6560CD5B)(--cpp -c --cpu Cortex-M7.fp.dp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ../Task/Inc -I ../App/Inc -I ../Device/Inc -I ../ModuleDrivers/Inc -I ../Protocol/Inc -I ../Algorithm/inc -I ../Middlewares/DSP/Include -I ../Middlewares/DSP --gnu;-diag_suppress=2903,1,1035;--cpp11;-diag_suppress=3337-I.\RTE\_HAL_Gimbal-ID:\MDK5\ARM\CMSIS\5.8.0\CMSIS\Core\Include-ID:\MDK5\Keil\STM32H7xx_DFP\3.1.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32H723xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32H723xx -DARM_MATH_CM7 -D__FPU_USED="1U" -D__FPU_PRESENT="1U" -D__CC_ARM -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING-o hal_gimbal\message_task.o --omf_browse hal_gimbal\message_task.crf --depend hal_gimbal\message_task.d)
+I (../App/Inc/app_preference.h)(0x656ED335)
+F (..\Task\Message_Task.cpp)(0x656D823C)(--cpp -c --cpu Cortex-M7.fp.dp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ../Task/Inc -I ../App/Inc -I ../Device/Inc -I ../ModuleDrivers/Inc -I ../Protocol/Inc -I ../Algorithm/inc -I ../Middlewares/DSP/Include -I ../Middlewares/DSP --gnu;-diag_suppress=2903,1,1035;--cpp11;-diag_suppress=3337-I.\RTE\_HAL_Gimbal-ID:\MDK5\ARM\CMSIS\5.8.0\CMSIS\Core\Include-ID:\MDK5\Keil\STM32H7xx_DFP\3.1.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32H723xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32H723xx -DARM_MATH_CM7 -D__FPU_USED="1U" -D__FPU_PRESENT="1U" -D__CC_ARM -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING-o hal_gimbal\message_task.o --omf_browse hal_gimbal\message_task.crf --depend hal_gimbal\message_task.d)
 I (../Task/Inc/Message_Task.h)(0x6560CD5B)
 I (../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h)(0x6513CEA0)
 I (D:\MDK5\ARM\ARMCC\include\stdint.h)(0x6025237E)
@@ -1622,8 +1622,8 @@ I (../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h)(0x6513CEA0
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h)(0x6513CEA0)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/task.h)(0x6513CEA0)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/list.h)(0x6513CEA0)
-I (../App/Inc/app_preference.h)(0x6560CC81)
-I (../Device/Inc/dev_can.h)(0x655782B2)
+I (../App/Inc/app_preference.h)(0x656ED335)
+I (../Device/Inc/dev_can.h)(0x656D823C)
 I (../Device/Inc/dev_system.h)(0x651EB57A)
 I (D:\MDK5\ARM\ARMCC\include\stdlib.h)(0x60252374)
 I (D:\MDK5\ARM\ARMCC\include\stdbool.h)(0x6025237C)
@@ -1673,8 +1673,8 @@ I (../Protocol/Inc/protocol_judgement.h)(0x655E23CA)
 I (../ModuleDrivers/Inc/drivers_statistic.h)(0x64CF3438)
 I (D:\MDK5\ARM\ARMCC\include\cmath)(0x6025237C)
 I (../Task/Inc/tasks.h)(0x651E81C5)
-I (../Task/Inc/Gimbal_Task.h)(0x655E1BE0)
-I (../App/Inc/app_motor.h)(0x6560CC81)
+I (../Task/Inc/Gimbal_Task.h)(0x656ED1C2)
+I (../App/Inc/app_motor.h)(0x656ED335)
 I (../Task/Inc/Guard_Task.h)(0x65069546)
 I (../Algorithm/inc/algorithm_pid.h)(0x644CDA57)
 I (../Algorithm/inc/algorithm_user_lib.h)(0x640B20C2)
@@ -1690,8 +1690,8 @@ I (../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h)(0x6513C
 I (D:\MDK5\ARM\ARMCC\include\stdint.h)(0x6025237E)
 I (D:\MDK5\ARM\ARMCC\include\stddef.h)(0x6025237E)
 I (D:\MDK5\ARM\ARMCC\include\string.h)(0x6025237E)
-F (..\App\app_motor.cpp)(0x6560CC81)(--cpp -c --cpu Cortex-M7.fp.dp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ../Task/Inc -I ../App/Inc -I ../Device/Inc -I ../ModuleDrivers/Inc -I ../Protocol/Inc -I ../Algorithm/inc -I ../Middlewares/DSP/Include -I ../Middlewares/DSP --gnu;-diag_suppress=2903,1,1035;--cpp11;-diag_suppress=3337-I.\RTE\_HAL_Gimbal-ID:\MDK5\ARM\CMSIS\5.8.0\CMSIS\Core\Include-ID:\MDK5\Keil\STM32H7xx_DFP\3.1.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32H723xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32H723xx -DARM_MATH_CM7 -D__FPU_USED="1U" -D__FPU_PRESENT="1U" -D__CC_ARM -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING-o hal_gimbal\app_motor.o --omf_browse hal_gimbal\app_motor.crf --depend hal_gimbal\app_motor.d)
-I (../Device/Inc/dev_can.h)(0x655782B2)
+F (..\App\app_motor.cpp)(0x656D82F2)(--cpp -c --cpu Cortex-M7.fp.dp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ../Task/Inc -I ../App/Inc -I ../Device/Inc -I ../ModuleDrivers/Inc -I ../Protocol/Inc -I ../Algorithm/inc -I ../Middlewares/DSP/Include -I ../Middlewares/DSP --gnu;-diag_suppress=2903,1,1035;--cpp11;-diag_suppress=3337-I.\RTE\_HAL_Gimbal-ID:\MDK5\ARM\CMSIS\5.8.0\CMSIS\Core\Include-ID:\MDK5\Keil\STM32H7xx_DFP\3.1.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32H723xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32H723xx -DARM_MATH_CM7 -D__FPU_USED="1U" -D__FPU_PRESENT="1U" -D__CC_ARM -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING-o hal_gimbal\app_motor.o --omf_browse hal_gimbal\app_motor.crf --depend hal_gimbal\app_motor.d)
+I (../Device/Inc/dev_can.h)(0x656D823C)
 I (../Device/Inc/dev_system.h)(0x651EB57A)
 I (../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h)(0x6513CEA0)
 I (D:\MDK5\ARM\ARMCC\include\stdint.h)(0x6025237E)
@@ -1699,7 +1699,7 @@ I (D:\MDK5\ARM\ARMCC\include\stddef.h)(0x6025237E)
 I (D:\MDK5\ARM\ARMCC\include\string.h)(0x6025237E)
 I (D:\MDK5\ARM\ARMCC\include\stdlib.h)(0x60252374)
 I (D:\MDK5\ARM\ARMCC\include\stdbool.h)(0x6025237C)
-I (../App/Inc/app_preference.h)(0x6560CC81)
+I (../App/Inc/app_preference.h)(0x656ED335)
 I (../ModuleDrivers/Inc/drivers_buffer.h)(0x64CE428F)
 I (D:\MDK5\ARM\ARMCC\include\stdio.h)(0x60252374)
 I (../Core/Inc/fdcan.h)(0x651393B5)
@@ -1738,7 +1738,7 @@ I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim.h)(0x6513CE9F)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim_ex.h)(0x6513CE9F)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart.h)(0x6513CE9F)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h)(0x6513CE9F)
-I (../App/Inc/app_motor.h)(0x6560CC81)
+I (../App/Inc/app_motor.h)(0x656ED335)
 I (../Task/Inc/Message_Task.h)(0x6560CD5B)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h)(0x6513CEA0)
 I (../Core/Inc/FreeRTOSConfig.h)(0x64CE428F)
@@ -1758,14 +1758,14 @@ I (../Protocol/Inc/protocol_judgement.h)(0x655E23CA)
 I (../ModuleDrivers/Inc/drivers_statistic.h)(0x64CF3438)
 I (D:\MDK5\ARM\ARMCC\include\cmath)(0x6025237C)
 F (..\App\app_preference.cpp)(0x6553862D)(--cpp -c --cpu Cortex-M7.fp.dp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ../Task/Inc -I ../App/Inc -I ../Device/Inc -I ../ModuleDrivers/Inc -I ../Protocol/Inc -I ../Algorithm/inc -I ../Middlewares/DSP/Include -I ../Middlewares/DSP --gnu;-diag_suppress=2903,1,1035;--cpp11;-diag_suppress=3337-I.\RTE\_HAL_Gimbal-ID:\MDK5\ARM\CMSIS\5.8.0\CMSIS\Core\Include-ID:\MDK5\Keil\STM32H7xx_DFP\3.1.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32H723xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32H723xx -DARM_MATH_CM7 -D__FPU_USED="1U" -D__FPU_PRESENT="1U" -D__CC_ARM -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING-o hal_gimbal\app_preference.o --omf_browse hal_gimbal\app_preference.crf --depend hal_gimbal\app_preference.d)
-I (../App/Inc/app_preference.h)(0x6560CC81)
+I (../App/Inc/app_preference.h)(0x656ED335)
 F (..\App\app_serial.cpp)(0x6555F603)(--cpp -c --cpu Cortex-M7.fp.dp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ../Task/Inc -I ../App/Inc -I ../Device/Inc -I ../ModuleDrivers/Inc -I ../Protocol/Inc -I ../Algorithm/inc -I ../Middlewares/DSP/Include -I ../Middlewares/DSP --gnu;-diag_suppress=2903,1,1035;--cpp11;-diag_suppress=3337-I.\RTE\_HAL_Gimbal-ID:\MDK5\ARM\CMSIS\5.8.0\CMSIS\Core\Include-ID:\MDK5\Keil\STM32H7xx_DFP\3.1.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32H723xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32H723xx -DARM_MATH_CM7 -D__FPU_USED="1U" -D__FPU_PRESENT="1U" -D__CC_ARM -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING-o hal_gimbal\app_serial.o --omf_browse hal_gimbal\app_serial.crf --depend hal_gimbal\app_serial.d)
 I (../App/Inc/app_serial.h)(0x65537002)
 I (D:\MDK5\ARM\ARMCC\include\stdint.h)(0x6025237E)
 I (D:\MDK5\ARM\ARMCC\include\stdlib.h)(0x60252374)
 I (D:\MDK5\ARM\ARMCC\include\string.h)(0x6025237E)
 I (D:\MDK5\ARM\ARMCC\include\stdio.h)(0x60252374)
-I (../App/Inc/app_preference.h)(0x6560CC81)
+I (../App/Inc/app_preference.h)(0x656ED335)
 I (../Device/Inc/dev_serial.h)(0x65537002)
 I (../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h)(0x6513CEA0)
 I (D:\MDK5\ARM\ARMCC\include\stddef.h)(0x6025237E)
@@ -1815,7 +1815,7 @@ I (../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h)(0x6513CEA0
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h)(0x6513CEA0)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/task.h)(0x6513CEA0)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/list.h)(0x6513CEA0)
-I (../Device/Inc/dev_can.h)(0x655782B2)
+I (../Device/Inc/dev_can.h)(0x656D823C)
 I (../Device/Inc/dev_system.h)(0x651EB57A)
 I (D:\MDK5\ARM\ARMCC\include\stdbool.h)(0x6025237C)
 I (../Core/Inc/fdcan.h)(0x651393B5)
@@ -1908,7 +1908,7 @@ I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart.h)(0x6513CE9F)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h)(0x6513CE9F)
 I (../App/Inc/app_oledfont.h)(0x62E2ABBA)
 F (..\Device\dev_can.cpp)(0x655782B2)(--cpp -c --cpu Cortex-M7.fp.dp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ../Task/Inc -I ../App/Inc -I ../Device/Inc -I ../ModuleDrivers/Inc -I ../Protocol/Inc -I ../Algorithm/inc -I ../Middlewares/DSP/Include -I ../Middlewares/DSP --gnu;-diag_suppress=2903,1,1035;--cpp11;-diag_suppress=3337-I.\RTE\_HAL_Gimbal-ID:\MDK5\ARM\CMSIS\5.8.0\CMSIS\Core\Include-ID:\MDK5\Keil\STM32H7xx_DFP\3.1.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32H723xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32H723xx -DARM_MATH_CM7 -D__FPU_USED="1U" -D__FPU_PRESENT="1U" -D__CC_ARM -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING-o hal_gimbal\dev_can.o --omf_browse hal_gimbal\dev_can.crf --depend hal_gimbal\dev_can.d)
-I (../Device/Inc/dev_can.h)(0x655782B2)
+I (../Device/Inc/dev_can.h)(0x656D823C)
 I (../Device/Inc/dev_system.h)(0x651EB57A)
 I (../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h)(0x6513CEA0)
 I (D:\MDK5\ARM\ARMCC\include\stdint.h)(0x6025237E)
@@ -1916,7 +1916,7 @@ I (D:\MDK5\ARM\ARMCC\include\stddef.h)(0x6025237E)
 I (D:\MDK5\ARM\ARMCC\include\string.h)(0x6025237E)
 I (D:\MDK5\ARM\ARMCC\include\stdlib.h)(0x60252374)
 I (D:\MDK5\ARM\ARMCC\include\stdbool.h)(0x6025237C)
-I (../App/Inc/app_preference.h)(0x6560CC81)
+I (../App/Inc/app_preference.h)(0x656ED335)
 I (../ModuleDrivers/Inc/drivers_buffer.h)(0x64CE428F)
 I (D:\MDK5\ARM\ARMCC\include\stdio.h)(0x60252374)
 I (../Core/Inc/fdcan.h)(0x651393B5)
@@ -1955,7 +1955,7 @@ I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim.h)(0x6513CE9F)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim_ex.h)(0x6513CE9F)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart.h)(0x6513CE9F)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h)(0x6513CE9F)
-I (../App/Inc/app_motor.h)(0x6560CC81)
+I (../App/Inc/app_motor.h)(0x656ED335)
 I (../Task/Inc/Message_Task.h)(0x6560CD5B)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h)(0x6513CEA0)
 I (../Core/Inc/FreeRTOSConfig.h)(0x64CE428F)
@@ -2017,7 +2017,7 @@ I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim.h)(0x6513CE9F)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim_ex.h)(0x6513CE9F)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart.h)(0x6513CE9F)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h)(0x6513CE9F)
-I (../App/Inc/app_preference.h)(0x6560CC81)
+I (../App/Inc/app_preference.h)(0x656ED335)
 F (..\Device\dev_system.cpp)(0x64F1AC24)(--cpp -c --cpu Cortex-M7.fp.dp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ../Task/Inc -I ../App/Inc -I ../Device/Inc -I ../ModuleDrivers/Inc -I ../Protocol/Inc -I ../Algorithm/inc -I ../Middlewares/DSP/Include -I ../Middlewares/DSP --gnu;-diag_suppress=2903,1,1035;--cpp11;-diag_suppress=3337-I.\RTE\_HAL_Gimbal-ID:\MDK5\ARM\CMSIS\5.8.0\CMSIS\Core\Include-ID:\MDK5\Keil\STM32H7xx_DFP\3.1.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32H723xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32H723xx -DARM_MATH_CM7 -D__FPU_USED="1U" -D__FPU_PRESENT="1U" -D__CC_ARM -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING-o hal_gimbal\dev_system.o --omf_browse hal_gimbal\dev_system.crf --depend hal_gimbal\dev_system.d)
 I (../Device/Inc/dev_system.h)(0x651EB57A)
 I (../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h)(0x6513CEA0)
@@ -2026,7 +2026,7 @@ I (D:\MDK5\ARM\ARMCC\include\stddef.h)(0x6025237E)
 I (D:\MDK5\ARM\ARMCC\include\string.h)(0x6025237E)
 I (D:\MDK5\ARM\ARMCC\include\stdlib.h)(0x60252374)
 I (D:\MDK5\ARM\ARMCC\include\stdbool.h)(0x6025237C)
-I (../App/Inc/app_preference.h)(0x6560CC81)
+I (../App/Inc/app_preference.h)(0x656ED335)
 F (..\ModuleDrivers\drivers_buffer.cpp)(0x64CE428F)(--cpp -c --cpu Cortex-M7.fp.dp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ../Task/Inc -I ../App/Inc -I ../Device/Inc -I ../ModuleDrivers/Inc -I ../Protocol/Inc -I ../Algorithm/inc -I ../Middlewares/DSP/Include -I ../Middlewares/DSP --gnu;-diag_suppress=2903,1,1035;--cpp11;-diag_suppress=3337-I.\RTE\_HAL_Gimbal-ID:\MDK5\ARM\CMSIS\5.8.0\CMSIS\Core\Include-ID:\MDK5\Keil\STM32H7xx_DFP\3.1.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32H723xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32H723xx -DARM_MATH_CM7 -D__FPU_USED="1U" -D__FPU_PRESENT="1U" -D__CC_ARM -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING-o hal_gimbal\drivers_buffer.o --omf_browse hal_gimbal\drivers_buffer.crf --depend hal_gimbal\drivers_buffer.d)
 I (..\ModuleDrivers\Inc\drivers_buffer.h)(0x64CE428F)
 I (D:\MDK5\ARM\ARMCC\include\stdint.h)(0x6025237E)
@@ -2089,7 +2089,7 @@ I (D:\MDK5\ARM\ARMCC\include\stddef.h)(0x6025237E)
 I (D:\MDK5\ARM\ARMCC\include\string.h)(0x6025237E)
 I (D:\MDK5\ARM\ARMCC\include\stdlib.h)(0x60252374)
 I (D:\MDK5\ARM\ARMCC\include\stdbool.h)(0x6025237C)
-I (../App/Inc/app_preference.h)(0x6560CC81)
+I (../App/Inc/app_preference.h)(0x656ED335)
 I (../Protocol/Inc/protocol_crc.h)(0x64CF58FF)
 I (../ModuleDrivers/Inc/drivers_statistic.h)(0x64CF3438)
 I (D:\MDK5\ARM\ARMCC\include\cmath)(0x6025237C)
@@ -2161,9 +2161,9 @@ I (D:\MDK5\ARM\ARMCC\include\stddef.h)(0x6025237E)
 I (D:\MDK5\ARM\ARMCC\include\string.h)(0x6025237E)
 I (D:\MDK5\ARM\ARMCC\include\stdlib.h)(0x60252374)
 I (D:\MDK5\ARM\ARMCC\include\stdbool.h)(0x6025237C)
-I (../App/Inc/app_preference.h)(0x6560CC81)
+I (../App/Inc/app_preference.h)(0x656ED335)
 I (D:\MDK5\ARM\ARMCC\include\math.h)(0x60252378)
-I (../Task/Inc/Gimbal_Task.h)(0x655E1BE0)
+I (../Task/Inc/Gimbal_Task.h)(0x656ED1C2)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h)(0x6513CEA0)
 I (../Core/Inc/FreeRTOSConfig.h)(0x64CE428F)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h)(0x6513CEA0)
@@ -2174,8 +2174,8 @@ I (../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h)(0x6513CEA0
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h)(0x6513CEA0)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/task.h)(0x6513CEA0)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/list.h)(0x6513CEA0)
-I (../App/Inc/app_motor.h)(0x6560CC81)
-I (../Device/Inc/dev_can.h)(0x655782B2)
+I (../App/Inc/app_motor.h)(0x656ED335)
+I (../Device/Inc/dev_can.h)(0x656D823C)
 I (../ModuleDrivers/Inc/drivers_buffer.h)(0x64CE428F)
 I (D:\MDK5\ARM\ARMCC\include\stdio.h)(0x60252374)
 I (../Core/Inc/fdcan.h)(0x651393B5)
@@ -2233,9 +2233,9 @@ I (D:\MDK5\ARM\ARMCC\include\stddef.h)(0x6025237E)
 I (D:\MDK5\ARM\ARMCC\include\string.h)(0x6025237E)
 I (D:\MDK5\ARM\ARMCC\include\stdlib.h)(0x60252374)
 I (D:\MDK5\ARM\ARMCC\include\stdbool.h)(0x6025237C)
-I (../App/Inc/app_preference.h)(0x6560CC81)
+I (../App/Inc/app_preference.h)(0x656ED335)
 I (../Task/Inc/tasks.h)(0x651E81C5)
-I (../Task/Inc/Gimbal_Task.h)(0x655E1BE0)
+I (../Task/Inc/Gimbal_Task.h)(0x656ED1C2)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h)(0x6513CEA0)
 I (../Core/Inc/FreeRTOSConfig.h)(0x64CE428F)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h)(0x6513CEA0)
@@ -2246,8 +2246,8 @@ I (../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h)(0x6513CEA0
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h)(0x6513CEA0)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/task.h)(0x6513CEA0)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/list.h)(0x6513CEA0)
-I (../App/Inc/app_motor.h)(0x6560CC81)
-I (../Device/Inc/dev_can.h)(0x655782B2)
+I (../App/Inc/app_motor.h)(0x656ED335)
+I (../Device/Inc/dev_can.h)(0x656D823C)
 I (../ModuleDrivers/Inc/drivers_buffer.h)(0x64CE428F)
 I (D:\MDK5\ARM\ARMCC\include\stdio.h)(0x60252374)
 I (../Core/Inc/fdcan.h)(0x651393B5)
@@ -2311,5 +2311,5 @@ I (D:\MDK5\ARM\ARMCC\include\stddef.h)(0x6025237E)
 I (D:\MDK5\ARM\ARMCC\include\string.h)(0x6025237E)
 I (D:\MDK5\ARM\ARMCC\include\stdlib.h)(0x60252374)
 I (D:\MDK5\ARM\ARMCC\include\stdbool.h)(0x6025237C)
-I (../App/Inc/app_preference.h)(0x6560CC81)
+I (../App/Inc/app_preference.h)(0x656ED335)
 F (..\Middlewares\DSP\arm_cortexM4lf_math.lib)(0x640B20C2)()

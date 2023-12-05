@@ -63,5 +63,6 @@ extern void CAN_ALL_Init();
 
 extern CANctrl CAN1_Ctrl;
 extern CANctrl CAN2_Ctrl;
+extern CANctrl CAN3_Ctrl;
 
 #endif /* __DEVICE_CAN_H */
