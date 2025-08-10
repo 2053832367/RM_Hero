@@ -4,6 +4,8 @@
 #include "drivers_dma.h"
 
 Serial_Ctrl Serial_Cmd;
+uint8_t judge1=0,judgedatalen=0;
+uint8_t judgedata[200];
 
 void Serial1_Hook(bool mode)
 {
@@ -110,11 +112,49 @@ void Serial_Ctrl::Handle(Serialctrl *SerialCtrl, Serial_Data_t *Serial, bool mod
 			if(mode == 0)
 			{
         Serial->Temp = SerialCtrl->peek();
-        if(Serial->Header != NULL && Serial->Temp != Serial->Header)
+//				if(Serial == &Serial7)
+//        {
+//            if(Serial->Temp == 0xA5)
+//						{
+//							if(judge1==0)
+//							{
+//								judge1=1;
+//								judgedata[judgedatalen] = SerialCtrl->read();
+//								judgedatalen++;
+//							}
+//							else if(judge1==1)
+//							{
+//								Serial->Data[0][0] = judgedatalen;
+//								for(uint8_t i = 0; i < judgedatalen; i++)
+//								{
+//									Serial->Data[0][i + 1] = judgedata[i];
+//								}
+//								Send_to_Message(SerialCtrl,0);
+//								judgedatalen=0;
+//								memset(judgedata,0,sizeof(judgedata));
+//								judgedata[judgedatalen] = SerialCtrl->read();
+//								judgedatalen++;
+//							}
+//						}
+//						else
+//						{
+//							judgedata[judgedatalen] = SerialCtrl->read();
+//							judgedatalen++;
+//						}
+//            return;
+//        }
+				if(Serial->Header != NULL && Serial->Temp != Serial->Header)
         {
             SerialCtrl->read();
             return;
         }
+									if(Serial->Len == Serial->buffer_size - 1)
+				{
+					for(uint8_t i = 0; i < Serial->Len; i++)
+					{
+            SerialCtrl->read();
+					}
+				}
 			}
 			if (mode == 1)
 			{		
@@ -130,13 +170,36 @@ void Serial_Ctrl::Handle(Serialctrl *SerialCtrl, Serial_Data_t *Serial, bool mod
 					{
             Serial->Data[0][0] = 0;
 					}
-					Serial->Len = SerialCtrl->available();
+			 	Serial->Len = SerialCtrl->available();
 					if(Serial->Data[0][0] != 0)
 					{
             Send_to_Message(SerialCtrl,0);
 					}
 				}
+				else if(Serial->Lenth0 == NULL & Serial->Lenth1 == NULL & Serial->Lenth2 == NULL & Serial->Lenth3 == NULL)
+        {
+					Serial->Data[0][0] = Serial->Len;
+					if( SerialCtrl->peek() == 0xA5 )
+					{
+						for(uint8_t i = 0; i < Serial->Len; i++)
+						{
+							Serial->Data[0][i + 1] = SerialCtrl->read();
+						}
+						if(Serial->Data[0][0] != 0)
+						{
+							Send_to_Message(SerialCtrl,0);
+						}
+					}
+//		Serial->Len = SerialCtrl->available();
+				}
 				else
+				{
+					for(uint8_t i = 0; i < Serial->Len; i++)
+					{
+            SerialCtrl->read();
+					}
+				}
+				if(Serial->Len == Serial->buffer_size - 1)
 				{
 					for(uint8_t i = 0; i < Serial->Len; i++)
 					{
@@ -203,8 +266,16 @@ void Serial_Ctrl::Handle(Serialctrl *SerialCtrl, Serial_Data_t *Serial, bool mod
             }
         }
 			}
+							if(Serial->Len == Serial->buffer_size - 1)
+				{
+					for(uint8_t i = 0; i < Serial->Len; i++)
+					{
+            SerialCtrl->read();
+					}
+				}
     }
 }
+
 
 uint8_t Serial_Ctrl::Get_Data(Serial_Data_t *Serial, uint8_t *buf)
 {

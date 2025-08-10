@@ -11,6 +11,7 @@ CANctrl::CANctrl( FDCAN_HandleTypeDef *CANx, uint32_t BufferSize )
     this->CANx = CANx;
 	  this->CAN_Function = 0;
 		newBuffer(&_rx_buffer, BufferSize);
+		buffer_size = BufferSize;
 }
 
 void CANctrl::attachInterrupt(CAN_CallbackFunction_t Function)
@@ -38,6 +39,11 @@ void CANctrl::SendData(const void *buf, uint8_t len)
 		HAL_FDCAN_AddMessageToTxFifoQ(CANx,&FDCAN_TxHeader,(uint8_t *)buf);
 }
 
+int CANctrl::available(void)
+{
+    return ((unsigned int)(_rx_buffer.buf_size + _rx_buffer.pw - _rx_buffer.pr)) % _rx_buffer.buf_size;
+}
+
 uint8_t CANctrl::read(void)
 {
     uint8_t c = 0;
@@ -52,6 +58,16 @@ void CANctrl::IRQHandler(FDCAN_HandleTypeDef *hfdcan,uint32_t RxFifo0ITs)
 			if(HAL_FDCAN_GetRxMessage(hfdcan,FDCAN_RX_FIFO0,&FDCAN_RxHeader,FDCAN_RxData.Data) == HAL_OK)
 			{
 				FDCAN_RxData.StdId.u32 = FDCAN_RxHeader.Identifier;
+				Len = available();
+//				if(Len >= buffer_size - 12)
+//				{
+//					for(uint8_t i = 0; i < Len; i++)
+//					{
+//            read();
+//					}
+//				}
+				Buffer_Write(&_rx_buffer, 0xA5);
+				Buffer_Write(&_rx_buffer, 0xA6);
 				for(uint8_t x=0;x<4;x++)
 				{
 					Buffer_Write(&_rx_buffer, FDCAN_RxData.StdId.u8[x]);

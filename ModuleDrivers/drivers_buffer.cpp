@@ -54,7 +54,7 @@ int Buffer::Buffer_Read( ptRingBuffer buffer, uint8_t *data )
     if(buffer->pr == buffer->pw)return -1;
     
     *data = buffer->fifo[buffer->pr];
-    buffer->pr = ( buffer->pr + 1 ) % buffer->buf_size;
+    buffer->pr = ( buffer->pr + 1 ) % buffer->buf_size;//∂¡»°÷∏’Î∫Û“∆
     
     return 0;
 }

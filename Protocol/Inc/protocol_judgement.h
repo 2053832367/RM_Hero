@@ -41,6 +41,7 @@ typedef enum
 	CmdID_14 = 0x0207,//实时射击数据，弹丸发射后发送；
 	CmdID_15 = 0x0208,//剩余弹丸数，限用与空中机器人与哨兵；
 	CmdID_16 = 0x0301,//机器人间交互数据，最大频率10Hz，发送方触发发送
+	CmdID_17 = 0x0209,
 
 }Msg_CmdID;//两位数据
 
@@ -48,40 +49,44 @@ typedef enum
 //比赛状态cmd_id=0x0001
 typedef __packed struct
 {
-	uint8_t game_type : 4;             //比赛类型
-	uint8_t game_progress : 4; 	//比赛当前状态
-	uint16_t stage_remain_time;
-	uint64_t SyncTimeStamp;
+ uint8_t game_type : 4; 
+ uint8_t game_progress : 4; 
+ uint16_t stage_remain_time; 
+ uint64_t SyncTimeStamp;
 }ext_game_status_t;
 
-
-//比赛结果
-typedef struct
+//比赛结果cmd_id=0x0002
+typedef __packed struct
 {
-	uint8_t winner;                   //比赛结果
+	uint8_t winner;                   //比赛结果  0平局 1红胜 2蓝胜
 }ext_game_result_t;
 
 //cmid=0x0003
 typedef __packed struct
 {
-
-	uint16_t red_1_robot_HP;     //红1HP英雄
-	uint16_t red_2_robot_HP;     //红2HP工程
-	uint16_t red_3_robot_HP;     //红3HP步兵
-	uint16_t red_4_robot_HP;     //红4HP步兵
-	uint16_t red_5_robot_HP;     //红5HP步兵
-	uint16_t red_7_robot_HP;     //红7哨兵HP
-	uint16_t red_outpost_HP;     //红方前哨
-	uint16_t red_base_HP;        //基地HP
-	uint16_t blue_1_robot_HP;    //蓝1HP英雄
-	uint16_t blue_2_robot_HP;    //蓝2HP工程
-	uint16_t blue_3_robot_HP;    //蓝3HP步兵
-	uint16_t blue_4_robot_HP;    //蓝4HP步兵
-	uint16_t blue_5_robot_HP;    //蓝5HP步兵
-	uint16_t blue_7_robot_HP;    //蓝7哨兵HP
-	uint16_t blue_outpost_HP;    //蓝方前哨
-	uint16_t blue_base_HP;	   //基地HP
+ uint16_t red_1_robot_HP; 
+ uint16_t red_2_robot_HP; 
+ uint16_t red_3_robot_HP; 
+ uint16_t red_4_robot_HP; 
+ uint16_t reserved0; 
+ uint16_t red_7_robot_HP; 
+ uint16_t red_outpost_HP; 
+ uint16_t red_base_HP; 
+ uint16_t blue_1_robot_HP; 
+ uint16_t blue_2_robot_HP; 
+ uint16_t blue_3_robot_HP; 
+ uint16_t blue_4_robot_HP; 
+ uint16_t reserved1; 
+ uint16_t blue_7_robot_HP; 
+ uint16_t blue_outpost_HP; 
+ uint16_t blue_base_HP;
 }ext_game_robot_HP_t;
+
+//cmid=0x0101
+typedef __packed struct 
+{ 
+ uint32_t event_data; 
+}event_data_t;
 
 //飞镖发射状态：0x0004
 typedef struct
@@ -93,43 +98,149 @@ typedef struct
 //裁判警告信息cmd_id=0x0104
 typedef __packed struct
 {
-	uint8_t level;               //警告等级
-	uint8_t foul_robot_id;       //犯规机器人ID
+	uint8_t level; 
+ uint8_t offending_robot_id; 
+ uint8_t count;       
 }ext_referee_warning_t;
+
+//cmid=0x0105
+typedef __packed struct 
+{ 
+ uint8_t dart_remaining_time; 
+ uint16_t dart_info; 
+}dart_info_t;
 
 //机器人状态cmd_id=0x0201
 typedef __packed struct
 {
-	uint8_t  robot_id;                      //机器人ID
-	uint8_t  robot_level;                   //机器人等级
-	uint16_t remain_HP;                    //机器人剩余血量
-	uint16_t max_HP;                       //机器人上限血量
-	uint16_t shooter_id1_17mm_cooling_rate;   //机器人17mm枪口每秒冷却值
-	uint16_t shooter_id1_17mm_cooling_limit;  //机器人42mm枪口热量上限
-	uint16_t shooter_id1_17mm_speed_limit;   //机器人17mm枪口每秒冷却值
+	uint8_t robot_id; 
+ uint8_t robot_level; 
+ uint16_t current_HP; 
+ uint16_t maximum_HP; 
+ uint16_t shooter_barrel_cooling_value; 
+ uint16_t shooter_barrel_heat_limit; 
+ uint16_t chassis_power_limit; 
+ uint8_t power_management_gimbal_output : 1; 
+ uint8_t power_management_chassis_output : 1; 
+ uint8_t power_management_shooter_output : 1;
 
-	uint16_t shooter_id2_17mm_cooling_rate;
-	uint16_t shooter_id2_17mm_cooling_limit;
-	uint16_t shooter_id2_17mm_speed_limit;
 
-	uint16_t shooter_id1_42mm_cooling_rate;//机器人42mm枪口热量上限
-	uint16_t shooter_id1_42mm_cooling_limit;
-	uint16_t shooter_id1_42mm_speed_limit;
-
-	uint16_t chassis_power_limit;
-	uint8_t  mains_power_gimbal_output : 1; //0 bit：gimbal 口输出： 1 为有 24V 输出，0 为无 24v 输出；
-	uint8_t  mains_power_chassis_output : 1;//1 bit：chassis 口输出：1 为有 24V 输出，0 为无 24v 输出；
-	uint8_t  mains_power_shooter_output : 1;//2 bit：shooter 口输出：1 为有 24V 输出，0 为无 24v 输出；
+	
 }ext_game_robot_status_t;
+
+
+//实时功率数据cmd_id=0x0202
+typedef __packed struct
+{
+	
+	uint16_t reserved0; 
+ uint16_t reserved1; 
+ float reserved2; 
+ uint16_t buffer_energy; 
+ uint16_t shooter_17mm_1_barrel_heat; 
+ uint16_t shooter_17mm_2_barrel_heat; 
+ uint16_t shooter_42mm_barrel_heat;
+}ext_power_heat_data_t;
+
+//cmd_id=0x0203
+typedef __packed struct
+{
+	float x; 
+ float y; 
+ float angle;
+
+}ext_game_robot_pos_t;
+
+//cmd_id=0x0204
+typedef __packed struct 
+{ 
+ uint8_t recovery_buff; 
+ uint8_t cooling_buff; 
+ uint8_t defence_buff; 
+ uint8_t vulnerability_buff; 
+ uint16_t attack_buff; 
+ uint8_t remaining_energy; 
+}buff_t;
+
+//cmd_id=0x0206
+typedef __packed struct 
+{ 
+
+ uint8_t armor_id : 4; 
+ uint8_t HP_deduction_reason : 4; 
+}hurt_data_t;
+
 
 //实时射击信息0x207
 typedef __packed struct
 {
-	uint8_t bullet_type;
-	uint8_t shooter_id;
-	uint8_t bullet_freq;
-	float bullet_speed;
+	uint8_t bullet_type; 
+ uint8_t shooter_number; 
+ uint8_t launching_frequency; 
+ float initial_speed;
 }ext_shoot_data_t;
+
+
+//cmd_id=0x0208
+typedef __packed struct 
+{ 
+ uint16_t projectile_allowance_17mm; 
+ uint16_t projectile_allowance_42mm; 
+ uint16_t remaining_gold_coin; 
+}projectile_allowance_t;
+
+//cmd_id=0x0209
+typedef __packed struct 
+{ 
+  uint32_t rfid_status; 
+}rfid_status_t; 
+
+//cmd_id=0x020A
+typedef __packed struct 
+{ 
+ uint8_t dart_launch_opening_status; 
+ uint8_t reserved; 
+ uint16_t target_change_time; 
+ uint16_t latest_launch_cmd_time; 
+}dart_client_cmd_t;
+
+//cmd_id=0x020B
+typedef __packed struct 
+{ 
+ float hero_x; 
+ float hero_y; 
+ float engineer_x; 
+ float engineer_y; 
+ float standard_3_x; 
+ float standard_3_y; 
+ float standard_4_x; 
+ float standard_4_y; 
+ float reserved0; 
+ float reserved1; 
+}ground_robot_position_t;
+
+//cmd_id=0x020C
+typedef __packed struct 
+{ 
+ uint8_t mark_progress; 
+}radar_mark_data_t;
+
+//cmd_id=0x020D
+typedef __packed struct 
+{ 
+uint32_t sentry_info; 
+ uint16_t sentry_info_2; 
+} sentry_info_t;
+
+
+//cmd_id=0x020E
+typedef __packed struct 
+{ 
+ uint8_t radar_info; 
+} radar_info_t;
+
+
+
 
 typedef enum
 {
@@ -185,26 +296,9 @@ typedef __packed struct
 	uint16_t crc_16;
 } client_custom_data_t;
 
-//实时功率数据cmd_id=0x0202
-typedef __packed struct
-{
 
-	uint16_t chassis_volt;                //底盘输出电压 mv
-	uint16_t chassis_current;             //底盘输出电流 ma
-	float chassis_power;                  //底盘输出功率 w
-	uint16_t chassis_power_buffer;        //底盘功率缓冲 j，飞坡需要250j
-	uint16_t shooter_id1_17mm_cooling_heat;            //17mm枪口热量
-	uint16_t shooter_id2_17mm_cooling_heat;              //42mm枪口热量
-	uint16_t shooter_id1_42mm_cooling_heat;       //机动17mm枪口热量
-}ext_power_heat_data_t;
 
-typedef __packed struct
-{
-	float x;
-	float y;
-	float z;
-	float yaw;
-}ext_game_robot_pos_t;
+
 
 //机器人增益
 typedef __packed struct
@@ -213,19 +307,22 @@ typedef __packed struct
 }ext_buff_t;
 
 
+
+
 typedef struct
 {
 	tMsg_head                     judgedatahead;
 	uint16_t                      rxCmdId;
-	ext_game_robot_status_t      game_robot_state;    //机器人状态
 	ext_game_status_t            game_status;           //比赛状态
+	ext_game_robot_status_t      game_robot_state;    //机器人状态
 	ext_game_robot_HP_t          game_robot_HP;       //机器人血量
 	ext_power_heat_data_t        power_heat_data;     //机器人功率与热量
-	ext_shoot_data_t	         shoot_data;			//机器人发射机构
+	ext_shoot_data_t	           shoot_data;			//机器人发射机构
 	ext_game_robot_pos_t         game_robot_pos;   //机器人位置
 	ext_referee_warning_t        referee_warning;     //裁判警告信息	
 	client_custom_data_t         robot_data;
 	client_custom_data_t          userinfo;
+	rfid_status_t 							 rfid_state;
 
 }judge_type_t;
 
@@ -251,91 +348,91 @@ typedef __packed struct
 }ext_student_interactive_header_data_t;
 
 
-///////////////////////////////////图形结构体
-typedef __packed struct
-{
-	uint8_t graphic_name[3];//名字
-	uint32_t operate_tpye : 3;//操作
-	uint32_t graphic_tpye : 3;//类型
-	uint32_t layer : 4;//图层
-	uint32_t color : 4;//颜色
-	uint32_t start_angle : 9;//起始角度
-	uint32_t end_angle : 9;//终止角度
-	uint32_t width : 10;//线宽度
-	uint32_t start_x : 11;//起点 x 坐标
-	uint32_t start_y : 11;//起点 y 坐标
-	uint32_t radius : 10;//字体大小或者半径
-	uint32_t end_x : 11;//终点 x 坐标
-	uint32_t end_y : 11;//终点 y 坐标
-}graphic_data_struct_t;
+/////////////////////////////////////图形结构体
+//typedef __packed struct
+//{
+//	uint8_t graphic_name[3];//名字
+//	uint32_t operate_tpye : 3;//操作
+//	uint32_t graphic_tpye : 3;//类型
+//	uint32_t layer : 4;//图层
+//	uint32_t color : 4;//颜色
+//	uint32_t start_angle : 9;//起始角度
+//	uint32_t end_angle : 9;//终止角度
+//	uint32_t width : 10;//线宽度
+//	uint32_t start_x : 11;//起点 x 坐标
+//	uint32_t start_y : 11;//起点 y 坐标
+//	uint32_t radius : 10;//字体大小或者半径
+//	uint32_t end_x : 11;//终点 x 坐标
+//	uint32_t end_y : 11;//终点 y 坐标
+//}graphic_data_struct_t;
 
-typedef __packed struct
-{
-	uint8_t graphic_name[3];
-	uint32_t operate_tpye : 3;
-	uint32_t graphic_tpye : 3;
-	uint32_t layer : 4;
-	uint32_t color : 4;
-	uint32_t start_angle : 9;
-	uint32_t end_angle : 9;
-	uint32_t width : 10;
-	uint32_t start_x : 11;
-	uint32_t start_y : 11;
-	int32_t  Number;
-}number_data_struct_t;
+//typedef __packed struct
+//{
+//	uint8_t graphic_name[3];
+//	uint32_t operate_tpye : 3;
+//	uint32_t graphic_tpye : 3;
+//	uint32_t layer : 4;
+//	uint32_t color : 4;
+//	uint32_t start_angle : 9;
+//	uint32_t end_angle : 9;
+//	uint32_t width : 10;
+//	uint32_t start_x : 11;
+//	uint32_t start_y : 11;
+//	int32_t  Number;
+//}number_data_struct_t;
 
 
 
-typedef __packed struct
-{
-	tMsg_head UIMsg_head;
-	uint16_t CmdID;
-	ext_student_interactive_header_data_t UIdraw_header_id;
-	graphic_data_struct_t grapic_data_struct;
-	uint16_t CRC16;
-}ext_client_custom_graphic_single_tt;
+//typedef __packed struct
+//{
+//	tMsg_head UIMsg_head;
+//	uint16_t CmdID;
+//	ext_student_interactive_header_data_t UIdraw_header_id;
+//	graphic_data_struct_t grapic_data_struct;
+//	uint16_t CRC16;
+//}ext_client_custom_graphic_single_tt;
 
-typedef __packed struct
-{
-	tMsg_head UIMsg_head;
-	uint16_t CmdID;
-	ext_student_interactive_header_data_t UIdraw_header_id;
-	graphic_data_struct_t grapic_data_struct;
-	uint8_t data[30];
-	uint16_t CRC16;
-}ext_client_custom_character_tt;
+//typedef __packed struct
+//{
+//	tMsg_head UIMsg_head;
+//	uint16_t CmdID;
+//	ext_student_interactive_header_data_t UIdraw_header_id;
+//	graphic_data_struct_t grapic_data_struct;
+//	uint8_t data[30];
+//	uint16_t CRC16;
+//}ext_client_custom_character_tt;
 
-typedef __packed struct
-{
-	tMsg_head       											 			UIMsg_head;
-	uint16_t         													CmdID;
-	ext_student_interactive_header_data_t  		UIdraw_header_id;
-	uint8_t graphic_name[3];
-	uint32_t operate_tpye : 3;
-	uint32_t graphic_tpye : 3;
-	uint32_t layer : 4;
-	uint32_t color : 4;
-	uint32_t start_angle : 9;
-	uint32_t end_angle : 9;
-	uint32_t width : 10;
-	uint32_t start_x : 11;
-	uint32_t start_y : 11;
-	int32_t 	graph_num;
-	uint16_t        													CRC16;
-}Num_data_struct_t;
-typedef __packed struct
-{
-	tMsg_head       											 		UIMsg_head;
-	uint16_t         													CmdID;
-	ext_student_interactive_header_data_t  		UIdraw_header_id;
-	graphic_data_struct_t                     graphic_data[7];
-	uint16_t        													CRC16;
-}draw_data_struct_t;
-typedef __packed struct
-{
-	ext_student_interactive_header_data_t  UIdraw_header_id;
-	graphic_data_struct_t grapic_data_struct;
-}ext_client_custom_graphic_single_t;
+//typedef __packed struct
+//{
+//	tMsg_head       											 			UIMsg_head;
+//	uint16_t         													CmdID;
+//	ext_student_interactive_header_data_t  		UIdraw_header_id;
+//	uint8_t graphic_name[3];
+//	uint32_t operate_tpye : 3;
+//	uint32_t graphic_tpye : 3;
+//	uint32_t layer : 4;
+//	uint32_t color : 4;
+//	uint32_t start_angle : 9;
+//	uint32_t end_angle : 9;
+//	uint32_t width : 10;
+//	uint32_t start_x : 11;
+//	uint32_t start_y : 11;
+//	int32_t 	graph_num;
+//	uint16_t        													CRC16;
+//}Num_data_struct_t;
+//typedef __packed struct
+//{
+//	tMsg_head       											 		UIMsg_head;
+//	uint16_t         													CmdID;
+//	ext_student_interactive_header_data_t  		UIdraw_header_id;
+//	graphic_data_struct_t                     graphic_data[7];
+//	uint16_t        													CRC16;
+//}draw_data_struct_t;
+//typedef __packed struct
+//{
+//	ext_student_interactive_header_data_t  UIdraw_header_id;
+//	graphic_data_struct_t grapic_data_struct;
+//}ext_client_custom_graphic_single_t;
 
 typedef  struct
 {
@@ -351,44 +448,44 @@ typedef  struct
 		ext_referee_warning_t        referee_warning_t; 		//裁判警告信息
 		robot_interactive_data_t     robot_data_t;
 		client_custom_data_t 	userinfo;
-		graphic_data_struct_t	graphic_data;
+//		graphic_data_struct_t	graphic_data;
 	}Data;
 	uint16_t        CRC16;
 	uint16_t        CRC16_2;
 }FRAME;
 
 
-typedef __packed struct
-{
-	tMsg_head       											 		UIMsg_head;
-	uint16_t         													CmdID;
-	ext_student_interactive_header_data_t  		UIdraw_header_id;
-	graphic_data_struct_t                     graphic_data;
-	uint16_t        													CRC16;
-}graph_data_struct_t;
-typedef __packed struct
-{
-	tMsg_head       											 UIMsg_head;
-	uint16_t         											 CmdID;
-	ext_student_interactive_header_data_t  CharUI_header_id;
-	graphic_data_struct_t                  char_data;
-	uint8_t data[30];
-	uint16_t        											 CRC16;
-}char_data_struct_t;
-typedef __packed struct
-{
-	tMsg_head       											 			Del_head;
-	uint16_t         													CmdID;
-	ext_student_interactive_header_data_t  		UIdraw_header_id;
-	uint8_t Delete_Operate;
-	uint8_t Layer;
-	uint16_t        											 			CRC16;
-} ext_client_custom_graphic_delete_t;
-typedef __packed struct
-{
-	graphic_data_struct_t Char_data_struct;
-	uint8_t data[30];
-}ext_client_custom_character_t;
+//typedef __packed struct
+//{
+//	tMsg_head       											 		UIMsg_head;
+//	uint16_t         													CmdID;
+//	ext_student_interactive_header_data_t  		UIdraw_header_id;
+//	graphic_data_struct_t                     graphic_data;
+//	uint16_t        													CRC16;
+//}graph_data_struct_t;
+//typedef __packed struct
+//{
+//	tMsg_head       											 UIMsg_head;
+//	uint16_t         											 CmdID;
+//	ext_student_interactive_header_data_t  CharUI_header_id;
+//	graphic_data_struct_t                  char_data;
+//	uint8_t data[30];
+//	uint16_t        											 CRC16;
+//}char_data_struct_t;
+//typedef __packed struct
+//{
+//	tMsg_head       											 			Del_head;
+//	uint16_t         													CmdID;
+//	ext_student_interactive_header_data_t  		UIdraw_header_id;
+//	uint8_t Delete_Operate;
+//	uint8_t Layer;
+//	uint16_t        											 			CRC16;
+//} ext_client_custom_graphic_delete_t;
+//typedef __packed struct
+//{
+//	graphic_data_struct_t Char_data_struct;
+//	uint8_t data[30];
+//}ext_client_custom_character_t;
 typedef __packed struct
 {
 	tMsg_head       											 Map_head;
@@ -400,23 +497,23 @@ typedef __packed struct
 	uint16_t        											 CRC16;
 }map_data_struct_t;
 		
-typedef __packed struct
-{
-	tMsg_head       											 		UIMsg_head;
-	uint16_t         													CmdID;
-	ext_student_interactive_header_data_t  		UIdraw_header_id;
-	graphic_data_struct_t                     MA_UI_data[7];
-	uint16_t        													CRC16;
-}MA_UIgraphic_struct_t;
+//typedef __packed struct
+//{
+//	tMsg_head       											 		UIMsg_head;
+//	uint16_t         													CmdID;
+//	ext_student_interactive_header_data_t  		UIdraw_header_id;
+//	graphic_data_struct_t                     MA_UI_data[7];
+//	uint16_t        													CRC16;
+//}MA_UIgraphic_struct_t;
 
-typedef __packed struct
-{
-	tMsg_head       											 		UIMsg_head;
-	uint16_t         													CmdID;
-	ext_student_interactive_header_data_t  		UIdraw_header_id;
-	number_data_struct_t                     	MA_UI_data[7];
-	uint16_t        													CRC16;
-}MA_UInumber_struct_t;
+//typedef __packed struct
+//{
+//	tMsg_head       											 		UIMsg_head;
+//	uint16_t         													CmdID;
+//	ext_student_interactive_header_data_t  		UIdraw_header_id;
+//	number_data_struct_t                     	MA_UI_data[7];
+//	uint16_t        													CRC16;
+//}MA_UInumber_struct_t;
 
 #define RX_BUF_NUM   1000u
 #define TX_BUF_NUM   512u
@@ -426,14 +523,14 @@ extern  SelfDefineInfo_t             SelfDefineInfo;
 extern  tFrame						tframe;
 extern  judge_type_t                   judge_type;
 extern  ext_shoot_data_t			shoot_data_t;
-extern	draw_data_struct_t		draw_data_struct;
-extern  char_data_struct_t    char_data_struct;
-extern  graph_data_struct_t   graph_data_struct;
-extern  ext_client_custom_character_t  ext_client_custom_characte;
-extern  ext_client_custom_graphic_delete_t graphic_delete_struct;
+//extern	draw_data_struct_t		draw_data_struct;
+//extern  char_data_struct_t    char_data_struct;
+//extern  graph_data_struct_t   graph_data_struct;
+//extern  ext_client_custom_character_t  ext_client_custom_characte;
+//extern  ext_client_custom_graphic_delete_t graphic_delete_struct;
 // extern  num_data_struct_t  						num_data_struct;
 
-extern	ext_client_custom_graphic_single_t   client_custom_graphic_single_t;
+//extern	ext_client_custom_graphic_single_t   client_custom_graphic_single_t;
 void usart7_send_char(uint8_t c);
 void Usart_SendBuff(uint8_t *buf, uint16_t len);
 void chassis_to_judgeui(uint16_t txlen);

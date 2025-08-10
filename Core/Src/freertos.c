@@ -62,25 +62,25 @@ const osThreadAttr_t RTOSsystem_task_attributes = {
   .stack_size = 128 * 4,
   .priority = (osPriority_t) osPriorityLow2,
 };
-/* Definitions for Gimbal_task */
-osThreadId_t Gimbal_taskHandle;
-const osThreadAttr_t Gimbal_task_attributes = {
-  .name = "Gimbal_task",
-  .stack_size = 512 * 4,
+/* Definitions for Gimbal_task256 */
+osThreadId_t Gimbal_task256Handle;
+const osThreadAttr_t Gimbal_task256_attributes = {
+  .name = "Gimbal_task256",
+  .stack_size = 256 * 4,
   .priority = (osPriority_t) osPriorityLow5,
 };
 /* Definitions for Guard_task */
 osThreadId_t Guard_taskHandle;
 const osThreadAttr_t Guard_task_attributes = {
   .name = "Guard_task",
-  .stack_size = 128 * 4,
+  .stack_size = 256 * 4,
   .priority = (osPriority_t) osPriorityLow6,
 };
 /* Definitions for Correspond_task */
 osThreadId_t Correspond_taskHandle;
 const osThreadAttr_t Correspond_task_attributes = {
   .name = "Correspond_task",
-  .stack_size = 512 * 4,
+  .stack_size = 256 * 4,
   .priority = (osPriority_t) osPriorityLow4,
 };
 /* Definitions for Message_task */
@@ -125,15 +125,37 @@ const osThreadAttr_t CAN3_Rx_task_attributes = {
   .stack_size = 128 * 4,
   .priority = (osPriority_t) osPriorityLow7,
 };
+/* Definitions for Chassis_task */
+osThreadId_t Chassis_taskHandle;
+const osThreadAttr_t Chassis_task_attributes = {
+  .name = "Chassis_task",
+  .stack_size = 256 * 4,
+  .priority = (osPriority_t) osPriorityLow5,
+};
+/* Definitions for UIDraw_task */
+osThreadId_t UIDraw_taskHandle;
+const osThreadAttr_t UIDraw_task_attributes = {
+  .name = "UIDraw_task",
+  .stack_size = 512 * 4,
+  .priority = (osPriority_t) osPriorityLow3,
+};
+/* Definitions for Referee_Rx_task */
+osThreadId_t Referee_Rx_taskHandle;
+const osThreadAttr_t Referee_Rx_task_attributes = {
+  .name = "Referee_Rx_task",
+  .stack_size = 128 * 4,
+  .priority = (osPriority_t) osPriorityLow7,
+};
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
-//消息队列句柄
+//о
 QueueHandle_t Message_Queue;
 QueueHandle_t CAN1_Rx_Queue;
 QueueHandle_t CAN2_Rx_Queue;
 QueueHandle_t CAN3_Rx_Queue;
 QueueHandle_t Serial_Rx_Queue;
+QueueHandle_t Referee_Rx_Queue;
 QueueHandle_t DR16_Rx_Queue;
 /* USER CODE END FunctionPrototypes */
 
@@ -148,6 +170,9 @@ extern void CAN2_Rx_Task(void *argument);
 extern void Serial_Rx_Task(void *argument);
 extern void DR16_Rx_Task(void *argument);
 extern void CAN3_Rx_Task(void *argument);
+extern void Chassis_Task(void *argument);
+extern void UIDraw_Task(void *argument);
+extern void Referee_Rx_Task(void *argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -180,6 +205,7 @@ void MX_FREERTOS_Init(void) {
 	CAN2_Rx_Queue = xQueueCreate(8, sizeof(ID_Data_t));
 	CAN3_Rx_Queue = xQueueCreate(8, sizeof(ID_Data_t));
 	Serial_Rx_Queue = xQueueCreate(4, sizeof(ID_Data_t));
+	Referee_Rx_Queue = xQueueCreate(2, sizeof(ID_Data_t));
 	DR16_Rx_Queue = xQueueCreate(2, sizeof(ID_Data_t));
   /* USER CODE END RTOS_QUEUES */
 
@@ -190,8 +216,8 @@ void MX_FREERTOS_Init(void) {
   /* creation of RTOSsystem_task */
   RTOSsystem_taskHandle = osThreadNew(RTOSsystem_Task, NULL, &RTOSsystem_task_attributes);
 
-  /* creation of Gimbal_task */
-  Gimbal_taskHandle = osThreadNew(Gimbal_Task, NULL, &Gimbal_task_attributes);
+  /* creation of Gimbal_task256 */
+  Gimbal_task256Handle = osThreadNew(Gimbal_Task, NULL, &Gimbal_task256_attributes);
 
   /* creation of Guard_task */
   Guard_taskHandle = osThreadNew(Guard_Task, NULL, &Guard_task_attributes);
@@ -216,6 +242,15 @@ void MX_FREERTOS_Init(void) {
 
   /* creation of CAN3_Rx_task */
   CAN3_Rx_taskHandle = osThreadNew(CAN3_Rx_Task, NULL, &CAN3_Rx_task_attributes);
+
+  /* creation of Chassis_task */
+  Chassis_taskHandle = osThreadNew(Chassis_Task, NULL, &Chassis_task_attributes);
+
+  /* creation of UIDraw_task */
+  UIDraw_taskHandle = osThreadNew(UIDraw_Task, NULL, &UIDraw_task_attributes);
+
+  /* creation of Referee_Rx_task */
+  Referee_Rx_taskHandle = osThreadNew(Referee_Rx_Task, NULL, &Referee_Rx_task_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */

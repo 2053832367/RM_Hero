@@ -5,7 +5,7 @@ static uint16_t RGB_buffer[WS2812_DATA_LEN] = {0};
 static void WS2812_REFRESH(void);
 static void color_hsv2rgb(uint32_t h, uint32_t s, uint32_t v, uint32_t *r, uint32_t *g, uint32_t *b);
 /**
-* @brief WS2812åˆå§‹åŒ–, å…¨é»‘
+* @brief WS2812³õÊ¼»¯, È«ºÚ
 */
 void WS2812_INIT(void)
 {
@@ -13,12 +13,12 @@ void WS2812_INIT(void)
 }
 
 /**
-* @brief 	è®¾ç½®æŸä¸ªç¯ç é¢œè‰²RGB
+* @brief 	ÉèÖÃÄ³¸öµÆÖéÑÕÉ«RGB
 * @author	MA_LU
-* @param 	uint8_t Rï¼š0-255
-*                Gï¼š0-255
-*                Bï¼š0-255
-*        	uint16_t num, æŒ‡å®šè®¾ç½®é¢œè‰²çš„ç¯ç ä½å·
+* @param 	uint8_t R£º0-255
+*                G£º0-255
+*                B£º0-255
+*        	uint16_t num, Ö¸¶¨ÉèÖÃÑÕÉ«µÄµÆÖéÎ»ºÅ
 */
 void WS2812_SET_RGB(uint8_t R, uint8_t G, uint8_t B, uint16_t num)
 {
@@ -36,13 +36,13 @@ void WS2812_SET_RGB(uint8_t R, uint8_t G, uint8_t B, uint16_t num)
 		WS2812_REFRESH();
 }
 /**
-* @brief 	è®¾ç½®æŸä¸ªç¯ç é¢œè‰²HSV
+* @brief 	ÉèÖÃÄ³¸öµÆÖéÑÕÉ«HSV
 * @author MA_LU
-* @param 	uint8_t H,S,V: HSVè‰²å½©æ ¼å¼
-*				 	H:è‰²ç›¸(0-360)0åº¦ä¸ºçº¢è‰²ï¼Œ120åº¦ä¸ºç»¿è‰²ï¼Œ240åº¦ä¸ºè“è‰²
-*				 	S:é¥±å’Œåº¦(0-100)
-*				 	V:äº®åº¦(0-100)
-*        	uint16_t num, æŒ‡å®šè®¾ç½®é¢œè‰²çš„ç¯ç ä½å·
+* @param 	uint8_t H,S,V: HSVÉ«²Ê¸ñÊ½
+*				 	H:É«Ïà(0-360)0¶ÈÎªºìÉ«£¬120¶ÈÎªÂÌÉ«£¬240¶ÈÎªÀ¶É«
+*				 	S:±¥ºÍ¶È(0-100)
+*				 	V:ÁÁ¶È(0-100)
+*        	uint16_t num, Ö¸¶¨ÉèÖÃÑÕÉ«µÄµÆÖéÎ»ºÅ
 */
 void WS2812_SET_HSV(uint16_t H, uint16_t S, uint16_t V, uint16_t num)
 {
@@ -65,7 +65,7 @@ void WS2812_SET_HSV(uint16_t H, uint16_t S, uint16_t V, uint16_t num)
 }
 
 /**
-* @brief ç­ç¯
+* @brief ÃğµÆ
 */
 void WS2812_SET_DARK(void)
 {
@@ -77,7 +77,7 @@ void WS2812_SET_DARK(void)
 
 
 /**
-* @brief WS2812é¢œè‰²æ•°æ®åˆ·æ–°, ä¿®æ”¹é¢œè‰²å€¼åè°ƒç”¨(DMAä¼ è¾“æ•°æ®)
+* @brief WS2812ÑÕÉ«Êı¾İË¢ĞÂ, ĞŞ¸ÄÑÕÉ«Öµºóµ÷ÓÃ(DMA´«ÊäÊı¾İ)
 */
 static void WS2812_REFRESH(void)
 {
@@ -85,14 +85,14 @@ static void WS2812_REFRESH(void)
 }
 
 /**
- * @brief å°†HSVé¢œè‰²ç©ºé—´è½¬æ¢ä¸ºRGBé¢œè‰²ç©ºé—´
+ * @brief ½«HSVÑÕÉ«¿Õ¼ä×ª»»ÎªRGBÑÕÉ«¿Õ¼ä
  * @author INTERNET
- * @param  h HSVé¢œè‰²ç©ºé—´çš„Hï¼šè‰²è°ƒ, èŒƒå›´0~360
- * @param  s HSVé¢œè‰²ç©ºé—´çš„Sï¼šé¥±å’Œåº¦, èŒƒå›´0~100
- * @param  v HSVé¢œè‰²ç©ºé—´çš„Vï¼šæ˜åº¦, èŒƒå›´0~100
- * @param  r è½¬æ¢åRGB-Rå€¼çš„æŒ‡é’ˆ
- * @param  g è½¬æ¢åRGB-Gå€¼çš„æŒ‡é’ˆ
- * @param  b è½¬æ¢åRGB-Bå€¼çš„æŒ‡é’ˆ
+ * @param  h HSVÑÕÉ«¿Õ¼äµÄH£ºÉ«µ÷, ·¶Î§0~360
+ * @param  s HSVÑÕÉ«¿Õ¼äµÄS£º±¥ºÍ¶È, ·¶Î§0~100
+ * @param  v HSVÑÕÉ«¿Õ¼äµÄV£ºÃ÷¶È, ·¶Î§0~100
+ * @param  r ×ª»»ºóRGB-RÖµµÄÖ¸Õë
+ * @param  g ×ª»»ºóRGB-GÖµµÄÖ¸Õë
+ * @param  b ×ª»»ºóRGB-BÖµµÄÖ¸Õë
  *
  */
 static void color_hsv2rgb(uint32_t h, uint32_t s, uint32_t v, uint32_t *r, uint32_t *g, uint32_t *b)

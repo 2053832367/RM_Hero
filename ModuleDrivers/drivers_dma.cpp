@@ -1,3 +1,6 @@
+#include "app_serial.h"
+#include "Message_Task.h"
+#include "app_preference.h"
 #include "drivers_dma.h"
 
 void MA_UART_Receive_DMA_Init(UART_HandleTypeDef *_huartx, DMA_HandleTypeDef * hdma_usart_rx ,uint8_t *rx1_buf, uint8_t *rx2_buf, uint16_t dma_buf_num)
@@ -36,4 +39,22 @@ void MA_UART_Receive_DMA_Init(UART_HandleTypeDef *_huartx, DMA_HandleTypeDef * h
     //Ê¹ÄÜDMA
     __HAL_DMA_ENABLE(hdma_usart_rx);
 
+	}
+
+void Usart6_Tx_Dma_Enable(UART_HandleTypeDef *_huartx ,uint8_t *data, uint16_t len)
+{
+	
+	__HAL_DMA_DISABLE(&hdma_uart7_tx);
+	while(((DMA_Stream_TypeDef*)hdma_uart7_tx.Instance)->CR & DMA_SxCR_EN)
+	{
+		__HAL_DMA_DISABLE(&hdma_uart7_tx);
+		
+	}
+	__HAL_DMA_CLEAR_FLAG(&hdma_uart7_tx,DMA_HISR_TCIF6);
+	((DMA_Stream_TypeDef*)hdma_uart7_tx.Instance)->M0AR = (uint32_t)(data);
+	__HAL_DMA_SET_COUNTER(&hdma_uart7_tx,len);
+	__HAL_DMA_ENABLE(&hdma_uart7_tx);
+
 }
+
+

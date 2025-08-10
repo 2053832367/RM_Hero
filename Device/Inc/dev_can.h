@@ -48,7 +48,12 @@ public:
 		
 	FDCAN_TxHeaderTypeDef FDCAN_TxHeader;
 
+	int available(void);
 	uint8_t read(void);
+
+	int Len;
+	int buffer_size;
+
   RingBuffer _rx_buffer;
 		
 protected:

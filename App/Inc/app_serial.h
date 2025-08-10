@@ -86,6 +86,7 @@ public:
 private:
     void *buf;
 };
+extern Serial_Ctrl Serial_Cmd;
 
 extern void Serial_ALL_Init();
 #endif

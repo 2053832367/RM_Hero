@@ -1,47 +1,28 @@
 #ifndef __TASKS_H
 #define __TASKS_H
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-	
-#define useFreeRTOS
-//	
-//#ifndef useFreeRTOS
-//#define osDelay( ms )   delay_ms( ms )
-//#define Delay_ms( ms )  delay_ms( ms )
-//#define Delay_us( us )  delay_us( us )
-//#else
-//#define osDelay( ms )   vTaskDelay( pdMS_TO_TICKS( ms ) )
-//#define Delay_ms( ms )  delay_xms( ms )
-//#define Delay_us( us )  delay_xus( us )
-//#endif
-	
-#ifdef __cplusplus
-}
-#endif
-
-#include "Gimbal_Task.h"
+#include "Robot_Task.h"
 #include "Message_Task.h"
 #include "Guard_Task.h"
 #include "Correspond_Task.h"
+#include "UIDraw_Task.h"
 
-//#include "app_led.h"
-//#include "app_motor.h"
-//#include "app_power_ctrl.h"
-//#include "app_serial.h"
-//#include "app_preference.h"
+// 有符号整数类型
+typedef signed char        int8_t;
+typedef short int          int16_t;
+typedef int                int32_t;
+typedef long long int      int64_t;
 
-extern Gimbal_Ctrl Gimbal;
-extern Message_Ctrl Message;
-extern Guard_Ctrl Guard;
-extern correspondence_ctrl Corres;
+// 无符号整数类型
+typedef unsigned char      uint8_t;
+typedef unsigned short int uint16_t;
+typedef unsigned int       uint32_t;
+typedef unsigned long long uint64_t;
 
-//extern correspondence_ctrl Corres;
-//extern UI_Draw_Ctrl UIDraw;
-
-//extern LEDctrl LED;
-extern CAN_Ctrl CAN_Cmd;
-extern Serial_Ctrl Serial_Cmd;
+extern Chassis_Ctrl  Chassis;
+extern Gimbal_Ctrl   Gimbal;
+extern Message_Ctrl  Message;
+extern Guard_Ctrl    Guard;
+extern Correspondence_ctrl Corres;
 
 #endif

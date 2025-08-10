@@ -67,6 +67,10 @@ void Error_Handler(void);
 #define DC_GPIO_Port GPIOE
 #define D1_SDA_Pin GPIO_PIN_6
 #define D1_SDA_GPIO_Port GPIOE
+#define KeY_2006_Pin GPIO_PIN_9
+#define KeY_2006_GPIO_Port GPIOE
+#define KEY_2006_Pin GPIO_PIN_10
+#define KEY_2006_GPIO_Port GPIOE
 #define PWM_Pin GPIO_PIN_6
 #define PWM_GPIO_Port GPIOC
 

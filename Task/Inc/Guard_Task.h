@@ -6,6 +6,7 @@
 #include "FreeRTOS.h"
 #include "queue.h"
 #include "app_preference.h"
+#include "dev_can.h"
 //#include "iwdg.h"
 
 #ifdef __cplusplus
@@ -60,6 +61,7 @@ private:
 
 	SG_Data_t SG_Structure[GUARD_TOTAL_NUM];
 };
+extern Guard_Ctrl Guard;
 
 extern void IWDG_Feed(void);  //Î¹¹·º¯Êý
 void Error_Enable(uint8_t name);

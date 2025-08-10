@@ -1,7 +1,11 @@
 #include "Guard_Task.h"
-
+#include "Robot_Task.h"
+#include "UIDraw_Task.h"
+#include "tasks.h"
+#include "arm_math.h"
 Guard_Ctrl Guard;
 Error_Flags_t Error_Flag;
+extern uint8_t last_level;
 
 void Guard_Task(void *pvParameters)
 {
@@ -12,6 +16,9 @@ void Guard_Task(void *pvParameters)
   for(;;)
   {		
 	Guard.Scan();
+//		client_info_update();
+//		Ui_Info_Update();
+		//last_level = judge_type.game_robot_state.robot_level;
     IWDG_Feed();
     osDelay(2);
   }
@@ -107,6 +114,19 @@ void Guard_Ctrl::Scan(void)
             }
         }
     }
+
+		if((hfdcan1.Instance->CCCR&0x01) == 1)
+		{
+			hfdcan1.Instance->CCCR &= ~(1 << 0);
+		}
+		if((hfdcan2.Instance->CCCR&0x01) == 1)
+		{
+			hfdcan2.Instance->CCCR &= ~(1 << 0);
+		}
+		if((hfdcan3.Instance->CCCR&0x01) == 1)
+		{
+			hfdcan3.Instance->CCCR &= ~(1 << 0);
+		}
 }
 //¾¯½äÈÎÎñÎ¹¹·
 void Guard_Ctrl::Feed(ID_e Name)
@@ -186,3 +206,4 @@ void IWDG_Feed(void)
 //        (SCB->AIRCR & SCB_AIRCR_PRIGROUP_Msk) |
 //        SCB_AIRCR_SYSRESETREQ_Msk);
 //}
+

@@ -3,10 +3,11 @@
 
 #include "dev_system.h"
 
+
 #ifdef __cplusplus
 extern"C"{
 #endif
-	
+
 //#include "arm_math.h"
 //#include "arm_const_structs.h"
 
@@ -30,6 +31,24 @@ typedef __packed struct
     fp32 num[1];       //滤波参数
     fp32 frame_period; //滤波的时间间隔 单位 s
 } first_order_filter_type_t;
+
+typedef __packed struct
+{
+    uint16_t Order;
+    uint32_t Count;
+
+    float *x;
+    float *y;
+
+    float k;
+    float b;
+
+    float StandardDeviation;
+
+    float t[4];
+} Ordinary_Least_Squares_t;
+
+
 //快速开方
 extern fp32 invSqrt(fp32 num);
 
@@ -61,5 +80,12 @@ extern fp32 theta_format(fp32 Ang);
 
 //弧度格式化为-PI~PI
 #define rad_format(Ang) loop_fp32_constrain((Ang), -PI, PI)
+
+void OLS_Init(Ordinary_Least_Squares_t *OLS, uint16_t order);
+void OLS_Update(Ordinary_Least_Squares_t *OLS, float deltax, float y);
+float OLS_Derivative(Ordinary_Least_Squares_t *OLS, float deltax, float y);
+float OLS_Smooth(Ordinary_Least_Squares_t *OLS, float deltax, float y);
+float Get_OLS_Derivative(Ordinary_Least_Squares_t *OLS);
+float Get_OLS_Smooth(Ordinary_Least_Squares_t *OLS);
 
 #endif /* ALGORITHM_USER_LIB_H */

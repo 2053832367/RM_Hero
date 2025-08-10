@@ -53,20 +53,20 @@ typedef struct
 } kalman_filter_t;
 
 
-class Matrix
+class Matrix_kalman
 {
 	public:
-	Matrix()
+	Matrix_kalman()
 	{
 		data = new float[2];
 	}
-	Matrix(float x11, float x12)
+	Matrix_kalman(float x11, float x12)
 	{
 		data = new float[2];
 		data[0] = x11;
 		data[1] = x12;
 	}
-	Matrix(float x11, float x12, float x21, float x22)
+	Matrix_kalman(float x11, float x12, float x21, float x22)
 	{
 		data = new float[4];
 		data[0] = x11;
@@ -74,7 +74,7 @@ class Matrix
 		data[2] = x21;
 		data[3] = x22;
 	}
-	Matrix(Matrix &o)
+	Matrix_kalman(Matrix_kalman &o)
 	{
 		data = o.data;
 	}
@@ -85,21 +85,21 @@ class Matrix
 struct kalman_filter_init_t_matrix
 {
 	float raw_value;
-	Matrix filtered_value;
-	Matrix xhat_data, xhatminus_data, z_data, Pminus_data, K_data;
-	Matrix AT_data, HT_data;
+	Matrix_kalman filtered_value;
+	Matrix_kalman xhat_data, xhatminus_data, z_data, Pminus_data, K_data;
+	Matrix_kalman AT_data, HT_data;
 
-	Matrix P_data;
-	Matrix A_data;
-	Matrix H_data;
-	Matrix Q_data;
-	Matrix R_data;
+	Matrix_kalman P_data;
+	Matrix_kalman A_data;
+	Matrix_kalman H_data;
+	Matrix_kalman Q_data;
+	Matrix_kalman R_data;
 
-	kalman_filter_init_t_matrix(Matrix &P_data,
-		Matrix &A_data,
-		Matrix &H_data,
-		Matrix &Q_data,
-		Matrix &R_data)
+	kalman_filter_init_t_matrix(Matrix_kalman &P_data,
+		Matrix_kalman &A_data,
+		Matrix_kalman &H_data,
+		Matrix_kalman &Q_data,
+		Matrix_kalman &R_data)
 		:P_data(P_data), H_data(H_data), Q_data(Q_data), R_data(R_data)
 	{
 

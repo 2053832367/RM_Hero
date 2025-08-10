@@ -1,0 +1,9 @@
+Project/Objects/*
+*.uvguix.*
+*.crf
+*.d
+*.o
+*.__i
+*.axf
+Project/all.dis
+App/Inc/app_preference.h

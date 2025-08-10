@@ -46,7 +46,8 @@ void Serialctrl::sendData(uint8_t ch)
 //    USART_SendData(this->USARTx, ch);
 //    while(USART_GetFlagStatus(this->USARTx, USART_FLAG_TXE) == RESET);
 //	HAL_UART_Transmit(this->huartx, &ch, 1, 99);
-	while(!( __HAL_UART_GET_FLAG(this->huartx,UART_FLAG_TC)==SET)){osDelay(1);};
+//	while(!( __HAL_UART_GET_FLAG(this->huartx,UART_FLAG_TC)==SET)){osDelay(1);};
+	while(!( __HAL_UART_GET_FLAG(this->huartx,UART_FLAG_TC)==SET)){ osDelay(1); };
 		HAL_UART_Transmit_DMA(this->huartx, &ch, 1);
 }
 
@@ -68,7 +69,7 @@ void Serialctrl::sendData(const void *buf, uint8_t len)
 //    {
 //        sendData(*ch++);
 //    }
-		while(!( __HAL_UART_GET_FLAG(this->huartx,UART_FLAG_TC)==SET)){osDelay(1);};
+//		while(!( __HAL_UART_GET_FLAG(this->huartx,UART_FLAG_TC)==SET)){osDelay(1);};
 		HAL_UART_Transmit_DMA(this->huartx, ch, len);
 }
 

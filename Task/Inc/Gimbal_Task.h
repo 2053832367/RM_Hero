@@ -57,24 +57,9 @@ extern "C"
 #define Motor_Ecd_to_Rad 0.000766990394f //      2*  PI  /8192
 #endif
 
-//// 规整ECD(范围±4096)
-//#define motor_ecd_to_relative_ecd(fp32 angle, fp32 offset_ecd)
-//{
-//	int32_t relative_angle_change = angle - offset_ecd;
-//	if(relative_angle_change > 4096)
-//	{
-//		relative_angle_change -= 8192;
-//	}
-//	else if(relative_angle_change < -4096)
-//	{
-//		relative_angle_change += 8192;
-//	}
-//	return relative_angle_change;
-//}
-
 //处理是否Pitch反装
 #if ((GIMBAL_PITCH_MAX_ECD > GIMBAL_PITCH_MIN_ECD)&&(GIMBAL_PITCH_MAX_ECD - GIMBAL_PITCH_MIN_ECD < 4095))||\
-		((GIMBAL_PITCH_MIN_ECD > GIMBAL_PITCH_MAX_ECD)&&(GIMBAL_PITCH_MIN_ECD - GIMBAL_PITCH_MAX_ECD < 4095))
+		((GIMBAL_PITCH_MIN_ECD > GIMBAL_PITCH_MAX_ECD)&&(GIMBAL_PITCH_MIN_ECD - GIMBAL_PITCH_MAX_ECD > 4095))
 #define PITCH_MOTOR_REVERSE (1)
 #else
 #define PITCH_MOTOR_REVERSE (-1)
@@ -84,18 +69,18 @@ typedef struct
 {
     const motor_measure_t *gimbal_motor_measure;
     fp32 accel;
-    fp32 speed;
-    fp32 angle;
-    fp32 angle_error;
-    fp32 angle_set;
-    int16_t give_current;
+    fp32 speed;//速度
+    fp32 angle;//角度
+    fp32 angle_error;//角度误差
+    fp32 angle_set;//设置角度
+    int16_t give_current;//输出电流
 
-    sPidTypeDef SpeedPid;
-    sPidTypeDef PositinPid;
-    sPidTypeDef FollowSpeedPid;
-    sPidTypeDef FollowPositinPid;
-    sPidTypeDef EnergyPositinPid;
-    sPidTypeDef EnergySpeedPid;
+    sPidTypeDef SpeedPid;//速度PID
+    sPidTypeDef PositinPid;//位置PID
+    sPidTypeDef FollowSpeedPid;//跟随速度PID
+    sPidTypeDef FollowPositinPid;//跟随位置PID
+    sPidTypeDef EnergyPositinPid;//能量位置PID
+    sPidTypeDef EnergySpeedPid;//能量速度PID
 
 } Gimbal_Main_Motor_t; // 云台主要电机数据
 
@@ -197,6 +182,7 @@ private:
     void Behaviour_Control(fp32 *yaw_set, fp32 *pitch_set);
     void Flag_Behaviour_Control(void);
 };
+
 
 Gimbal_Ctrl *get_gimbal_ctrl_pointer(void);
 
