@@ -1,0 +1,155 @@
+[2024-10-08 23:34:15]	compilation failed at : "c:\Users\DaoEri\Downloads\HERO_4_now\HERO\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_fdcan.c", exit code: 1
+command: 
+  "D:\keil5\ARM\ARM_Comiler_5.06u\bin\armcc.exe" -c --apcs=interwork -I. -I../Core/Inc -I../Drivers/STM32H7xx_HAL_Driver/Inc -I../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I../Task/Inc -I../App/Inc -I../Device/Inc -I../ModuleDrivers/Inc -I../Protocol/Inc -I../Algorithm/Inc -I../Middlewares/DSP/Include -I../Middlewares/DSP -IRTE/_HAL_Robot -DUSE_HAL_DRIVER -DSTM32H723xx -DARM_MATH_CM7 -D__FPU_USED="1U" -D__FPU_PRESENT="1U" -D__CC_ARM -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING --cpu Cortex-M7.fp.dp --li --c99 -O1 --split_sections --gnu --gnu;-diag_suppress=2903,1,1035;--cpp11;-diag_suppress=3337 -g -o .\build\HAL_Robot\.obj\__\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_fdcan.o --no_depend_system_headers --depend .\build\HAL_Robot\.obj\__\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_fdcan.d .\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_fdcan.c
+   at unify_builder.Program.compileByMulThread(Int32 thrNum, CmdInfo[] cmds_, List`1 errLogs)
+   at unify_builder.Program.Main(String[] args_)
+---
+Error: C4079E: armcc command with no effect
+Error: C4079E: armcc command with no effect
+Error: C4079E: armcc command with no effect
+Error: C4079E: armcc command with no effect
+Error: C4079E: armcc command with no effect
+Error: C4079E: armcc command with no effect
+Error: C4079E: armcc command with no effect
+Error: C4079E: armcc command with no effect
+Error: C4079E: armcc command with no effect
+Error: C4079E: armcc command with no effect
+Error: C4079E: armcc command with no effect
+Error: C4079E: armcc command with no effect
+Error: C4079E: armcc command with no effect
+Error: C4079E: armcc command with no effect
+Error: C4079E: armcc command with no effect
+Error: C4079E: armcc command with no effect
+Error: C4079E: armcc command with no effect
+Error: C4079E: armcc command with no effect
+Error: C4079E: armcc command with no effect
+Error: C4079E: armcc command with no effect
+Error: C4079E: armcc command with no effect
+Error: C4079E: armcc command with no effect
+Error: C4079E: armcc command with no effect
+Error: C4079E: armcc command with no effect
+Error: C4079E: armcc command with no effect
+Error: C4079E: armcc command with no effect
+Error: C4079E: armcc command with no effect
+Error: C4079E: armcc command with no effect
+Error: C4079E: armcc command with no effect
+Error: C4079E: armcc command with no effect
+Error: C4079E: armcc command with no effect
+Error: C4079E: armcc command with no effect
+
+[2024-10-08 23:36:05]	[info] incremental build: 73 source files changed
+These source files will be recompiled
+---
+'c:\Users\DaoEri\Downloads\HERO_4_now\HERO\Algorithm\algorithm_LADRC.cpp': object (.o) file not exist
+'c:\Users\DaoEri\Downloads\HERO_4_now\HERO\Algorithm\algorithm_SolveTrajectory.cpp': object (.o) file not exist
+'c:\Users\DaoEri\Downloads\HERO_4_now\HERO\Algorithm\algorithm_kalman.cpp': object (.o) file not exist
+'c:\Users\DaoEri\Downloads\HERO_4_now\HERO\Algorithm\algorithm_pid.cpp': object (.o) file not exist
+'c:\Users\DaoEri\Downloads\HERO_4_now\HERO\Algorithm\algorithm_user_lib.cpp': object (.o) file not exist
+'c:\Users\DaoEri\Downloads\HERO_4_now\HERO\Algorithm\chassis_power_control.cpp': object (.o) file not exist
+'c:\Users\DaoEri\Downloads\HERO_4_now\HERO\App\app_motor.cpp': object (.o) file not exist
+'c:\Users\DaoEri\Downloads\HERO_4_now\HERO\App\app_oled.cpp': object (.o) file not exist
+'c:\Users\DaoEri\Downloads\HERO_4_now\HERO\App\app_preference.cpp': object (.o) file not exist
+'c:\Users\DaoEri\Downloads\HERO_4_now\HERO\App\app_rgb.cpp': object (.o) file not exist
+'c:\Users\DaoEri\Downloads\HERO_4_now\HERO\App\app_serial.cpp': object (.o) file not exist
+'c:\Users\DaoEri\Downloads\HERO_4_now\HERO\App\app_vofa.cpp': object (.o) file not exist
+'c:\Users\DaoEri\Downloads\HERO_4_now\HERO\Core\Src\dma.c': object (.o) file not exist
+'c:\Users\DaoEri\Downloads\HERO_4_now\HERO\Core\Src\fdcan.c': object (.o) file not exist
+'c:\Users\DaoEri\Downloads\HERO_4_now\HERO\Core\Src\freertos.c': object (.o) file not exist
+'c:\Users\DaoEri\Downloads\HERO_4_now\HERO\Core\Src\gpio.c': object (.o) file not exist
+'c:\Users\DaoEri\Downloads\HERO_4_now\HERO\Core\Src\main.c': object (.o) file not exist
+'c:\Users\DaoEri\Downloads\HERO_4_now\HERO\Core\Src\memorymap.c': object (.o) file not exist
+'c:\Users\DaoEri\Downloads\HERO_4_now\HERO\Core\Src\stm32h7xx_hal_msp.c': object (.o) file not exist
+'c:\Users\DaoEri\Downloads\HERO_4_now\HERO\Core\Src\stm32h7xx_hal_timebase_tim.c': object (.o) file not exist
+'c:\Users\DaoEri\Downloads\HERO_4_now\HERO\Core\Src\stm32h7xx_it.c': object (.o) file not exist
+'c:\Users\DaoEri\Downloads\HERO_4_now\HERO\Core\Src\system_stm32h7xx.c': object (.o) file not exist
+'c:\Users\DaoEri\Downloads\HERO_4_now\HERO\Core\Src\tim.c': object (.o) file not exist
+'c:\Users\DaoEri\Downloads\HERO_4_now\HERO\Core\Src\usart.c': object (.o) file not exist
+'c:\Users\DaoEri\Downloads\HERO_4_now\HERO\Device\dev_can.cpp': object (.o) file not exist
+'c:\Users\DaoEri\Downloads\HERO_4_now\HERO\Device\dev_serial.cpp': object (.o) file not exist
+'c:\Users\DaoEri\Downloads\HERO_4_now\HERO\Device\dev_system.cpp': object (.o) file not exist
+'c:\Users\DaoEri\Downloads\HERO_4_now\HERO\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal.c': object (.o) file not exist
+'c:\Users\DaoEri\Downloads\HERO_4_now\HERO\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_cortex.c': object (.o) file not exist
+'c:\Users\DaoEri\Downloads\HERO_4_now\HERO\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_dma.c': object (.o) file not exist
+'c:\Users\DaoEri\Downloads\HERO_4_now\HERO\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_dma_ex.c': object (.o) file not exist
+'c:\Users\DaoEri\Downloads\HERO_4_now\HERO\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_exti.c': object (.o) file not exist
+'c:\Users\DaoEri\Downloads\HERO_4_now\HERO\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_fdcan.c': object (.o) file not exist
+'c:\Users\DaoEri\Downloads\HERO_4_now\HERO\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_flash.c': object (.o) file not exist
+'c:\Users\DaoEri\Downloads\HERO_4_now\HERO\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_flash_ex.c': object (.o) file not exist
+'c:\Users\DaoEri\Downloads\HERO_4_now\HERO\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_gpio.c': object (.o) file not exist
+'c:\Users\DaoEri\Downloads\HERO_4_now\HERO\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_hsem.c': object (.o) file not exist
+'c:\Users\DaoEri\Downloads\HERO_4_now\HERO\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_i2c.c': object (.o) file not exist
+'c:\Users\DaoEri\Downloads\HERO_4_now\HERO\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_i2c_ex.c': object (.o) file not exist
+'c:\Users\DaoEri\Downloads\HERO_4_now\HERO\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_mdma.c': object (.o) file not exist
+'c:\Users\DaoEri\Downloads\HERO_4_now\HERO\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_pwr.c': object (.o) file not exist
+'c:\Users\DaoEri\Downloads\HERO_4_now\HERO\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_pwr_ex.c': object (.o) file not exist
+'c:\Users\DaoEri\Downloads\HERO_4_now\HERO\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_rcc.c': object (.o) file not exist
+'c:\Users\DaoEri\Downloads\HERO_4_now\HERO\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_rcc_ex.c': object (.o) file not exist
+'c:\Users\DaoEri\Downloads\HERO_4_now\HERO\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_tim.c': object (.o) file not exist
+'c:\Users\DaoEri\Downloads\HERO_4_now\HERO\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_tim_ex.c': object (.o) file not exist
+'c:\Users\DaoEri\Downloads\HERO_4_now\HERO\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_uart.c': object (.o) file not exist
+'c:\Users\DaoEri\Downloads\HERO_4_now\HERO\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_uart_ex.c': object (.o) file not exist
+'c:\Users\DaoEri\Downloads\HERO_4_now\HERO\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2\cmsis_os2.c': object (.o) file not exist
+'c:\Users\DaoEri\Downloads\HERO_4_now\HERO\Middlewares\Third_Party\FreeRTOS\Source\croutine.c': object (.o) file not exist
+'c:\Users\DaoEri\Downloads\HERO_4_now\HERO\Middlewares\Third_Party\FreeRTOS\Source\event_groups.c': object (.o) file not exist
+'c:\Users\DaoEri\Downloads\HERO_4_now\HERO\Middlewares\Third_Party\FreeRTOS\Source\list.c': object (.o) file not exist
+'c:\Users\DaoEri\Downloads\HERO_4_now\HERO\Middlewares\Third_Party\FreeRTOS\Source\portable\MemMang\heap_4.c': object (.o) file not exist
+'c:\Users\DaoEri\Downloads\HERO_4_now\HERO\Middlewares\Third_Party\FreeRTOS\Source\portable\RVDS\ARM_CM4F\port.c': object (.o) file not exist
+'c:\Users\DaoEri\Downloads\HERO_4_now\HERO\Middlewares\Third_Party\FreeRTOS\Source\queue.c': object (.o) file not exist
+'c:\Users\DaoEri\Downloads\HERO_4_now\HERO\Middlewares\Third_Party\FreeRTOS\Source\stream_buffer.c': object (.o) file not exist
+'c:\Users\DaoEri\Downloads\HERO_4_now\HERO\Middlewares\Third_Party\FreeRTOS\Source\tasks.c': object (.o) file not exist
+'c:\Users\DaoEri\Downloads\HERO_4_now\HERO\Middlewares\Third_Party\FreeRTOS\Source\timers.c': object (.o) file not exist
+'c:\Users\DaoEri\Downloads\HERO_4_now\HERO\ModuleDrivers\drivers_buffer.cpp': object (.o) file not exist
+'c:\Users\DaoEri\Downloads\HERO_4_now\HERO\ModuleDrivers\drivers_dma.cpp': object (.o) file not exist
+'c:\Users\DaoEri\Downloads\HERO_4_now\HERO\ModuleDrivers\drivers_statistic.cpp': object (.o) file not exist
+'c:\Users\DaoEri\Downloads\HERO_4_now\HERO\Protocol\protocol_crc.cpp': object (.o) file not exist
+'c:\Users\DaoEri\Downloads\HERO_4_now\HERO\Protocol\protocol_dbus.cpp': object (.o) file not exist
+'c:\Users\DaoEri\Downloads\HERO_4_now\HERO\Protocol\protocol_judgement.cpp': object (.o) file not exist
+'c:\Users\DaoEri\Downloads\HERO_4_now\HERO\Protocol\protocol_ui.cpp': object (.o) file not exist
+'c:\Users\DaoEri\Downloads\HERO_4_now\HERO\Task\Chassis_Task.cpp': object (.o) file not exist
+'c:\Users\DaoEri\Downloads\HERO_4_now\HERO\Task\Correspond_Task.cpp': object (.o) file not exist
+'c:\Users\DaoEri\Downloads\HERO_4_now\HERO\Task\Gimbal_Task.cpp': object (.o) file not exist
+'c:\Users\DaoEri\Downloads\HERO_4_now\HERO\Task\Guard_Task.cpp': object (.o) file not exist
+'c:\Users\DaoEri\Downloads\HERO_4_now\HERO\Task\Message_Task.cpp': object (.o) file not exist
+'c:\Users\DaoEri\Downloads\HERO_4_now\HERO\Task\RTOSsystem_task.cpp': object (.o) file not exist
+'c:\Users\DaoEri\Downloads\HERO_4_now\HERO\Task\UIDraw_Task.cpp': object (.o) file not exist
+'c:\Users\DaoEri\Downloads\HERO_4_now\HERO\MDK-ARM\startup_stm32h723xx.s': object (.o) file not exist
+
+[2024-10-08 23:36:05]	compilation failed at : "c:\Users\DaoEri\Downloads\HERO_4_now\HERO\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_exti.c", exit code: 1
+command: 
+  "D:\keil5\ARM\ARM_Comiler_5.06u\bin\armcc.exe" -c --apcs=interwork -I. -I../Core/Inc -I../Drivers/STM32H7xx_HAL_Driver/Inc -I../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I../Task/Inc -I../App/Inc -I../Device/Inc -I../ModuleDrivers/Inc -I../Protocol/Inc -I../Algorithm/Inc -I../Middlewares/DSP/Include -I../Middlewares/DSP -I../Drivers/CMSIS/Include -IRTE/_HAL_Robot -DUSE_HAL_DRIVER -DSTM32H723xx -DARM_MATH_CM7 -D__FPU_USED="1U" -D__FPU_PRESENT="1U" -D__CC_ARM -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING --cpu Cortex-M7.fp.dp --li --c99 -O1 --split_sections --gnu --gnu;-diag_suppress=2903,1,1035;--cpp11;-diag_suppress=3337 -g -o .\build\HAL_Robot\.obj\__\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_exti.o --no_depend_system_headers --depend .\build\HAL_Robot\.obj\__\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_exti.d .\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_exti.c
+   at unify_builder.Program.compileByMulThread(Int32 thrNum, CmdInfo[] cmds_, List`1 errLogs)
+   at unify_builder.Program.Main(String[] args_)
+---
+Error: C4079E: armcc command with no effect
+Error: C4079E: armcc command with no effect
+Error: C4079E: armcc command with no effect
+Error: C4079E: armcc command with no effect
+Error: C4079E: armcc command with no effect
+Error: C4079E: armcc command with no effect
+Error: C4079E: armcc command with no effect
+Error: C4079E: armcc command with no effect
+Error: C4079E: armcc command with no effect
+Error: C4079E: armcc command with no effect
+Error: C4079E: armcc command with no effect
+Error: C4079E: armcc command with no effect
+Error: C4079E: armcc command with no effect
+Error: C4079E: armcc command with no effect
+Error: C4079E: armcc command with no effect
+Error: C4079E: armcc command with no effect
+Error: C4079E: armcc command with no effect
+Error: C4079E: armcc command with no effect
+Error: C4079E: armcc command with no effect
+Error: C4079E: armcc command with no effect
+Error: C4079E: armcc command with no effect
+Error: C4079E: armcc command with no effect
+Error: C4079E: armcc command with no effect
+Error: C4079E: armcc command with no effect
+Error: C4079E: armcc command with no effect
+Error: C4079E: armcc command with no effect
+Error: C4079E: armcc command with no effect
+Error: C4079E: armcc command with no effect
+Error: C4079E: armcc command with no effect
+Error: C4079E: armcc command with no effect
+Error: C4079E: armcc command with no effect
+Error: C4079E: armcc command with no effect
+

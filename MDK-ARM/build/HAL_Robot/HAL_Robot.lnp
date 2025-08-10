@@ -1,0 +1,1 @@
+--cpu Cortex-M7.fp.dp --scatter "c:/Users/DaoEri/Downloads/HERO_4_now/HERO/MDK-ARM/build/HAL_Robot/HAL_Robot.sct" --strict --summary_stderr --info summarysizes --map --xref --callgraph --symbols --info sizes --info totals --info unused --info veneers --list .\build\HAL_Robot\HAL_Robot.map

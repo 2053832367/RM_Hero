@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- !!! Embedded IDE: Cppcheck config template !!! -->
+<project version="1">
+    <builddir>build</builddir>
+    <platform>unix32</platform>
+    <analyze-all-vs-configs>false</analyze-all-vs-configs>
+    <check-headers>true</check-headers>
+    <check-unused-templates>true</check-unused-templates>
+    <max-ctu-depth>2</max-ctu-depth>
+    <max-template-recursion>100</max-template-recursion>
+    <includedir>
+        <!-- !!! DON'T MODIFY THE FLOLLOWING CONTENTS !!! -->
+        <dir name="../../"/>
+		<dir name="../../../Core/Inc/"/>
+		<dir name="../../../Drivers/STM32H7xx_HAL_Driver/Inc/"/>
+		<dir name="../../../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy/"/>
+		<dir name="../../../Middlewares/Third_Party/FreeRTOS/Source/include/"/>
+		<dir name="../../../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/"/>
+		<dir name="../../../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F/"/>
+		<dir name="../../../Drivers/CMSIS/Device/ST/STM32H7xx/Include/"/>
+		<dir name="../../../Task/Inc/"/>
+		<dir name="../../../App/Inc/"/>
+		<dir name="../../../Device/Inc/"/>
+		<dir name="../../../ModuleDrivers/Inc/"/>
+		<dir name="../../../Protocol/Inc/"/>
+		<dir name="../../../Algorithm/Inc/"/>
+		<dir name="../../../Middlewares/DSP/Include/"/>
+		<dir name="../../../Middlewares/DSP/"/>
+		<dir name="../../RTE/_HAL_Robot/"/>
+		<dir name="D:/keil5/ARM/ARM_Comiler_5.06u/include/"/>
+		<dir name="D:/keil5/ARM/ARM_Comiler_5.06u/include/arm_linux/"/>
+		<dir name="D:/keil5/ARM/ARM_Comiler_5.06u/include/arm_linux_compat/"/>
+		<dir name="D:/keil5/ARM/ARM_Comiler_5.06u/include/rw/"/>
+    </includedir>
+    <defines>
+        <!-- example: <define name="DEF=123"/> -->
+        <define name="__VSCODE_CPPTOOL"/>
+		<define name="USE_HAL_DRIVER"/>
+		<define name="STM32H723xx"/>
+		<define name="ARM_MATH_CM7"/>
+		<define name="__FPU_USED=1U"/>
+		<define name="__FPU_PRESENT=1U"/>
+		<define name="__CC_ARM"/>
+		<define name="ARM_MATH_MATRIX_CHECK"/>
+		<define name="ARM_MATH_ROUNDING"/>
+    </defines>
+    <undefines>
+        <!-- example: <undefine>UNDEF</undefine> -->
+    </undefines>
+    <paths>
+        <!-- !!! DON'T MODIFY THE FLOLLOWING CONTENTS !!! -->
+        <dir name="../../../Algorithm/algorithm_kalman.cpp"/>
+		<dir name="../../../Algorithm/algorithm_LADRC.cpp"/>
+		<dir name="../../../Algorithm/algorithm_pid.cpp"/>
+		<dir name="../../../Algorithm/algorithm_user_lib.cpp"/>
+		<dir name="../../../Algorithm/algorithm_SolveTrajectory.cpp"/>
+		<dir name="../../../Algorithm/chassis_power_control.cpp"/>
+		<dir name="../../../Protocol/protocol_crc.cpp"/>
+		<dir name="../../../Protocol/protocol_dbus.cpp"/>
+		<dir name="../../../Protocol/protocol_judgement.cpp"/>
+		<dir name="../../../Protocol/protocol_ui.cpp"/>
+		<dir name="../../../ModuleDrivers/drivers_buffer.cpp"/>
+		<dir name="../../../ModuleDrivers/drivers_dma.cpp"/>
+		<dir name="../../../ModuleDrivers/drivers_statistic.cpp"/>
+		<dir name="../../../Device/dev_can.cpp"/>
+		<dir name="../../../Device/dev_serial.cpp"/>
+		<dir name="../../../Device/dev_system.cpp"/>
+		<dir name="../../../App/app_serial.cpp"/>
+		<dir name="../../../App/app_motor.cpp"/>
+		<dir name="../../../App/app_preference.cpp"/>
+		<dir name="../../../App/app_rgb.cpp"/>
+		<dir name="../../../App/app_oled.cpp"/>
+		<dir name="../../../App/app_vofa.cpp"/>
+		<dir name="../../../Task/Chassis_Task.cpp"/>
+		<dir name="../../../Task/Correspond_Task.cpp"/>
+		<dir name="../../../Task/Gimbal_Task.cpp"/>
+		<dir name="../../../Task/Guard_Task.cpp"/>
+		<dir name="../../../Task/Message_Task.cpp"/>
+		<dir name="../../../Task/RTOSsystem_task.cpp"/>
+		<dir name="../../../Task/UIDraw_Task.cpp"/>
+		<dir name="../../../Middlewares/Third_Party/FreeRTOS/Source/croutine.c"/>
+		<dir name="../../../Middlewares/Third_Party/FreeRTOS/Source/event_groups.c"/>
+		<dir name="../../../Middlewares/Third_Party/FreeRTOS/Source/list.c"/>
+		<dir name="../../../Middlewares/Third_Party/FreeRTOS/Source/queue.c"/>
+		<dir name="../../../Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c"/>
+		<dir name="../../../Middlewares/Third_Party/FreeRTOS/Source/tasks.c"/>
+		<dir name="../../../Middlewares/Third_Party/FreeRTOS/Source/timers.c"/>
+		<dir name="../../../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.c"/>
+		<dir name="../../../Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.c"/>
+		<dir name="../../../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F/port.c"/>
+		<dir name="../../../Core/Src/system_stm32h7xx.c"/>
+		<dir name="../../../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c"/>
+		<dir name="../../../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c"/>
+		<dir name="../../../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c"/>
+		<dir name="../../../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash.c"/>
+		<dir name="../../../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash_ex.c"/>
+		<dir name="../../../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c"/>
+		<dir name="../../../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hsem.c"/>
+		<dir name="../../../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma.c"/>
+		<dir name="../../../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma_ex.c"/>
+		<dir name="../../../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mdma.c"/>
+		<dir name="../../../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr.c"/>
+		<dir name="../../../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr_ex.c"/>
+		<dir name="../../../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c"/>
+		<dir name="../../../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c.c"/>
+		<dir name="../../../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c_ex.c"/>
+		<dir name="../../../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_exti.c"/>
+		<dir name="../../../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_fdcan.c"/>
+		<dir name="../../../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim.c"/>
+		<dir name="../../../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim_ex.c"/>
+		<dir name="../../../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c"/>
+		<dir name="../../../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart_ex.c"/>
+		<dir name="../../../Core/Src/main.c"/>
+		<dir name="../../../Core/Src/gpio.c"/>
+		<dir name="../../../Core/Src/freertos.c"/>
+		<dir name="../../../Core/Src/dma.c"/>
+		<dir name="../../../Core/Src/fdcan.c"/>
+		<dir name="../../../Core/Src/tim.c"/>
+		<dir name="../../../Core/Src/usart.c"/>
+		<dir name="../../../Core/Src/stm32h7xx_it.c"/>
+		<dir name="../../../Core/Src/stm32h7xx_hal_msp.c"/>
+		<dir name="../../../Core/Src/stm32h7xx_hal_timebase_tim.c"/>
+    </paths>
+    <libraries>
+        <!-- example: <library>gnu</library> -->
+        <library>gnu</library>
+    </libraries>
+</project>
